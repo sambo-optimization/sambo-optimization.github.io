@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en" vocab="https://schema.org" typeof="SoftwareApplication">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Sequential and model-based optimization">
+    <meta name="keywords" content="python, global optimization, sequential optimization, surrogate model-based optimization">
+    <title>SAMBO – Sequential and model-based optimization [for Python]</title>
+
+    <style>
+        html, body {margin: 0; display: flex; flex-direction: column}
+        blockquote.review p:first-child:before { content: '“' }
+        blockquote.review p:first-child:after  { content: '”' }
+        blockquote.review p:last-child:before  { content: '— ' }
+        /*blockquote.review p:first-child {font-style: italic}*/
+        blockquote p:first-child {font-style: italic}
+
+        .columns {margin-top: 3em}
+
+        .flex {display: flex; align-items: center; }
+        .flex-l, .flex-xl {flex-direction: column;}
+        @media (min-width: 750px) { .flex-l {flex-direction: row} }
+        @media (min-width: 1200px) { .flex-xl {flex-direction: row} }
+        header { margin: 2em}
+        /*.flex-wrap { flex-wrap: wrap }*/
+        .icon {display: inline-block}
+        .icon svg {width: 64px; aspect-ratio: 1;}
+        .right {float:right}
+        .intro-quote {background: #eed; border-left: .5em solid #ccc; width: 60ch; max-width: 90%; margin: 1em auto 2em auto; padding: 1em;}
+        .columns { column-count: 1}
+        @media (min-width: 750px) { .columns { column-count: 2} }
+        @media (min-width: 1200px) { .columns { column-count: 3} }
+        main {margin: 2em 1.5em}
+        @media (min-width: 750px) { main {margin: 2em 3em} }
+        @media (min-width: 1200px) { main {margin: 3em 8em} }
+        li {break-inside: avoid}
+        input.input {
+            font-size: 2em;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="dimgrey" d="M406 384c-8 16-20 29-34 40-15 10-33 18-53 24l-28 5v59h-70v-58c-21-2-40-5-58-10-28-8-64-38-64-38-3-2-5-5-6-9 0-3 1-7 4-9l35-36c4-4 10-4 15-2 0 0 26 23 46 29 20 5 40 8 60 8 25 0 46-4 63-13 16-9 24-23 24-42 0-13-4-24-12-32s-22-13-41-15l-64-5c-37-4-66-15-87-32-20-17-30-43-30-78a111 111 0 0 1 44-90 141 141 0 0 1 71-29V0h70v50c17 2 33 4 47 8 25 7 51 28 51 28 4 1 6 4 6 8 1 4 0 7-3 10l-33 34c-4 3-9 4-14 2 0 0-19-14-36-18-18-5-35-7-54-7-25 0-43 5-55 14s-17 22-17 37c0 14 4 24 12 31 9 8 23 12 43 14l55 5c42 4 73 15 94 33s32 45 32 80c0 21-4 39-13 55z"/></svg>') no-repeat left,
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="dimgrey" d="M243 314c3 4 8 7 13 7s10-3 13-7l95-120c3-5 4-9 2-13-1-3-5-5-11-5h-36c-10 0-18-8-18-18V44c0-12-10-21-21-21h-48c-11 0-21 9-21 21v114c0 10-8 18-18 18h-36c-6 0-10 2-11 5-2 4-1 8 2 13l95 120z"/><path fill="dimgrey" d="m512 360-48-160h-58l-28 51h36l31 108H67l31-108h36l-28-51H48L0 361v103c0 14 11 25 25 25h462c14 0 25-11 25-25V360z"/></svg>') no-repeat right,
+                #ffd;
+            padding: .2em 1.5em .2em 2.5em;
+            cursor:pointer; caret-color:transparent; font-family:monospace;
+            border: 1px solid grey;
+        }
+        h3 {text-align: center; margin-top: 4em; font-size: 2em; font-family: sans-serif}
+        h4 {font-size: 1.2em;}
+        .button {border-radius: .3em; font-size: 2em; padding: .2em .5em .2em .5em; margin: 0 .4em; text-decoration: none;}
+        .button:hover {filter: brightness(1.04)}
+        .button .icon svg {width: 1em; margin-top: .2em; margin-right: .5em}
+        .center {align-items: center}
+        .features .icon {margin-right: 1em}
+        .examples .flex {flex-wrap: wrap; gap: 2em; justify-content: center; align-items: flex-start;}
+        .examples .flex {margin-top: 4em; padding-top: 2em; border-top: 1px solid silver}
+        @media (min-width: 750px) { .examples .flex { margin-top: 6em} }
+        .examples h3 + .flex {margin-top: 0; padding-top: 0; border: none}
+        .examples .flex > * {flex-basis: fit-content;}
+        .examples .flex > *:first-child {flex-basis: 25em;}
+        img {max-width: 100%;}
+        /*@media (min-width: 750px) {img {max-width: initial}}*/
+        pre { margin: 0}
+        p, li, pre code, h4 {line-height: 1.7em}
+        .features p {margin:0}
+        .features li {margin-bottom: 1.9em; padding-bottom: 2.2em; border-bottom: 1px solid silver}
+        .features li:nth-child(3n) {border: none}
+        .review { margin: 1em; font-size: 1.4em; font-weight: lighter; padding: 0 1em; border: 1px solid silver; box-shadow: 5px 5px 10px silver;}
+        .review p:nth-child(2) { text-align: right}
+        code:not(pre code) {background:#f0f0f0; border: 1px solid #ccc; border-radius: .5em; padding: .2em .5em; color: maroon}
+        .intro ul {padding-left: 4em}
+        .intro li {margin-bottom: 1em; list-style: none; }
+        .intro li:before {display:inline-block; content: '👉'; margin-left: -1.4em; margin-right: .4em; font-size: 2em; vertical-align: middle}
+
+
+        .hljs { background: black !important; color: #eee !important; filter: brightness(1.5)}
+        .snippet {
+            border: 6px solid gold;
+            position: relative;
+            overflow: visible;
+            max-width: 100%;
+        }
+        .snippet:before {
+            content: 'Snippet';
+            position: absolute;
+            bottom: 100%;
+            left: -6px;
+            font: bold 9px sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: gold;
+            color: black;
+            padding: 4px 6px 2px 6px;
+        }
+        .snippet-output:before {content: 'Result'}
+        .snippet-plot:before {content: 'Plot ' attr(data-plot)}
+
+        .snippet {padding: 0}
+
+        .nobr {white-space: nowrap}
+
+        footer { border-top: 1px solid lightgray; background: #eee}
+
+        #benchmark .flex {gap:2em;}
+        @media (min-width: 1200px) { #benchmark .flex { gap:4em; align-items: baseline} }
+        #benchmark math {margin-top: .5em}
+
+        @media (max-width: 750px) { .table { max-width:100%; overflow-x: scroll} }
+        .table td:nth-child(2) { --hue: 90; }
+        .table td:nth-child(3) { --hue: 0; }
+        .table td:nth-child(4) { --hue: 0; }
+        .table td:nth-child(5) { --hue: 0; }
+        table { font-family: sans-serif; border-collapse: collapse}
+        table thead {border-bottom: 2px solid black; border-top: 2px solid black}
+        table tfoot {border-top: 1px solid black}
+        table th {text-align: left; margin: 0 5em; padding-left: 1em;}
+        table th:first-child {padding-left: 0;}
+        table td {text-align: right}
+        table td:first-child {text-align: left}
+        table tfoot td {padding-top: 1em;}
+        table .significant {font-weight: bold}
+        table tfoot th {font-weight: normal}
+        table tfoot ul, #benchmark ul {margin: 0}
+
+        math {font-family: "DejaVu Math TeX Gyre", "Noto Sans Math", "Latin Modern Math", "Cambria Math", "STIX Math", system-ui, math;}
+    </style>
+
+
+
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <style>
+        section > ins.adsbygoogle {margin: 1em 0}
+    </style>
+
+    <link rel="icon image logo" type="image/svg+xml" href="logo.svg">
+    <link rel="canonical home url" href="https://sambo-optimization.github.io/">
+
+    <link rel="sameAs" href="https://github.com/sambo-optimization/sambo">
+    <link rel="sameAs" href="https://pypi.org/project/sambo/">
+    <link rel="license" href="https://www.gnu.org/licenses/agpl-3.0.html">
+    <meta property="isAccessibleForFree" content="True">
+    <meta property="operatingSystem" content="Linux, macOS, Windows">
+    <meta property="applicationCategory" content="DeveloperApplication">
+    <meta property="applicationCategory" content="EducationalApplication">
+    <meta property="name" content="SAMBO">
+    <meta property="alternateName" content="Sequential And Model-Based Optimization">
+    <link rel="isSimilarTo" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">
+    <link rel="isSimilarTo" href="https://scikit-optimize.github.io/">
+
+    <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/equilibrium-gray-dark.min.css" integrity="sha512-wN0TNNUSxgNsFx8SS7XmxSSzbAE+EI/rpqRMUM9aK0DoWel1McANaLp3ItYJwLDHcnZY6tQl6iUatWAJ83Pa4w==" crossorigin referrerpolicy="no-referrer" />
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js" integrity="sha512-6yoqbrcLAHDWAdQmiRlHG4+m0g/CT/V9AGyxabG8j7Jk8j3r3K6due7oqpiRMZqcYe9WM2gPcaNNxnl2ux+3tA==" crossorigin referrerpolicy="no-referrer"
+        onload="hljs.configure({languages:['python'], noHighlightRe: /^no-highlight$/}); hljs.highlightAll()"></script>
+
+<!--    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-2900001379782823",enable_page_level_ads:true})</script>-->
+</head>
+<body>
+
+<div property="offers" typeof="Offer"><meta property="price" content="0"><meta property="priceCurrency" content="BTC"></div>
+<div property="aggregateRating" typeof="AggregateRating"><meta property="reviewCount" content="1"><meta property="ratingValue" content="4.8"></div>
+
+<header class="flex flex-l" style="justify-content: center; margin-top: 3em">
+    <div style="width: 320px; margin-right:3em"><img alt="" src="logo.svg"></div>
+    <div>
+        <h1>SAMBO</h1>
+        <h2>Sequential and model-based optimization [for Python]</h2>
+    </div>
+</header>
+
+<main>
+    <div class="intro">
+        <p>
+            Say you're a senior baker in a large pharmaceutical, tasked to ship a new <del>medicine</del>
+            <ins>drug</ins> for <i>suppressing</i> symptoms of any of the growingly lucrative health conditions of the developed world.
+            Among simple paper-pushing and the more menial tasks, your drug development pipeline involves figuring
+            out the correct, for business reasons quite <em>optimal</em>, combination to hundreds of parameters, such as:
+            ratios of active ingredients,
+            bulking agents,
+            centrifugation times,
+            pH levels,
+            temperature profiles at each processing step,
+            choice of solvents and purification steps,
+            ideal dosage forms,
+            whether to include any of the other common processes of your establishment,
+            and so on.
+        </p>
+
+        <p>
+            The problem is: because some processes can't be skipped or sped up,
+            every combination you decide to try takes two of your assistant researchers
+            nearly <u>two weeks</u> of laboratory work.
+            But your new flagship drug is expected due next Thursday ...
+        </p>
+
+        <blockquote class="flex intro-quote">
+            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>quote</title><path d="M10 8 9 7c-6 4-9 9-9 12 0 4 3 6 5 6 3 0 5-3 5-5s-1-4-3-5l-1-1c0-1 0-3 4-6zm12 0-1-1c-5 4-9 9-9 12 0 4 3 6 5 6 3 0 5-3 5-5s-1-4-3-5l-1-1 4-6z"/></svg></div>
+            <div>
+                <p>It is easy to get a thousand prescriptions, but hard to get one single remedy.</p>
+                <i class="right">— Chinese proverb</i>
+            </div>
+        </blockquote>
+
+        <p>
+            Thank god for <b property="name"><cite>SAMBO</cite></b>, Rambo of <span property="applicationSubCategory">global optimization</span>.
+            It gets in and then it finds minimums of the
+            objective criteria function quickly and efficiently,
+            in least number of evaluations.
+
+            SAMBO stands for <b>Sequential And Model-Based Optimization</b>.
+            This simple optimization package consists of the following items, each with its own neat,
+            user-friendly, Pythonic interface:
+        </p>
+        <ul>
+            <li><b>function <code>sambo.minimize()</code></b>
+                to drive <b>constrained and bounded global black-box optimization</b> and design-space exploration start-to-finish,
+                modeled after well-known Python packages <b>SciPy</b> and <b>scikit-optimize</b>,
+                supporting <abbr title="state-of-the-art">SOTA</abbr> optimization algorithms like
+                <abbr title="Simplex Homology Global Optimization">SHGO</abbr>,
+                <abbr title="sequential, model-based optimization">SMBO</abbr> and
+                <abbr title="Shuffled Complex Evolution method, as devised at University of Arizona">SCE-UA</abbr>,
+            </li>
+            <li>
+                <b>class <code>Optimizer</code></b> that provides an
+                <b><a href="doc/sambo/#sambo.Optimizer">ask-and-tell interface</a></b>,
+                additionally supporting <b>sequential <a href="https://en.wikipedia.org/wiki/Surrogate_model">surrogate models</a></b>
+                produced by estimators like those of <b>scikit-learn</b>, <b>skorch</b> or <b>Keras</b>,
+                with popular algorithms including <b>Gaussian process</b> and <b>tree-based regression</b> built in,
+            </li>
+            <li>
+                <b><code>SamboSearchCV</code></b>, a faster drop-in replacement for
+                <b><code>GridSearchCV</code></b>, <b><code>RandomizedSearchCV</code></b>
+                and similar methods of hyperparameter tuning in complex
+                <abbr title="machine learning">ML</abbr> pipelines.
+            </li>
+        </ul>
+        <p>See below <a href="#examples">examples</a> for usage.</p>
+    </div>
+
+    <div class="features columns" property="featureList">
+        <ul style="margin-top: 0">
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Python logo</title><path fill-rule="evenodd" d="M12.7 18.5a.9.9 0 0 1-.8-1 .9.9 0 1 1 1.7 0c0 .6-.4 1-.9 1M10.1 20c5 0 4.7-2.2 4.7-2.2v-2.3H10v-.7h6.8s3.2.4 3.2-4.8c0-5.1-2.8-5-2.8-5h-1.7v2.4s0 2.9-2.8 2.9H7.9s-2.7 0-2.7 2.6v4.4S4.8 20 10 20M7.3 1.5c.4 0 .8.4.8 1a.9.9 0 1 1-1.7 0c0-.6.4-1 .9-1M9.9 0C5 0 5.2 2.2 5.2 2.2v2.3H10v.7H3.2S0 4.8 0 10c0 5.1 2.8 5 2.8 5h1.7v-2.4s0-2.9 2.8-2.9h4.8s2.7 0 2.7-2.6V2.7S15.2 0 10 0"/></svg></div>
+                <div>
+                    <p><b>Compatible with <span property="softwareRequirements">Python</span> 3+</b></p>
+                    <p>Python 3.10+. Best choice for new and forward-looking projects.</p>
+                </div>
+            </li>
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>LEGO brick</title><path d="M280 129c-7-3-15-5-24-5-12 0-23 3-31 9-4 3-8 6-11 11-2 4-4 9-4 14v39c0 6 2 11 4 15 4 6 10 11 17 14s16 5 25 5c12 0 22-3 31-9 4-2 7-6 10-10s4-9 4-14l1-40c0-5-2-10-5-14-4-6-10-11-17-15zm4 68-2 6-9 7c-5 2-11 3-17 3-9 0-16-2-21-5l-6-6-1-5v-16l5 3a54 54 0 0 0 51-3v16zm0-39v9c-2 3-6 5-10 7a42 42 0 0 1-41-3l-5-4v-9c0-2 0-3 2-5 1-3 4-5 9-7 5-3 10-4 17-4 8 0 16 3 21 6l5 5 2 5zM102 76v-1 1z"/><path d="M421 102c0-5-2-10-4-14h-1 1c-5-7-13-13-21-17-8-3-17-5-27-5l-18 2-42-20c-1-6-3-12-6-17-4-7-11-13-19-17h-1 1c-8-4-18-6-27-6v1-1h-1c-13 0-25 4-35 10-4 3-9 7-12 12s-5 11-5 18l-46 21c-6-2-14-3-22-3-13 0-25 3-34 10-5 3-10 7-13 12l1-1-1 1c-3 5-5 11-5 17L0 145v237l256 122 256-122V145l-91-43zm-79 6 1-5 6-6h1l4-2 15-3c8 0 16 3 20 6l5 4 1 4v11l-7 5c-5 2-12 4-19 4-9 0-17-3-23-7l-4-4v-7zm-1 39v-18l5 3c7 3 15 5 23 5 11 0 21-3 28-8v18l-1 5c-2 3-5 6-10 8-4 2-10 3-17 3-8 0-16-2-21-6l-5-5-2-5zM231 49l1-4c1-2 4-5 8-7s10-3 16-3c8 0 16 3 20 6l5 4 1 4v11l-7 5c-5 2-12 4-19 4-9 0-17-3-23-6l-3-3 1-11zm-3 39V73l5 2c7 3 15 5 23 5h1c10 0 20-3 27-8v17l-2 4c-1 3-5 6-9 8-5 2-10 3-17 3-9 0-16-2-21-6l-5-5-2-5zm-117 18 1-4c1-2 4-4 9-6 4-2 9-4 15-4 7 0 13 2 18 4l5 3 4 4 1 5v7l-9 7c-5 2-12 4-19 4-9 0-17-3-22-7l-3-2v-11zm-3 41 1-18 5 3a53 53 0 0 0 51-3l-1 18-1 5c-2 2-5 5-10 7-4 3-10 4-17 4-8 0-16-3-21-6l-5-5-2-5zm137 322L27 365V172l218 103v194zm11 5h-1 2-1zm0-218L42 154l49-23v16c0 5 1 10 4 14 4 6 10 11 17 14a55 55 0 0 0 55-4c5-2 8-5 11-10 2-4 4-9 4-14v-39a27 27 0 0 0-6-17l34-17v14c0 5 2 10 4 14 4 6 10 11 17 15 7 3 16 5 24 5h1c12 0 23-3 31-9 4-2 8-6 10-10 3-4 5-9 5-14V75l30 14-4 4c-3 5-4 10-4 15v39c0 5 1 10 4 15 4 6 10 11 17 14s15 5 24 5c12 0 23-3 31-9 4-2 8-6 11-10 2-4 4-9 4-15v-19l55 26-214 102z"/></svg></div>
+                <div>
+                    <p><b>Small, clean API</b></p>
+                    <p>The <a href="doc/sambo/">API reference</a> follows established idiomatic Python doctrine and is easy to wrap one's head around.</p>
+                </div>
+            </li>
+            <li class="flex">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><title>magic wand</title><path d="m12.5.6-5 5-7 7 3 3 12-12Zm-4 6 4-4 1 1-4 4ZM2.8 3.1a3.9 3.9 0 0 1 2.5 2.5A3.9 3.9 0 0 1 8 3.2 3.8 3.8 0 0 1 5.3.6a3.8 3.8 0 0 1-2.5 2.6Zm5.7-.7a2 2 0 0 1 1.3-1.2A2 2 0 0 1 8.5 0a1.9 1.9 0 0 1-1.3 1.3 2 2 0 0 1 1.3 1.2Zm-6.4 0a2 2 0 0 1 1.3-1.2A1.9 1.9 0 0 1 2.1 0 2 2 0 0 1 1 1.3a2 2 0 0 1 1 1.2Zm12.6 3.7a2 2 0 0 1-1.2 1.3 2 2 0 0 1 1.2 1.3A1.9 1.9 0 0 1 16 7.5a1.9 1.9 0 0 1-1.3-1.3Z"/></svg></div>
+               <div>
+                   <p><b>Out-of-the-box desired behavior</b></p>
+                   <p>Like Rambo, SAMBO works alone and produces correct results at least 99% of the time.</p>
+               </div>
+            </li>
+
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-5.5 0 32 32"><title>network hierarchy, a vertex with three nodes</title><path d="M18.9 15.7v4.5h2.4v5.6h-5.7v-5.6h2.3v-3.5h-6.8v3.5h2.4v5.6H7.8v-5.6h2.4v-3.5H3.3v3.5h2.4v5.6H0v-5.6h2.4v-4.5h7.8v-3.4H7V6.6h7v5.7h-3v3.4h7.8z"/></svg></div>
+                <div>
+                    <p><b>Minimal dependencies</b></p>
+                    <p>Needs just NumPy/SciPy, optionally uses scikit-learn and Matplotlib.</p>
+                </div>
+            </li>
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><title>stopwatch</title><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v-3m0-5a7.5 7.5 0 1 0 5.5 2.5M12 6c2.2 0 4.2 1 5.5 2.5M12 6V3m7.5 3.5-2 2M12 3H9m3 0h3"/></svg></div>
+                <div>
+                    <p><b>Blazing fast execution</b></p>
+                    <p>On top of that, fewest objective function evaluations or your money back! <a href="#benchmark">Benchmark</a> to prove it.</p>
+                </div>
+            </li>
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>black box</title><path d="M43 12 25 3h-2L5 12l19 10 19-10ZM26 25v19l17-8a2 2 0 0 0 1-2V16ZM4 16v18a2 2 0 0 0 1 2l17 8V25Z"/></svg></div>
+                <div>
+                    <p><b>Black-box <a href="https://en.wikipedia.org/wiki/Bayesian_optimization">Bayesian optimization</a></b></p>
+                    <p>State-of-the-art optimization techniques painlessly at your disposal.</p>
+                </div>
+            </li>
+
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><title>shapes</title><path d="M24 2a2 2 0 0 0-2 1l-9 14a2 2 0 0 0 0 2 2 2 0 0 0 2 1h18a2 2 0 0 0 2-1 2 2 0 0 0 0-2L26 3a2 2 0 0 0-2-1Zm19 41H29a2 2 0 0 1-2-2V27a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2ZM13 24a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z"/></svg></div>
+                <div>
+                    <p><b>Integral, floating and nominal dimensions</b></p>
+                    <p>Optimize any kind of input variables including <b>integers, real-valued variables and ordinals/categoricals</b>.</p>
+                </div>
+            </li>
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105.86 66.74"><title>gauge</title><path stroke="#000" stroke-width="4" d="M78.46 8.81A51.06 51.06 0 0 0 2 53c0 1.05.8 1.85 2.12 1.85h37.3a11.64 11.64 0 0 0 23.02 0h37.57a1.8 1.8 0 0 0 1.85-1.85 50.7 50.7 0 0 0-25.4-44.2zM41.42 50.88H5.97a47.28 47.28 0 0 1 21.7-37.57l17.72 30.43a12.89 12.89 0 0 0-3.97 7.14zm11.64 9.79a7.8 7.8 0 1 1 0-15.61 7.8 7.8 0 0 1 0 15.61zm3.97-18.79a11 11 0 0 0-8.2 0L31.1 11.2a47.14 47.14 0 0 1 43.66 0zm6.88 6.62-1.32-2.65 5.3-1.32zm3.18 2.38 9-8.73c1.58-1.32 0-3.97-1.86-3.44l-12.7 3.44L78.2 13.3a47.28 47.28 0 0 1 21.7 37.57z"/><path d="M83.76 33.68a3.7 3.7 0 1 0-6.09 2.38l4.76 5.3c.8.79 1.86.79 2.65 0l5.03-5.3a3.7 3.7 0 1 0-6.35-2.38z"/></svg></div>
+                <div>
+                    <p><b>Approximate, but converging</b></p>
+                    <p>Converging to the correct optimum, but you decide what the tolerable error is!</p>
+                </div>
+            </li>
+            <li class="flex">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>eye</title><path d="M0 16q.06.2.2.51t.57 1.25.99 1.89 1.34 2.17 1.8 2.37 2.14 2.18 2.6 1.89 2.97 1.24 3.39.52q2.2 0 4.29-.77t3.61-2.02 2.92-2.72 2.3-3 1.6-2.73.96-1.98L32 16l-.2-.48q-.13-.32-.57-1.28t-.99-1.86-1.34-2.2-1.8-2.34-2.14-2.18-2.56-1.88-3-1.28-3.4-.48q-2.2 0-4.29.76T8.1 4.8 5.18 7.52t-2.3 2.98-1.6 2.72-.96 2.01zm6.02 0q0-2.72 1.34-5.02t3.62-3.62T16 6.02q2.05 0 3.87.8t3.2 2.1 2.15 3.2.8 3.88q0 2.72-1.35 5.02t-3.65 3.65T16 26.02q-2.02 0-3.87-.8t-3.2-2.15-2.15-3.17-.76-3.9zm4 0q0 2.5 1.72 4.26T16 22.02t4.26-1.76T22.02 16t-1.76-4.22T16 10.02q-.96 0-1.98.35v3.65h-3.65q-.35.99-.35 1.98z"/></svg></div>
+                <div>
+                    <p><b>Beautiful Matplotlib charts</b></p>
+                    <p>Let you visualize exactly what the algorithms are doing. Reproducible research.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+<section>
+    <h3>Download</h3>
+    <div class="flex flex-xl" style="justify-content: center; gap: 2em">
+        <input class="input" style="flex-basis: fit-content" readonly value="pip install sambo"
+               onclick="getSelection().removeAllRanges(); this.select();"
+               aria-label="command line to install"
+               data-ga-on="click,auxclick,contextmenu" data-ga-event-action="select" data-ga-event-category="cmdline">
+
+        <div class="flex flex-l" style="gap: 1em">
+            <a class="button flex center" style="background:#3b7; border: 1px solid #3a6; color: white; fill: white"
+               title="SAMBO on PyPI" href="https://pypi.org/project/sambo/"
+               property="downloadUrl" data-ga-event-category="PyPI">
+                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M243 314c3 4 8 7 13 7s10-3 13-7l95-120c3-5 4-9 2-13-1-3-5-5-11-5h-36c-10 0-18-8-18-18V44c0-12-10-21-21-21h-48c-11 0-21 9-21 21v114c0 10-8 18-18 18h-36c-6 0-10 2-11 5-2 4-1 8 2 13l95 120z"/><path d="m512 360-48-160h-58l-28 51h36l31 108H67l31-108h36l-28-51H48L0 361v103c0 14 11 25 25 25h462c14 0 25-11 25-25V360z"/></svg></div>
+                <span>PyPI</span>
+            </a>
+            <a class="button flex center" style="background: #e8e8e8; border: 1px solid #ccc; color: black; fill: black"
+               title="SAMBO on GitHub" href="https://github.com/sambo-optimization/sambo"
+               data-ga-event-category="GitHub">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 0a10.3 10.3 0 0 1 3.2 20c-.5 0-.7-.2-.7-.5v-2.8c0-1-.3-1.6-.7-2 2.2-.2 4.6-1 4.6-5a4 4 0 0 0-1-2.7c0-.3.4-1.3-.1-2.7 0 0-.9-.3-2.8 1a9.4 9.4 0 0 0-5 0c-2-1.3-2.8-1-2.8-1a3.8 3.8 0 0 0 0 2.7 4 4 0 0 0-1 2.7c0 4 2.3 4.8 4.5 5-.3.3-.6.8-.7 1.5-.5.2-2 .7-2.9-.9 0 0-.5-1-1.5-1 0 0-1 0 0 .6 0 0 .6.3 1 1.5 0 0 .6 1.8 3.4 1.2v1.9c0 .3-.2.6-.7.5-4-1.4-6.8-5.2-6.8-9.7C0 4.6 4.5 0 10 0"/></svg></span>
+                <span>GitHub</span>
+            </a>
+            <a class="button flex center" style="background: #37d; border: 1px solid #25b; color: white; fill:white"
+               title="sambo optimization API documentation" href="doc/sambo/"
+               data-ga-event-category="Docs" property="softwareHelp mainEntityOfPage">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-64 0 512 512"><path d="M224 136V0H24C11 0 0 11 0 24v464c0 13 11 24 24 24h336c13 0 24-11 24-24V160H248c-13 0-24-11-24-24zm64 236c0 7-5 12-12 12H108c-7 0-12-5-12-12v-8c0-7 5-12 12-12h168c7 0 12 5 12 12v8zm0-64c0 7-5 12-12 12H108c-7 0-12-5-12-12v-8c0-7 5-12 12-12h168c7 0 12 5 12 12v8zm0-72v8c0 7-5 12-12 12H108c-7 0-12-5-12-12v-8c0-7 5-12 12-12h168c7 0 12 5 12 12zm96-114v6H256V0h6c7 0 13 3 17 7l98 98c5 5 7 11 7 17z"/></svg></span>
+                <span>Docs</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="examples">
+    <h3 id="examples">Usage Examples</h3>
+
+    <div class="flex">
+        <div>
+            <h4>Use case №1: Find global minimium of an objective/cost function</h4>
+            <p>
+                We quickly find the <b>global optimum</b> of an example 2D
+                <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock's banana function</a>,
+                constrained to a circle with <math><mi>r</mi><mo>=</mo><mn>2</mn></math>, all in comparatively just a few evaluations.
+            </p>
+        </div>
+        <pre class="snippet"><code class="python">import sambo
+from sambo.plot import *
+# Extras
+import matplotlib.pyplot as plt
+from scipy.optimize import rosen
+
+result = sambo.minimize(
+    rosen, bounds=[(-2, 2)]*2, method='shgo',
+    constraints=lambda x: sum(x**2) &lt;= 2)
+
+plot_convergence(result)
+plot_objective(result)    # Partial dependence
+plot_evaluations(result)  # Sequence of evaluations
+plot_regret(result)
+
+plt.show()
+</code></pre>
+        <pre class="snippet snippet-output"><code class="text">&lt;class 'sambo.OptimizeResult'&gt;
+
+ message: Optimization terminated successfully.
+ success: True
+     fun: 5.205243704996618e-08
+       x: [ 9.998e-01  9.996e-01]
+    nfev: 68
+      xv: [[ 0.000e+00  0.000e+00]
+           [ 0.000e+00  0.000e+00]
+           ...
+           [ 9.998e-01  9.996e-01]
+           [ 9.998e-01  9.996e-01]]
+    funv: [ 1.000e+00  ...  5.210e-08]</code></pre>
+        <div class="snippet snippet-plot" data-plot="1: Convergence">
+            <img src="convergence.svg" loading="lazy" />
+        </div>
+        <div class="snippet snippet-plot" data-plot="2: Objective">
+            <img src="objective.svg" loading="lazy" rel="screenshot og:image"/>
+        </div>
+        <div class="snippet snippet-plot" data-plot="3: Evaluations">
+            <img src="evaluations.svg" loading="lazy" />
+        </div>
+        <div class="snippet snippet-plot" data-plot="4: Regret">
+            <img src="regret.svg" loading="lazy" />
+        </div>
+    </div>
+
+    <div class="flex">
+        <div>
+            <h4>Use case №2: Sequential surrogate model-based optimization through "ask-and-tell" API</h4>
+            <p>
+                When your optimization objective is an <b>external process</b>,
+                you may not be able to express it as a simple Python function.
+                Instead, you may ask the optimizer process for the next suggested
+                candidate point <math><mi>x</mi></math> (solution candidate),
+                execute the trial (e.g. the two-week "baking" process),
+                then report back your findings (objective result <math><mi>y</mi></math>)
+                to the optimizer for further consideration and refitting.
+                We call this an <b>"ask-and-tell" interface</b>.
+            </p>
+        </div>
+        <pre class="snippet"><code class="python">from sambo import Optimizer
+
+def evaluate(x):
+   ...  # Abstract long and laborious process
+   return rosen(x)
+
+optimizer = Optimizer(
+    fun=None,  # Implies ask-and-tell interface
+    bounds=[(-2, 2)]*2,
+    estimator='gp',  # or bring your own
+)
+
+for i in range(100):
+    suggested_x = optimizer.ask(1)
+    y = [evaluate(x) for x in suggested_x]
+    optimizer.tell(y)
+
+result: OptimizeResult = optimizer.run()
+</code></pre>
+        <div class="snippet snippet-plot" data-plot="- SMBO estimators">
+            <img src="convergence2.svg" loading="lazy" />
+        </div>
+    </div>
+
+    <div class="flex">
+        <div>
+            <h4>Use case №3: <a href="https://en.wikipedia.org/wiki/Hyperparameter_optimization">Hyperparameter tuning</a> for machine-learning in quasi-logarithmic time</h4>
+            <p>
+                Use <code>sambo.SamboSearchCV</code> as a <b>drop-in replacement</b> for
+                <code>GridSearchCV</code> (or even <code>HalvingRandomSearchCV</code>!) from scikit-learn
+                to <b>optimize your machine learning pipeline hyperparameters in sub-linear time</b>,
+                yet with an algo way better informed than simple random search!
+            </p>
+        </div>
+        <pre class="snippet"><code class="python"># Example setup of a scikit-learn pipeline
+from sklearn.datasets import load_breast_cancer
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import GridSearchCV
+
+X, y = load_breast_cancer(return_X_y=True)
+clf = DecisionTreeClassifier()
+param_grid = {
+    'max_depth': list(range(1, 30)),
+    'min_samples_split': [2, 5, 10, 20, 50, 100],
+    'min_samples_leaf': list(range(1, 20)),
+    'criterion': ['gini', 'entropy'],
+    'max_features': [None, 'sqrt', 'log2'],
+}
+search = GridSearchCV(clf, param_grid)
+# Trying all ~20k combinations takes a long time ...
+search.fit(X, y)
+print(search.best_params_)
+print(search.best_score_)
+
+# Alternatively ...
+from sambo import SamboSearchCV
+search = SamboSearchCV(clf, param_grid, max_iter=100)
+search.fit(X, y)  # Fast, good enough
+print(search.best_params_)
+print(search.best_score_)
+print(search.opt_result_)
+</code></pre>
+        <pre class="snippet"><code class="text">{'criterion': 'gini',
+ 'max_depth': 6,
+ 'max_features': 'sqrt',
+ 'min_samples_leaf': 1,
+ 'min_samples_split': 5}
+0.947269582406721
+
+{'criterion': 'entropy',
+ 'max_depth': 20,
+ 'max_features': None,
+ 'min_samples_leaf': 5,
+ 'min_samples_split': 6}
+0.9419940696812453
+
+ message: Reached n_iter_no_change (=10) w/o improvement
+ success: True
+     fun: -0.9419940696812453
+       x: [20 6 5 'entropy' None]
+     nit: 26
+    nfev: 77
+      xv: [[15 86 ... 'gini' None]
+           [1 57 ... 'entropy' 'sqrt']
+           ...
+           [19 5 ... 'gini' None]
+           [20 8 ... 'gini' None]]
+    funv: [-9.244e-01 -9.034e-01 ... -9.139e-01 -9.191e-01]
+   model: [GaussianProcessRegressor()]</code></pre>
+    </div>
+</section>
+
+<section id="benchmark">
+    <h3>Benchmark</h3>
+    <div class="flex flex-xl">
+        <div>
+            <p style="max-width: 80ch">
+                It's <span id="year">2020</span>,
+                <script>document.getElementById('year').innerHTML = (new Date()).getFullYear().toString();</script>
+                and <b>if you're still doing</b>
+                particle swarm, basin-hopping, Monte Carlo or evolutionary/genetic algorithms optimization,
+                <b>you're likely throwing away precious computing cycles, at large</b>!
+                According to our <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
+                (<a href="benchmark.txt">full stdout output</a>)
+                of most common optimization algorithm implementations
+                on several popular global optimization functions, including a few multi-dimensional (2–10D),
+                <b><cite>SAMBO</cite> more often converges to correct global optimum,
+                    in fewest objective evaluations,
+                    yielding smallest absolute error,
+                    with runtime just as fast as that of the best</b>.
+            </p>
+        </div>
+        <div class="table">
+            <table>
+                <thead><tr>
+                    <th>Method</th>
+                    <th>Correct&nbsp;%</th>
+                    <th>Evaluations</th>
+                    <th>Error&nbsp;%</th>
+                    <th>Duration</th>
+                </tr></thead>
+                <tbody>
+                <tr class="significant"><td>sambo.minimize(shgo)</td><td>92%</td><td>129</td><td>1</td><td>0.04</td></tr>
+                <tr class="significant"><td>sambo.minimize(sceua)</td><td>92%</td><td>548</td><td>1</td><td>0.24</td></tr>
+                <tr><td>direct</td><td>92%</td><td>1389</td><td>1</td><td>0.03</td></tr>
+                <tr><td>dual_annealing</td><td>92%</td><td>6459</td><td>1</td><td>0.84</td></tr>
+                <tr><td>differential_evolution</td><td>83%</td><td>13961</td><td>1</td><td>2.34</td></tr>
+                <tr class="significant"><td>sambo.minimize(smbo)</td><td>75%</td><td>476</td><td>2</td><td>44.68</td></tr>
+                <tr><td>hyperopt</td><td>75%</td><td>938</td><td>2</td><td>18.26</td></tr>
+                <tr><td>nevergrad</td><td>75%</td><td>1812</td><td>5</td><td>10.69</td></tr>
+                <tr><td>scikit-optimize</td><td>67%</td><td>195</td><td>7</td><td>51.27</td></tr>
+                <tr><td>COBYLA</td><td>67%</td><td>215</td><td>15</td><td>0.06</td></tr>
+                <tr><td>shgo</td><td>67%</td><td>243</td><td>11</td><td>0.11</td></tr>
+                <tr><td>SLSQP</td><td>67%</td><td>266</td><td>11</td><td>0.12</td></tr>
+                <tr><td>Nelder-Mead</td><td>67%</td><td>301</td><td>15</td><td>0.03</td></tr>
+                <tr><td>Powell</td><td>67%</td><td>324</td><td>16</td><td>0.02</td></tr>
+                <tr><td>COBYQA</td><td>58%</td><td>134</td><td>8</td><td>0.54</td></tr>
+                <tr><td>TNC</td><td>58%</td><td>232</td><td>16</td><td>0.04</td></tr>
+                <tr><td>trust-constr</td><td>58%</td><td>1052</td><td>8</td><td>2.08</td></tr>
+                <tr><td>basinhopping</td><td>58%</td><td>3383</td><td>21</td><td>1.15</td></tr>
+                <tr><td>CG</td><td>50%</td><td>414</td><td>20</td><td>0.02</td></tr>
+                </tbody>
+                <tfoot style="font-size: small;">
+                <tr><th colspan="5">† Non-constrained method; constrained by patching the objective function s.t.<br>
+                    &nbsp;&nbsp;&nbsp;<math xmlns="http://www.w3.org/1998/Math/MathML">
+                        <mrow>
+                            <mi>f</mi><mo>&#x2032;</mo>
+                            <mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo>
+                            <mo>=</mo>
+                            <mrow>
+                                <mo>{</mo>
+                                <mtable columnalign="center">
+                                    <mtr>
+                                        <mtd><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mtd>
+                                        <mtd><mi>x</mi><mtext>&nbsp;is&nbsp;admissible</mtext></mtd>
+                                    </mtr>
+                                    <mtr>
+                                        <mtd><mo>&#x221E;</mo></mtd>
+                                        <mtd><mi>otherwise</mi></mtd>
+                                    </mtr>
+                                </mtable>
+                            </mrow>
+                        </mrow>
+                    </math>
+
+                </th></tr>
+                <tr><th colspan="5">∗ The following implementations were considered:
+                    <ul><li>too slow: Open-Box, AMPGO,</li>
+                        <li>too complex: SMT, HyperBO, DEAP, PyMOO, OSQP, Optuna.</li></ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;To consider: jdb78/LIPO. Contributions welcome.</th></tr>
+                </tfoot>
+            </table>
+        </div>
+        <script>
+            if (window.matchMedia("(min-width: 1200px)").matches)
+                document.querySelectorAll('#benchmark table tfoot th').forEach(el => {
+                    document.querySelector('#benchmark p:first-child').parentNode.innerHTML += `<br><br><small>${el.innerHTML}</small>`;
+                    el.remove();
+                });
+
+            for (let i of [2, 3, 4, 5]) {
+                let nums = [...document.querySelectorAll(`.table td:nth-child(${i})`)].map(el => parseFloat(el.textContent));
+                let [max, min] = [Math.max(...nums), Math.min(...nums)];
+                let pow = [0, 0, 3, .3, .5, 1][i];
+                document.querySelectorAll(`.table td:nth-child(${i})`).forEach((td, i) => {
+                    td.style.backgroundColor = `hsl(var(--hue), 100%, ${100 - ((nums[i] - min) / (max - min))**pow * 20}%)`;
+                });
+            }
+        </script>
+    </div>
+</section>
+
+<section id="citing">
+    <h3>Citation</h3>
+    <p>If you find this package useful in your academic research, please consider citing:</p>
+    <pre><code class="text">@software{SAMBO,
+    author = {Kernc},
+    title = {SAMBO: Sequential And Model-Based Optimization: Efficient global optimization in Python},
+    url = {https://sambo-optimization.github.io}
+    year = {2024},
+    doi = {TODO}
+}</code></pre>
+</section>
+
+<section class="reviews">
+    <h3>What Users are Saying</h3>
+    <div class="flex flex-l" style="flex-wrap: wrap; justify-content: center">
+        <blockquote class="review" style="flex-basis: 25%;">
+            <p>The proof of [this] program's value is its existence.</p>
+            <p>A. Perlis</p>
+        </blockquote>
+        <blockquote class="review" style="flex-basis: 25%;">
+            <p>We are all tasked to balance and optimize ourselves.</p>
+            <p>M. Jemison</p>
+        </blockquote>
+        <blockquote class="review" style="flex-basis: 25%;">
+            <p>[...] When all else fails, read the instructions.</p>
+            <p>Cahn</p>
+        </blockquote>
+        <blockquote class="review" style="flex-basis: 25%;">
+                <p>You're bound to be unhappy if you optimize everything.</p>
+                <p>D. Knuth</p>
+        </blockquote>
+        <blockquote class="review" style="flex-basis: 40%;" property="review" typeof="Review">
+            <p property="reviewRating" typeof="Rating"><meta property="ratingValue" content="4.8">
+                After scikit-optimize went <abbr title="missing in action">MIA</abbr>, the release of this Bayesian optimization software package is just about <em>optimally</em> timed.</p>
+            <p property="author">B. Kralz</p>
+        </blockquote>
+    </div>
+</section>
+
+</main>
+
+<footer class="footer flex" style="margin-top:3em; padding-top:4rem; color: dimgrey; justify-content: space-around">
+    <span style="color:silver">卐</span>
+    <blockquote>
+        <p>Mathematical equivalence is not a substitute for clarity and directness.&ensp;<span style="font-style: initial">—Michael Jackson</span></p>
+    </blockquote>
+    <span style="color: silver">卍</span>
+</footer>
+
+<a href="https://github.com/sambo-optimization/sambo" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typogr/0.6.8/typogr.min.js" integrity="sha512-1H/T7/W2LG6LapyB1NGZx8LCGpXGOmaWUbW7VZQm9mrY3zQj/d/UYZlgCaK7MDrZv0marFCqJph4BxHL9R+llA==" crossorigin
+onload="document.body.innerHTML = typogr.widont(document.body.innerHTML)"></script>
+</body>
+</html>
