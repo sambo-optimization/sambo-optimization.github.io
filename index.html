@@ -69,9 +69,11 @@
         .review p:nth-child(2) { text-align: right}
         code:not(pre code) {background:#f0f0f0; border: 1px solid #ccc; border-radius: .5em; padding: .2em .5em; color: maroon}
         .intro ul {padding-left: 4em}
-        .intro li {margin-bottom: 1em; list-style: none; }
-        .intro li:before {display:inline-block; content: '👉'; margin-left: -1.4em; margin-right: .4em; font-size: 2em; vertical-align: middle}
-
+        .intro ul li {margin-bottom: 1em; list-style: none; }
+        .intro ul li:before {display:inline-block; content: '👉'; margin-left: -1.4em; margin-right: .4em; font-size: 2em; vertical-align: middle}
+        .intro ol.footnotes li { list-style: none; line-height: 1.3em; font-size: .7em}
+        .intro ol.footnotes cite {font-style: normal}
+        a[href*="fn"] {text-decoration: none; color: unset; font-size: .9em}
 
         .hljs { background: black !important; color: #eee !important; filter: brightness(1.5)}
         .snippet {
@@ -122,7 +124,7 @@
         table tfoot th {font-weight: normal}
         table tfoot ul, #benchmark ul {margin: 0}
 
-        math {font-family: "DejaVu Math TeX Gyre", "Noto Sans Math", "Latin Modern Math", "Cambria Math", "STIX Math", system-ui, math;}
+        math {font-family: "DejaVu Math TeX Gyre", "Latin Modern Math", "Cambria Math", "STIX Math", "Noto Sans Math", math, system-ui;}
     </style>
 
 
@@ -144,7 +146,7 @@
     <meta property="applicationCategory" content="DeveloperApplication">
     <meta property="applicationCategory" content="EducationalApplication">
     <meta property="name" content="SAMBO">
-    <meta property="alternateName" content="Sequential And Model-Based Optimization">
+    <meta property="alternateName" content="Sequential and Model-Based Optimization">
     <link rel="isSimilarTo" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">
     <link rel="isSimilarTo" href="https://scikit-optimize.github.io/">
 
@@ -207,18 +209,18 @@
             objective criteria function quickly and efficiently,
             in least number of evaluations.
 
-            SAMBO stands for <b>Sequential And Model-Based Optimization</b>.
+            SAMBO stands for <b>Sequential and Model-Based Optimization</b>.
             This simple optimization package consists of the following items, each with its own neat,
             user-friendly, Pythonic interface:
         </p>
         <ul>
             <li><b>function <code>sambo.minimize()</code></b>
-                to drive <b>constrained and bounded global black-box optimization</b> and design-space exploration start-to-finish,
-                modeled after well-known Python packages <b>SciPy</b> and <b>scikit-optimize</b>,
-                supporting <abbr title="state-of-the-art">SOTA</abbr> optimization algorithms like
-                <abbr title="Simplex Homology Global Optimization">SHGO</abbr>,
-                <abbr title="sequential, model-based optimization">SMBO</abbr> and
-                <abbr title="Shuffled Complex Evolution method, as devised at University of Arizona">SCE-UA</abbr>,
+                to drive <b>constrained and bounded global black-box optimization</b>, design-space exploration and model calibration,
+                modeled after well-known Python packages <b>SciPy</b> and <b>scikit-optimize</b>,<a href="#fn1"><sup>1</sup></a>
+                supporting <abbr title="state-of-the-art; here literally, the best">SOTA</abbr> optimization algorithms like
+                <abbr title="Simplicial Homology Global Optimization"><b>SHGO</b></abbr>,<a href="#fn2"><sup>2</sup></a>
+                <abbr title="sequential, model-based optimization"><b>SMBO</b></abbr><a href="#fn3"><sup>3</sup></a> and
+                <abbr title="Shuffled Complex Evolution method, as devised at University of Arizona"><b>SCE-UA</b></abbr>,<a href="#fn4"><sup>4</sup></a>
             </li>
             <li>
                 <b>class <code>Optimizer</code></b> that provides an
@@ -235,6 +237,12 @@
             </li>
         </ul>
         <p>See below <a href="#examples">examples</a> for usage.</p>
+        <ol class="footnotes">
+            <li id="fn1"><sup>1</sup> <cite>scikit-optimize/scikit-optimize. DOI: <a href="https://doi.org/10.5281/zenodo.1157319">10.5281/zenodo.1157319</a></cite></li>
+            <li id="fn2"><sup>2</sup> <cite>SHGO: Simplicial homology global optimization. DOI: <a href="https://doi.org/10.1007/s10898-018-0645-y">10.1007/s10898-018-0645-y</a></cite></li>
+            <li id="fn3"><sup>3</sup> <cite>SMBO: Sequential Model-Based Optimization for General Algorithm Configuration. DOI: <a href="https://doi.org/10.1007/978-3-642-25566-3_40">10.1007/978-3-642-25566-3&nbsp;40</a></cite></li>
+            <li id="fn4"><sup>4</sup> <cite>SCE-UA: Effective and efficient global optimization for conceptual rainfall-runoff models. DOI: <a href="https://doi.org/10.1029/91WR02985">10.1029/91WR02985</a></cite></li>
+        </ol>
     </div>
 
     <div class="features columns" property="featureList">
@@ -243,14 +251,14 @@
                 <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Python logo</title><path fill-rule="evenodd" d="M12.7 18.5a.9.9 0 0 1-.8-1 .9.9 0 1 1 1.7 0c0 .6-.4 1-.9 1M10.1 20c5 0 4.7-2.2 4.7-2.2v-2.3H10v-.7h6.8s3.2.4 3.2-4.8c0-5.1-2.8-5-2.8-5h-1.7v2.4s0 2.9-2.8 2.9H7.9s-2.7 0-2.7 2.6v4.4S4.8 20 10 20M7.3 1.5c.4 0 .8.4.8 1a.9.9 0 1 1-1.7 0c0-.6.4-1 .9-1M9.9 0C5 0 5.2 2.2 5.2 2.2v2.3H10v.7H3.2S0 4.8 0 10c0 5.1 2.8 5 2.8 5h1.7v-2.4s0-2.9 2.8-2.9h4.8s2.7 0 2.7-2.6V2.7S15.2 0 10 0"/></svg></div>
                 <div>
                     <p><b>Compatible with <span property="softwareRequirements">Python</span> 3+</b></p>
-                    <p>Python 3.10+. Best choice for new and forward-looking projects.</p>
+                    <p>Python 3.10+ —Best choice for new and forward-looking projects.</p>
                 </div>
             </li>
             <li class="flex">
                 <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><title>LEGO brick</title><path d="M280 129c-7-3-15-5-24-5-12 0-23 3-31 9-4 3-8 6-11 11-2 4-4 9-4 14v39c0 6 2 11 4 15 4 6 10 11 17 14s16 5 25 5c12 0 22-3 31-9 4-2 7-6 10-10s4-9 4-14l1-40c0-5-2-10-5-14-4-6-10-11-17-15zm4 68-2 6-9 7c-5 2-11 3-17 3-9 0-16-2-21-5l-6-6-1-5v-16l5 3a54 54 0 0 0 51-3v16zm0-39v9c-2 3-6 5-10 7a42 42 0 0 1-41-3l-5-4v-9c0-2 0-3 2-5 1-3 4-5 9-7 5-3 10-4 17-4 8 0 16 3 21 6l5 5 2 5zM102 76v-1 1z"/><path d="M421 102c0-5-2-10-4-14h-1 1c-5-7-13-13-21-17-8-3-17-5-27-5l-18 2-42-20c-1-6-3-12-6-17-4-7-11-13-19-17h-1 1c-8-4-18-6-27-6v1-1h-1c-13 0-25 4-35 10-4 3-9 7-12 12s-5 11-5 18l-46 21c-6-2-14-3-22-3-13 0-25 3-34 10-5 3-10 7-13 12l1-1-1 1c-3 5-5 11-5 17L0 145v237l256 122 256-122V145l-91-43zm-79 6 1-5 6-6h1l4-2 15-3c8 0 16 3 20 6l5 4 1 4v11l-7 5c-5 2-12 4-19 4-9 0-17-3-23-7l-4-4v-7zm-1 39v-18l5 3c7 3 15 5 23 5 11 0 21-3 28-8v18l-1 5c-2 3-5 6-10 8-4 2-10 3-17 3-8 0-16-2-21-6l-5-5-2-5zM231 49l1-4c1-2 4-5 8-7s10-3 16-3c8 0 16 3 20 6l5 4 1 4v11l-7 5c-5 2-12 4-19 4-9 0-17-3-23-6l-3-3 1-11zm-3 39V73l5 2c7 3 15 5 23 5h1c10 0 20-3 27-8v17l-2 4c-1 3-5 6-9 8-5 2-10 3-17 3-9 0-16-2-21-6l-5-5-2-5zm-117 18 1-4c1-2 4-4 9-6 4-2 9-4 15-4 7 0 13 2 18 4l5 3 4 4 1 5v7l-9 7c-5 2-12 4-19 4-9 0-17-3-22-7l-3-2v-11zm-3 41 1-18 5 3a53 53 0 0 0 51-3l-1 18-1 5c-2 2-5 5-10 7-4 3-10 4-17 4-8 0-16-3-21-6l-5-5-2-5zm137 322L27 365V172l218 103v194zm11 5h-1 2-1zm0-218L42 154l49-23v16c0 5 1 10 4 14 4 6 10 11 17 14a55 55 0 0 0 55-4c5-2 8-5 11-10 2-4 4-9 4-14v-39a27 27 0 0 0-6-17l34-17v14c0 5 2 10 4 14 4 6 10 11 17 15 7 3 16 5 24 5h1c12 0 23-3 31-9 4-2 8-6 10-10 3-4 5-9 5-14V75l30 14-4 4c-3 5-4 10-4 15v39c0 5 1 10 4 15 4 6 10 11 17 14s15 5 24 5c12 0 23-3 31-9 4-2 8-6 11-10 2-4 4-9 4-15v-19l55 26-214 102z"/></svg></div>
                 <div>
                     <p><b>Small, clean API</b></p>
-                    <p>The <a href="doc/sambo/">API reference</a> follows established idiomatic Python doctrine and is easy to wrap one's head around.</p>
+                    <p>The <a href="doc/sambo/">API reference</a> follows established idiomatic Python doctrine and is <b>easy to wrap one's head around</b>.</p>
                 </div>
             </li>
             <li class="flex">
@@ -272,7 +280,7 @@
                 <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><title>stopwatch</title><path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v-3m0-5a7.5 7.5 0 1 0 5.5 2.5M12 6c2.2 0 4.2 1 5.5 2.5M12 6V3m7.5 3.5-2 2M12 3H9m3 0h3"/></svg></div>
                 <div>
                     <p><b>Blazing fast execution</b></p>
-                    <p>On top of that, fewest objective function evaluations or your money back! <a href="#benchmark">Benchmark</a> to prove it.</p>
+                    <p>On top of that, <b>fewest objective function evaluations or your money back!</b> <a href="#benchmark">Benchmark</a> to prove it.</p>
                 </div>
             </li>
             <li class="flex">
@@ -294,7 +302,7 @@
                 <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105.86 66.74"><title>gauge</title><path stroke="#000" stroke-width="4" d="M78.46 8.81A51.06 51.06 0 0 0 2 53c0 1.05.8 1.85 2.12 1.85h37.3a11.64 11.64 0 0 0 23.02 0h37.57a1.8 1.8 0 0 0 1.85-1.85 50.7 50.7 0 0 0-25.4-44.2zM41.42 50.88H5.97a47.28 47.28 0 0 1 21.7-37.57l17.72 30.43a12.89 12.89 0 0 0-3.97 7.14zm11.64 9.79a7.8 7.8 0 1 1 0-15.61 7.8 7.8 0 0 1 0 15.61zm3.97-18.79a11 11 0 0 0-8.2 0L31.1 11.2a47.14 47.14 0 0 1 43.66 0zm6.88 6.62-1.32-2.65 5.3-1.32zm3.18 2.38 9-8.73c1.58-1.32 0-3.97-1.86-3.44l-12.7 3.44L78.2 13.3a47.28 47.28 0 0 1 21.7 37.57z"/><path d="M83.76 33.68a3.7 3.7 0 1 0-6.09 2.38l4.76 5.3c.8.79 1.86.79 2.65 0l5.03-5.3a3.7 3.7 0 1 0-6.35-2.38z"/></svg></div>
                 <div>
                     <p><b>Approximate, but converging</b></p>
-                    <p>Converging to the correct optimum, but you decide what the tolerable error is!</p>
+                    <p>Stochastic processes converge to the correct optimum. Error tolerance for you to decide.</p>
                 </div>
             </li>
             <li class="flex">
@@ -513,8 +521,8 @@ print(search.opt_result_)
                 According to our <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
                 (<a href="benchmark.txt">full stdout output</a>)
                 of most common optimization algorithm implementations
-                on several popular global optimization functions, including a few multi-dimensional (2–10D),
-                <b><cite>SAMBO</cite> more often converges to correct global optimum,
+                on several popular global optimization functions, including a few multi-dimensional ones (2–10D),
+                <b><cite>SAMBO</cite> most often converges to correct global optimum,
                     in fewest total objective evaluations,
                     yielding smallest absolute error,
                     with runtime just as fast as that of the best</b>.
@@ -558,7 +566,7 @@ print(search.opt_result_)
                             <mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo>
                             <mo>=</mo>
                             <mrow>
-                                <mo>{</mo>
+                                <mo stretchy="true">{</mo>
                                 <mtable columnalign="center">
                                     <mtr>
                                         <mtd><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></mtd>
@@ -606,7 +614,7 @@ print(search.opt_result_)
     <p>If you find this package useful in your academic research, please consider citing:</p>
     <pre><code class="text">@software{SAMBO,
     author = {Kernc},
-    title = {SAMBO: Sequential And Model-Based Optimization: Efficient global optimization in Python},
+    title = {SAMBO: Sequential and Model-Based Optimization: Efficient global optimization in Python},
     url = {https://sambo-optimization.github.io},
     doi = {https://doi.org/10.5281/zenodo.14461363},
     year = {2024}
@@ -635,7 +643,7 @@ print(search.opt_result_)
         <blockquote class="review" style="flex-basis: 40%;" property="review" typeof="Review">
             <p property="reviewRating" typeof="Rating"><meta property="ratingValue" content="4.8">
                 After scikit-optimize went <abbr title="missing in action">MIA</abbr>, the release of this Bayesian optimization software package is just about <em>optimally</em> timed.</p>
-            <p property="author">B. Kralz</p>
+            <p property="author" typeof="Person"><span property="name">B. Kralz</span></p>
         </blockquote>
     </div>
 </section>
