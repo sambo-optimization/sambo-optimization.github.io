@@ -1,0 +1,4 @@
+https://sambo-optimization.github.io/
+https://sambo-optimization.github.io/doc/doc-search.html
+https://sambo-optimization.github.io/doc/sambo/
+https://sambo-optimization.github.io/doc/sambo/plot.html

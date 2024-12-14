@@ -1,0 +1,1785 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>sambo API documentation</title>
+<meta name="description" content="SAMBO - **Sequential and Model-Based Optimization** [in Python] …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/equilibrium-gray-dark.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+a[rel="home"] img { max-width:70%; display: block; margin: auto; margin-bottom: 2em }
+</style>
+<link rel="canonical" href="https://sambo-optimization.github.io/doc/sambo/">
+<link rel="icon logo image" href="/logo.svg">
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-QJH7PLMB12'></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QJH7PLMB12');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2900001379782823" crossorigin></script></head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>sambo</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="sambo-sequential-and-model-based-optimization-in-python">SAMBO - <strong>Sequential and Model-Based Optimization</strong> [in Python]</h1>
+<p>Sambo is a <strong>global optimization framework for finding approximate global optima</strong>†
+of arbitrary high-dimensional objective functions in the <strong>least number of function evaluations</strong>.
+Function evaluations are considered the "expensive" resource
+(it can sometimes take weeks to obtain results!),
+so it's important to find good-enough solutions in
+<strong>as few steps as possible</strong> (whence <em>sequential</em>).</p>
+<p>The main tools in this Python optimization toolbox are:</p>
+<ul>
+<li><strong>function <code><a title="sambo.minimize" href="#sambo.minimize">minimize()</a></code></strong>, a near drop-in replacement for <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code>scipy.optimize.minimize()</code></a>,</li>
+<li><strong>class <code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code></strong> with an ask-and-tell user interface,
+supporting arbitrary scikit-learn-like surrogate models,
+with Bayesian optimization estimators like <a href="https://www.gaussianprocess.org/gpml/chapters/RW.pdf">gaussian process</a> and <a href="https://doi.org/10.1007/s10994-006-6226-1">extra trees</a>,
+built in,</li>
+<li><strong><code><a title="sambo.SamboSearchCV" href="#sambo.SamboSearchCV">SamboSearchCV</a></code></strong>, a much faster drop-in replacement for
+scikit-learn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html"><code>GridSearchCV</code></a> and similar exhaustive
+machine-learning hyper-parameter tuning methods,
+but compared to unpredictable stochastic methods, <em>informed</em>.</li>
+</ul>
+<p>The algorithms and methods implemented by or used in this package are:</p>
+<ul>
+<li><a href="http://doi.org/10.1007/s10898-018-0645-y">simplical homology global optimization</a> (SHGO), customizing the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.shgo.html">implementation from SciPy</a>,</li>
+<li>surrogate machine learning model-based optimization,</li>
+<li><a href="https://doi.org/10.1007/BF00939380">shuffled complex evolution</a> (SCE-UA with improvements).</li>
+</ul>
+<p>This open-source project was heavily <strong>inspired by <em>scikit-optimize</em></strong> project,
+which now seems helplessly defunct.</p>
+<p>The project is one of the better optimizers around according to [benchmark].</p>
+<p>† The contained algorithms seek to <em>minimize</em> your objective <code>f(x)</code>.
+If you instead need the <em>maximum</em>, simply minimize <code>-f(x)</code>. 💡</p>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="sambo.plot" href="plot.html">sambo.plot</a></code></dt>
+<dd>
+<div class="desc"><p>The module contains <strong>functions for plotting</strong>
+convergence, regret, partial dependence, sequence of evaluations
+…</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="sambo.minimize"><code class="name flex">
+<span>def <span class="ident">minimize</span></span>(<span>fun: Callable[[numpy.ndarray], float],<br>x0: tuple[float] | list[tuple[float]] | None = None,<br>*,<br>args: tuple = (),<br>bounds: list[tuple] | None = None,<br>constraints: Callable[[numpy.ndarray], bool] | scipy.optimize._constraints.NonlinearConstraint | None = None,<br>max_iter: int = 2147483647,<br>method: Literal['shgo', 'sceua', 'smbo'] = 'shgo',<br>tol: float = 1e-06,<br>n_iter_no_change: int | None = None,<br>y0: float | list[float] | None = None,<br>callback: Callable[[sambo._util.OptimizeResult], bool] | None = None,<br>n_jobs: int = 1,<br>disp: bool = False,<br>rng: int | numpy.random.mtrand.RandomState | numpy.random._generator.Generator | None = None,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_minimize.py#L12-L216" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def minimize(
+        fun: Callable[[np.ndarray], float],
+        x0: Optional[tuple[float] | list[tuple[float]]] = None,
+        *,
+        args: tuple = (),
+        bounds: Optional[list[tuple]] = None,
+        constraints: Optional[Callable[[np.ndarray], bool] | NonlinearConstraint] = None,
+        max_iter: int = INT32_MAX,
+        method: Literal[&#39;shgo&#39;, &#39;sceua&#39;, &#39;smbo&#39;] = &#39;shgo&#39;,
+        tol: float = FLOAT32_PRECISION,
+        # x_tol: float = FLOAT32_PRECISION,
+        n_iter_no_change: Optional[int] = None,
+        y0: Optional[float | list[float]] = None,
+        callback: Optional[Callable[[OptimizeResult], bool]] = None,
+        n_jobs: int = 1,
+        disp: bool = False,
+        rng: Optional[int | np.random.RandomState | np.random.Generator] = None,
+        **kwargs,
+):
+    &#34;&#34;&#34;
+    Find approximate optimum of an objective function in the
+    least number of evaluations.
+
+    Parameters
+    ----------
+    fun : Callable[[np.ndarray], float], optional
+        Objective function to minimize. Must take a single array-like argument
+        x (parameter combination) and return a scalar y (cost value).
+
+    x0 : tuple or list[tuple], optional
+        Initial guess(es) or starting point(s) for the optimization.
+
+    args : tuple, optional
+        Additional arguments to pass to the objective function and constraints.
+
+    bounds : list[tuple], optional
+        Bounds for parameter variables.
+        Should be a sequence of (min, max) pairs for each dimension,
+        or an enumeration of nominal values. For any dimension,
+        if `min` and `max` are integers, the dimension is assumed to be _integral_.
+        If `min` or `max` are floats, the dimension is assumed to be _real_.
+        In all other cases including if more than two values are provided,
+        the dimension is assumed to be an _enumeration_ of values.
+        See _Examples_ below.
+
+        .. note:: Nominals are represented as ordinals
+            Categorical (nominal) enumerations, although often not inherently ordered,
+            are internally represented as integral dimensions.
+            If this appears to significantly affect your results
+            (e.g. if your nominals span many cases),
+            you may need to [one-hot encode] your nominal variables manually.
+
+        [one-hot encode]: https://en.wikipedia.org/wiki/One-hot
+
+        .. warning:: Mind the dot
+            If optimizing your problem fails to produce expected results,
+            make sure you&#39;re not specifying integer dimensions where real
+            floating values would make more sense.
+
+    constraints : Callable[[np.ndarray], bool], optional
+        Function representing constraints.
+        Must return True iff the parameter combination x satisfies the constraints.
+
+            &gt;&gt;&gt; minimize(..., constraints=lambda x: (lb &lt; x &lt;= ub))
+
+    max_iter : int, optional
+        Maximum number of iterations allowed.
+
+    method : {&#39;shgo&#39;, &#39;sceua&#39;, &#39;smbo&#39;}, default=&#39;shgo&#39;
+        Global optimization algorithm to use. Options are:
+
+        * `&#34;shgo&#34;` – [simplical homology global optimization] (SHGO; from SciPy),
+        * `&#34;smbo&#34;` – surrogate model-based optimization, for which you can pass
+          your own `estimator=` (see `**kwargs`).
+        * `&#34;sceua&#34;` – [shuffled complex evolution (SCE-UA)] (with a few tweaks,
+           marked in the source).
+
+        [simplical homology global optimization]: http://doi.org/10.1007/s10898-018-0645-y
+        [shuffled complex evolution (SCE-UA)]: https://doi.org/10.1007/BF00939380
+
+        .. caution:: Default method SHGO is only appropriate for Lipschitz-smooth functions
+            Smooth functions have gradients that vary gradually, while non-smooth functions
+            exhibit abrupt changes (e.g. with nominal variables),
+            sharp corners (e.g. function `abs()`), discontinuities (e.g. function `tan()`),
+            or unbounded growth (e.g. function `exp()`).
+
+            If your objective function is more of the latter kind,
+            you might need to use one of the other methods.
+
+    n_iter_no_change : int, default 10
+        Number of iterations with no improvement before stopping.
+
+    tol : float, default FLOAT32_PRECISION
+        Tolerance for convergence. Optimization stops when
+        found optimum improvements are below this threshold.
+
+    y0 : float or tuple[float], optional
+        Initial value(s) of the objective function corresponding to `x0`.
+
+    callback : Callable[[OptimizeResult], bool], optional
+        A callback function that is called after each iteration.
+        The optimization stops If the callback returns True or
+        raises `StopIteration`.
+
+    n_jobs : int, default 1
+        Number of objective function evaluations to run in parallel.
+        Most applicate when n_candidates &gt; 1.
+
+    disp : bool, default False
+        Display progress and intermediate results.
+
+    rng : int or np.random.RandomState or np.random.Generator, optional
+        Random number generator or seed for reproducibility.
+
+    **kwargs : dict, optional
+        Additional parameters to pass to optimization function. Popular options are:
+
+        * for `method=&#34;shgo&#34;`: `n_init` (number of initial points),
+        * for `method=&#34;smbo&#34;`: `n_init`, `n_candidates`, `n_models`, `estimator`
+          (for explanation, see class `sambo.Optimizer`),
+        * for `method=&#34;sceua&#34;`: `n_complexes`, `complex_size` (as in [SCE-UA] algorithm),
+
+        [SCE-UA]: https://doi.org/10.1007/BF00939380
+
+    Examples
+    --------
+    Basic constrained 10-dimensional example:
+    &gt;&gt;&gt; from scipy.optimize import rosen
+    &gt;&gt;&gt; from sambo import minimize
+    &gt;&gt;&gt; result = minimize(rosen, bounds=[(-2, 2)] * 10,
+    ...                   constraints=lambda x: sum(x) &lt;= len(x))
+    &gt;&gt;&gt; result
+     message: Optimization terminated successfully.
+     success: True
+         fun: 0.0
+           x: [1 1 1 1 1 1 1 1 1 1]
+        nfev: 1036
+          xv: [[-2 -2 ... -2 1]
+               [-2 -2 ... -2 1]
+               ...
+               [1 1 ... 1 1]
+               [1 1 ... 1 1]]
+        funv: [ 1.174e+04  1.535e+04 ...  0.000e+00  0.000e+00]
+
+    A more elaborate example, minimizing an objective function of three variables:
+    one integral, one real, and one nominal variable (see `bounds=`).
+    &gt;&gt;&gt; def demand(x):
+    ...     n_roses, price, advertising_costs = x
+    ...     # Ground truth model: Demand falls with price, but grows if you advertise
+    ...     demand = 20 - 2*price + .1*advertising_costs
+    ...     return n_roses &lt; demand
+    &gt;&gt;&gt; def objective(x):
+    ...     n_roses, price, advertising_costs = x
+    ...     production_costs = 1.5 * n_roses
+    ...     profits = n_roses * price - production_costs - advertising_costs
+    ...     return -profits
+    &gt;&gt;&gt; bounds = [
+    ...     (0, 100),  # From zero to at most roses per day
+    ...     (.5, 9.),  # Price per rose sold
+    ...     (10, 20, 100),  # Advertising budget
+    ... ]
+    &gt;&gt;&gt; from sambo import minimize
+    &gt;&gt;&gt; result = minimize(fun=objective, bounds=bounds, constraints=demand)
+
+    References
+    ----------
+    * Endres, S.C., Sandrock, C. &amp; Focke, W.W. A simplicial homology algorithm for Lipschitz optimisation. J Glob Optim 72, 181–217 (2018). https://doi.org/10.1007/s10898-018-0645-y
+    * Duan, Q.Y., Gupta, V.K. &amp; Sorooshian, S. Shuffled complex evolution approach for effective and efficient global minimization. J Optim Theory Appl 76, 501–521 (1993). https://doi.org/10.1007/BF00939380
+    * Koziel, Slawomir, and Leifur Leifsson. Surrogate-based modeling and optimization. New York: Springer, 2013. https://doi.org/10.1007/978-1-4614-7551-4
+    * Head, T., Kumar, M., Nahrstaedt, H., Louppe, G., &amp; Shcherbatyi, I. (2021). scikit-optimize/scikit-optimize (v0.9.0). Zenodo. https://doi.org/10.5281/zenodo.5565057
+    &#34;&#34;&#34;  # noqa: E501
+    from sambo._space import Space
+    constraints = _sanitize_constraints(constraints)
+    rng = _check_random_state(rng)
+    bounds, x0, y0 = _check_bounds(bounds, x0, y0, assert_numeric=False)
+    space = Space(bounds, constraints, rng=rng)
+    bounds = tuple(space)
+
+    fun = _Args0TransformingFunc(fun, space.inverse_transform)
+    if constraints is not None:
+        constraints = _Args0TransformingFunc(constraints, space.inverse_transform)
+    if callback is not None:
+        callback = _Args0TransformingFunc(callback, space.inverse_transform_result)
+
+    if method == &#39;shgo&#39;:
+        from sambo._shgo import shgo as minimize_func
+    elif method == &#39;sceua&#39;:
+        from sambo._sceua import sceua as minimize_func
+    elif method == &#39;smbo&#39;:
+        from sambo._smbo import smbo as minimize_func
+    else:
+        assert False, f&#39;Invalid method= parameter: {method!r}. Pls RTFM&#39;
+
+    if n_iter_no_change is not None:
+        # Pass this iff specified b/c algos have different default values
+        kwargs[&#39;n_iter_no_change&#39;] = n_iter_no_change
+
+    res = minimize_func(
+        fun, x0, args=args, bounds=bounds, constraints=constraints,
+        max_iter=max_iter, tol=tol, callback=callback, y0=y0,
+        n_jobs=n_jobs, disp=disp, rng=rng, **kwargs
+    )
+    res = space.inverse_transform_result(res)
+    res.space = space
+    return res</code></pre>
+</details>
+<div class="desc"><p>Find approximate optimum of an objective function in the
+least number of evaluations.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>fun</code></strong> :&ensp;<code>Callable[[np.ndarray], float]</code>, optional</dt>
+<dd>Objective function to minimize. Must take a single array-like argument
+x (parameter combination) and return a scalar y (cost value).</dd>
+<dt><strong><code>x0</code></strong> :&ensp;<code>tuple</code> or <code>list[tuple]</code>, optional</dt>
+<dd>Initial guess(es) or starting point(s) for the optimization.</dd>
+<dt><strong><code>args</code></strong> :&ensp;<code>tuple</code>, optional</dt>
+<dd>Additional arguments to pass to the objective function and constraints.</dd>
+<dt><strong><code>bounds</code></strong> :&ensp;<code>list[tuple]</code>, optional</dt>
+<dd>
+<p>Bounds for parameter variables.
+Should be a sequence of (min, max) pairs for each dimension,
+or an enumeration of nominal values. For any dimension,
+if <code>min</code> and <code>max</code> are integers, the dimension is assumed to be <em>integral</em>.
+If <code>min</code> or <code>max</code> are floats, the dimension is assumed to be <em>real</em>.
+In all other cases including if more than two values are provided,
+the dimension is assumed to be an <em>enumeration</em> of values.
+See <em>Examples</em> below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note:&ensp;Nominals are represented as ordinals</p>
+<p>Categorical (nominal) enumerations, although often not inherently ordered,
+are internally represented as integral dimensions.
+If this appears to significantly affect your results
+(e.g. if your nominals span many cases),
+you may need to <a href="https://en.wikipedia.org/wiki/One-hot">one-hot encode</a> your nominal variables manually.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning:&ensp;Mind the dot</p>
+<p>If optimizing your problem fails to produce expected results,
+make sure you're not specifying integer dimensions where real
+floating values would make more sense.</p>
+</div>
+</dd>
+<dt><strong><code>constraints</code></strong> :&ensp;<code>Callable[[np.ndarray], bool]</code>, optional</dt>
+<dd>Function representing constraints.
+Must return True iff the parameter combination x satisfies the constraints.<pre><code>&gt;&gt;&gt; minimize(..., constraints=lambda x: (lb &lt; x &lt;= ub))
+</code></pre>
+</dd>
+<dt><strong><code>max_iter</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Maximum number of iterations allowed.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>{'shgo', 'sceua', 'smbo'}</code>, default=<code>'shgo'</code></dt>
+<dd>
+<p>Global optimization algorithm to use. Options are:</p>
+<ul>
+<li><code>"shgo"</code> – <a href="http://doi.org/10.1007/s10898-018-0645-y">simplical homology global optimization</a> (SHGO; from SciPy),</li>
+<li><code>"smbo"</code> – surrogate model-based optimization, for which you can pass
+your own <code>estimator=</code> (see <code>**kwargs</code>).</li>
+<li><code>"sceua"</code> – <a href="https://doi.org/10.1007/BF00939380">shuffled complex evolution (SCE-UA)</a> (with a few tweaks,
+marked in the source).</li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Caution:&ensp;Default method SHGO is only appropriate for Lipschitz-smooth functions</p>
+<p>Smooth functions have gradients that vary gradually, while non-smooth functions
+exhibit abrupt changes (e.g. with nominal variables),
+sharp corners (e.g. function <code>abs()</code>), discontinuities (e.g. function <code>tan()</code>),
+or unbounded growth (e.g. function <code>exp()</code>).</p>
+<p>If your objective function is more of the latter kind,
+you might need to use one of the other methods.</p>
+</div>
+</dd>
+<dt><strong><code>n_iter_no_change</code></strong> :&ensp;<code>int</code>, default <code>10</code></dt>
+<dd>Number of iterations with no improvement before stopping.</dd>
+<dt><strong><code>tol</code></strong> :&ensp;<code>float</code>, default <code>FLOAT32_PRECISION</code></dt>
+<dd>Tolerance for convergence. Optimization stops when
+found optimum improvements are below this threshold.</dd>
+<dt><strong><code>y0</code></strong> :&ensp;<code>float</code> or <code>tuple[float]</code>, optional</dt>
+<dd>Initial value(s) of the objective function corresponding to <code>x0</code>.</dd>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[<a title="sambo.OptimizeResult" href="#sambo.OptimizeResult">OptimizeResult</a>], bool]</code>, optional</dt>
+<dd>A callback function that is called after each iteration.
+The optimization stops If the callback returns True or
+raises <code>StopIteration</code>.</dd>
+<dt><strong><code>n_jobs</code></strong> :&ensp;<code>int</code>, default <code>1</code></dt>
+<dd>Number of objective function evaluations to run in parallel.
+Most applicate when n_candidates &gt; 1.</dd>
+<dt><strong><code>disp</code></strong> :&ensp;<code>bool</code>, default <code>False</code></dt>
+<dd>Display progress and intermediate results.</dd>
+<dt><strong><code>rng</code></strong> :&ensp;<code>int</code> or <code>np.random.RandomState</code> or <code>np.random.Generator</code>, optional</dt>
+<dd>Random number generator or seed for reproducibility.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Additional parameters to pass to optimization function. Popular options are:</p>
+<ul>
+<li>for <code>method="shgo"</code>: <code>n_init</code> (number of initial points),</li>
+<li>for <code>method="smbo"</code>: <code>n_init</code>, <code>n_candidates</code>, <code>n_models</code>, <code>estimator</code>
+(for explanation, see class <code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code>),</li>
+<li>for <code>method="sceua"</code>: <code>n_complexes</code>, <code>complex_size</code> (as in <a href="https://doi.org/10.1007/BF00939380">SCE-UA</a> algorithm),</li>
+</ul>
+</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Basic constrained 10-dimensional example:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from scipy.optimize import rosen
+&gt;&gt;&gt; from sambo import minimize
+&gt;&gt;&gt; result = minimize(rosen, bounds=[(-2, 2)] * 10,
+...                   constraints=lambda x: sum(x) &lt;= len(x))
+&gt;&gt;&gt; result
+ message: Optimization terminated successfully.
+ success: True
+     fun: 0.0
+       x: [1 1 1 1 1 1 1 1 1 1]
+    nfev: 1036
+      xv: [[-2 -2 ... -2 1]
+           [-2 -2 ... -2 1]
+           ...
+           [1 1 ... 1 1]
+           [1 1 ... 1 1]]
+    funv: [ 1.174e+04  1.535e+04 ...  0.000e+00  0.000e+00]
+</code></pre>
+<p>A more elaborate example, minimizing an objective function of three variables:
+one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; def demand(x):
+...     n_roses, price, advertising_costs = x
+...     # Ground truth model: Demand falls with price, but grows if you advertise
+...     demand = 20 - 2*price + .1*advertising_costs
+...     return n_roses &lt; demand
+&gt;&gt;&gt; def objective(x):
+...     n_roses, price, advertising_costs = x
+...     production_costs = 1.5 * n_roses
+...     profits = n_roses * price - production_costs - advertising_costs
+...     return -profits
+&gt;&gt;&gt; bounds = [
+...     (0, 100),  # From zero to at most roses per day
+...     (.5, 9.),  # Price per rose sold
+...     (10, 20, 100),  # Advertising budget
+... ]
+&gt;&gt;&gt; from sambo import minimize
+&gt;&gt;&gt; result = minimize(fun=objective, bounds=bounds, constraints=demand)
+</code></pre>
+<h2 id="references">References</h2>
+<ul>
+<li>Endres, S.C., Sandrock, C. &amp; Focke, W.W. A simplicial homology algorithm for Lipschitz optimisation. J Glob Optim 72, 181–217 (2018). <a href="https://doi.org/10.1007/s10898-018-0645-y">https://doi.org/10.1007/s10898-018-0645-y</a></li>
+<li>Duan, Q.Y., Gupta, V.K. &amp; Sorooshian, S. Shuffled complex evolution approach for effective and efficient global minimization. J Optim Theory Appl 76, 501–521 (1993). <a href="https://doi.org/10.1007/BF00939380">https://doi.org/10.1007/BF00939380</a></li>
+<li>Koziel, Slawomir, and Leifur Leifsson. Surrogate-based modeling and optimization. New York: Springer, 2013. <a href="https://doi.org/10.1007/978-1-4614-7551-4">https://doi.org/10.1007/978-1-4614-7551-4</a></li>
+<li>Head, T., Kumar, M., Nahrstaedt, H., Louppe, G., &amp; Shcherbatyi, I. (2021). scikit-optimize/scikit-optimize (v0.9.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.5565057">https://doi.org/10.5281/zenodo.5565057</a></li>
+</ul></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="sambo.OptimizeResult"><code class="flex name class">
+<span>class <span class="ident">OptimizeResult</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_util.py#L89-L102" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">class OptimizeResult(_OptimizeResult):
+    &#34;&#34;&#34;
+    Optimization result. Most fields are inherited from
+    `scipy.optimize.OptimizeResult`, with additional attributes: `xv`, `funv`, `model`.
+    &#34;&#34;&#34;
+    success: bool  #: Whether or not the optimizer exited successfully.
+    message: str  #: More detailed cause of optimization termination.
+    x: np.ndarray  #: The solution of the optimization, `shape=(n_features,)`.
+    fun: np.ndarray  #: Value of objective function at `x`, aka the observed minimum.
+    nfev: int  #: Number of objective function evaluations.
+    nit: int  #: Number of iterations performed by the optimization algorithm.
+    xv: np.ndarray  #: All the parameter sets that have been tried, in sequence, `shape=(nfev, n_features)`.
+    funv: np.ndarray  #: Objective function values at points `xv`.
+    model: Optional[list[_SklearnLikeRegressor]]  #: The optimization model(s) used, if any.</code></pre>
+</details>
+<div class="desc"><p>Optimization result. Most fields are inherited from
+<code>scipy.optimize.OptimizeResult</code>, with additional attributes: <code>xv</code>, <code>funv</code>, <code>model</code>.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>scipy.optimize._optimize.OptimizeResult</li>
+<li>scipy._lib._util._RichResult</li>
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="sambo.OptimizeResult.fun"><code class="name">var <span class="ident">fun</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"><p>Value of objective function at <code>x</code>, aka the observed minimum.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.funv"><code class="name">var <span class="ident">funv</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"><p>Objective function values at points <code>xv</code>.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.message"><code class="name">var <span class="ident">message</span> : str</code></dt>
+<dd>
+<div class="desc"><p>More detailed cause of optimization termination.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.model"><code class="name">var <span class="ident">model</span> : list[sambo._util._SklearnLikeRegressor] | None</code></dt>
+<dd>
+<div class="desc"><p>The optimization model(s) used, if any.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.nfev"><code class="name">var <span class="ident">nfev</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Number of objective function evaluations.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.nit"><code class="name">var <span class="ident">nit</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Number of iterations performed by the optimization algorithm.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.success"><code class="name">var <span class="ident">success</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Whether or not the optimizer exited successfully.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.x"><code class="name">var <span class="ident">x</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"><p>The solution of the optimization, <code>shape=(n_features,)</code>.</p></div>
+</dd>
+<dt id="sambo.OptimizeResult.xv"><code class="name">var <span class="ident">xv</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"><p>All the parameter sets that have been tried, in sequence, <code>shape=(nfev, n_features)</code>.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="sambo.Optimizer"><code class="flex name class">
+<span>class <span class="ident">Optimizer</span></span>
+<span>(</span><span>fun: Callable[[numpy.ndarray], float] | None,<br>x0: tuple[float] | list[tuple[float]] | None = None,<br>*,<br>args: tuple = (),<br>bounds: list[tuple] | None = None,<br>constraints: Callable[[numpy.ndarray], bool] | scipy.optimize._constraints.NonlinearConstraint | None = None,<br>max_iter: int = 2147483647,<br>n_init: int | None = None,<br>n_candidates: int | None = None,<br>n_iter_no_change: int = 10,<br>n_models: int = 1,<br>tol: float = 1e-06,<br>estimator: Literal['gp', 'et', 'gb'] | sambo._util._SklearnLikeRegressor = None,<br>y0: float | list[float] | None = None,<br>callback: Callable[[sambo._util.OptimizeResult], bool] | None = None,<br>n_jobs: int = 1,<br>disp: bool = False,<br>rng: int | numpy.random.mtrand.RandomState | numpy.random._generator.Generator | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_smbo.py#L21-L524" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">class Optimizer:
+    &#34;&#34;&#34;
+    A sequential optimizer that optimizes an objective function using a surrogate model.
+
+    Parameters
+    ----------
+    fun : Callable[[np.ndarray], float], optional
+        Objective function to minimize. Must take a single array-like argument
+        x (parameter combination) and return a scalar y (cost value).
+
+        When unspecified, the Optimizer can be used iteratively in an ask-tell
+        fashion using the methods named respectively.
+
+    x0 : tuple | list[tuple], optional
+        Initial guess(es) or starting point(s) for the optimization.
+
+    args : tuple, optional
+        Additional arguments to pass to the objective function and constraints.
+
+    bounds : list[tuple], optional
+        Bounds for the decision variables. A sequence of (min, max) pairs for each dimension.
+
+    constraints : Callable[[np.ndarray], bool], optional
+        Function representing constraints.
+        Must return True iff the parameter combination x satisfies the constraints.
+
+    max_iter : int, optional
+        Maximum number of iterations allowed.
+
+    n_init : int, optional
+        Number of initial evaluations of the objective function before
+        first fitting the surrogate model.
+
+    n_candidates : int, optional
+        Number of candidate solutions generated per iteration.
+
+    n_iter_no_change : int, default 10
+        Number of iterations with no improvement before stopping.
+
+    n_models : int, default 1
+        Number of most-recently-generated surrogate models to use for
+        next best-point prediction. Useful for small and
+        randomized estimators such as `&#34;et&#34;` with no fixed `rng=`.
+
+    tol : float, default FLOAT32_PRECISION
+        Tolerance for convergence. Optimization stops when
+        found optimum improvements are below this threshold.
+
+    estimator : {&#39;gp&#39;, &#39;et&#39;, &#39;gb&#39;} or scikit-learn-like regressor, default=&#39;gp&#39;
+        Surrogate model for the optimizer.
+        Popular options include &#34;gp&#34; (Gaussian process), &#34;et&#34; (extra trees),
+        or &#34;gb&#34; (gradient boosting).
+
+        You can also provide your own regressor with a scikit-learn API,
+        namely `fit()` and `predict()` methods.
+
+    y0 : float or tuple[float], optional
+        Initial value(s) of the objective function corresponding to `x0`.
+
+    callback : Callable[[OptimizeResult], bool], optional
+        A callback function that is called after each iteration.
+        The optimization stops If the callback returns True or
+        raises `StopIteration`.
+
+    n_jobs : int, default 1
+        Number of objective function evaluations to run in parallel.
+        Most applicate when n_candidates &gt; 1.
+
+    disp : bool, default False
+        Display progress and intermediate results.
+
+    rng : int or np.random.RandomState or np.random.Generator, optional
+        Random number generator or seed for reproducibility.
+
+    Examples
+    --------
+    &gt;&gt;&gt; from sambo import Optimizer
+    &gt;&gt;&gt; def objective_func(x):
+    ...     return sum(x**2)
+    &gt;&gt;&gt; optimizer = Optimizer(fun=objective_func, bounds=[(-5, 5), (-5, 5)])
+    &gt;&gt;&gt; result = optimizer.run()
+
+    Using the ask-tell interface:
+    &gt;&gt;&gt; optimizer = Optimizer(fun=None, bounds=[(-5, 5), (-5, 5)])
+    &gt;&gt;&gt; suggested_x = optimizer.ask()
+    &gt;&gt;&gt; y = [objective_func(x) for x in suggested_x]
+    &gt;&gt;&gt; optimizer.tell(y, suggested_x)
+    &#34;&#34;&#34;
+    def __init__(
+            self,
+            fun: Optional[Callable[[np.ndarray], float]],
+            x0: Optional[tuple[float] | list[tuple[float]]] = None,
+            *,
+            args: tuple = (),
+            bounds: Optional[list[tuple]] = None,
+            constraints: Optional[Callable[[np.ndarray], bool] | NonlinearConstraint] = None,
+            max_iter: int = INT32_MAX,
+            n_init: Optional[int] = None,
+            n_candidates: Optional[int] = None,
+            n_iter_no_change: int = 10,
+            n_models: int = 1,
+            tol: float = FLOAT32_PRECISION,
+            estimator: Literal[&#39;gp&#39;, &#39;et&#39;, &#39;gb&#39;] | _SklearnLikeRegressor = None,
+            y0: Optional[float | list[float]] = None,
+            callback: Optional[Callable[[OptimizeResult], bool]] = None,
+            n_jobs: int = 1,
+            disp: bool = False,
+            rng: Optional[int | np.random.RandomState | np.random.Generator] = None,
+    ):
+        assert fun is None or callable(fun), fun
+        assert x0 is not None or bounds is not None, &#34;Either x0= or bounds= must be provided&#34;
+        constraints = _sanitize_constraints(constraints)
+        assert constraints is None or callable(constraints), constraints
+        assert isinstance(max_iter, Integral) and max_iter &gt; 0, max_iter
+        assert isinstance(tol, Real) and 0 &lt;= tol, tol
+        assert isinstance(n_iter_no_change, int) and n_iter_no_change &gt; 0, n_iter_no_change
+        assert callback is None or callable(callback), callback
+        assert isinstance(n_jobs, Integral) and n_jobs != 0, n_jobs
+        assert isinstance(rng, (Integral, np.random.RandomState, np.random.Generator, type(None))), rng
+
+        assert n_init is None or isinstance(n_init, Integral) and n_init &gt;= 0, n_init
+        assert n_candidates is None or isinstance(n_candidates, Integral) and n_candidates &gt; 0, n_candidates
+        assert estimator is None or isinstance(estimator, (str, _SklearnLikeRegressor)), estimator
+        assert isinstance(n_models, Integral) and n_models &gt; 0, n_models
+
+        bounds, x0, y0 = _check_bounds(bounds, x0, y0)
+        rng = _check_random_state(rng)
+
+        if n_init is None:
+            n_init = 0 if not callable(fun) else min(max(1, max_iter - 20), 150 * len(bounds))
+        assert max_iter &gt;= n_init, (max_iter, n_init)
+
+        if n_candidates is None:
+            n_candidates = max(1, int(np.log2(len(bounds))))
+
+        if estimator is None or isinstance(estimator, str):
+            from sambo._estimators import _estimator_factory
+
+            estimator = _estimator_factory(estimator, bounds, rng)
+        assert isinstance(estimator, _SklearnLikeRegressor), estimator
+
+        # Objective function can be None for the real-life function trials using ask-tell API
+        fun = None if fun is None else _ParallelFuncWrapper(
+            _ObjectiveFunctionWrapper(
+                func=fun,
+                max_nfev=max_iter,
+                callback=callback,
+                args=()),
+            n_jobs, args,
+        )
+
+        self.fun = fun
+        self.x0 = x0
+        self.y0 = y0
+        self.bounds = bounds
+        self.constraints = constraints
+        self.max_iter = max_iter
+        self.n_init = n_init
+        self.n_candidates = n_candidates
+        self.n_iter_no_change = n_iter_no_change
+        self.tol = tol
+        self.estimator = estimator
+        self.estimators = []
+        self.n_models = n_models
+        self.callback = callback
+        self.n_jobs = n_jobs
+        self.disp = disp
+        self.rng = rng
+
+        X, y = [], []
+        if y0 is not None:
+            y0 = np.atleast_1d(y0)
+            assert x0 is not None and len(x0) == len(y0), (x0, y0)
+            x0 = np.atleast_2d(x0)
+            assert len(x0) == len(y0), (x0, y0)
+            X, y = list(x0), list(y0)
+
+        self._X_ask = []
+        # Known points
+        self._X = X
+        self._y = y
+        assert len(X) == len(y), (X, y)
+
+        # Cache methods on the _instance_
+        self._init_once = lru_cache(1)(self._init_once)
+        self.top_k = lru_cache(1)(self.top_k)
+
+    def _init_once(self):
+        assert not self.n_init or callable(self.fun), (self.n_init, self.fun)
+        if not self.n_init:
+            return
+        x0, n_init = self.x0, self.n_init
+        if self.y0 is not None:
+            # x0, y0 already added to _X, _Y in __init__
+            x0, n_init = None, max(0, self.n_init - len(self.x0))
+        if n_init:
+            X = _initialize_population(self.bounds, n_init, self.constraints, x0, self.rng)
+            y = self.fun(X)
+            self._X.extend(X)
+            self._y.extend(y)
+        self._fit()
+
+    def _fit(self):
+        from sklearn import clone
+
+        estimator = self.estimator
+        if self.n_models &gt; 1 and hasattr(estimator, &#39;random_state&#39;):
+            estimator = clone(self.estimator)
+            estimator.random_state = np.random.randint(10000000)
+        estimator.fit(self._X, self._y)
+
+        self.estimators.append(estimator)
+        if len(self.estimators) &gt; self.n_models:
+            self.estimators.pop(0)
+
+        self.top_k.cache_clear()
+
+    def _predict(self, X):
+        means, stds, masks = [], [], []
+        for estimator in self.estimators:
+            try:
+                mean, std = estimator.predict(X, return_std=True)
+            except TypeError as exc:
+                if &#39;return_std&#39; not in exc.args[0]:
+                    raise
+                mean, std = estimator.predict(X), 0
+                mask = np.ones_like(mean, dtype=bool)
+            else:
+                # Only suggest new/unknown points
+                mask = std != 0
+
+            means.append(mean)
+            stds.append(std)
+            masks.append(mask)
+
+        mask = np.any(masks, axis=0)
+        mean = np.mean(means, axis=0)
+        std = np.mean(stds, axis=0)
+
+        if mask.any() and not mask.all():
+            X, mean, std = X[mask], mean[mask], std[mask]
+
+        return X, mean, std
+
+    #: Acquisition functions for selecting the best candidates from the sample.
+    #: Currently defined keys:
+    #:     &#34;UCB&#34; for upper confidence bound (`mean - kappa * std`).
+    #: [//]: # (No blank line here! bug in pdoc)
+    #: .. note::
+    #:      To make any use of the `kappa` parameter, it is important for the
+    #:      estimator&#39;s `predict()` method to implement `return_std=` behavior.
+    #:      All built-in estimators (`&#34;gp&#34;`, `&#34;et&#34;`, `&#34;gb&#34;`) do so.
+    ACQ_FUNCS: dict = {
+        &#39;UCB&#39;: _UCB,
+    }
+
+    def ask(
+            self,
+            n_candidates: Optional[int] = None,
+            *,
+            acq_func: Optional[Callable] = ACQ_FUNCS[&#39;UCB&#39;],
+            kappa: float | list[float] = 0,
+    ) -&gt; np.ndarray:
+        &#34;&#34;&#34;
+        Propose candidate solutions for the next objective evaluation based on
+        the current surrogate model(s) and acquisition function.
+
+        Parameters
+        ----------
+        n_candidates : int, optional
+            Number of candidate solutions to propose.
+            If not specified, the default value set during initialization is used.
+
+        acq_func : Callable, default ACQ_FUNCS[&#39;UCB&#39;]
+            Acquisition function used to guide the selection of candidate solutions.
+            By default, upper confidence bound (i.e. `mean + kappa * std` where `mean`
+            and `std` are surrogate models&#39; predicted results).
+
+            .. tip::
+                [See the source][_ghs] for how `ACQ_FUNCS[&#39;UCB&#39;]` is implemeted.
+                The passed parameters are open to extension to accommodate
+                alternative acquisition functions.
+
+                [_ghs]: https://github.com/search?q=repo%3Asambo-optimization%2Fsambo%20ACQ_FUNCS&amp;type=code
+
+        kappa : float or list[float], default 0
+            The upper/lower-confidence-bound parameter, used by `acq_func`, that
+            balances exploration vs exploitation.
+
+            Can also be an array of values to use sequentially for `n_cadidates`.
+
+        Returns
+        -------
+        np.ndarray
+            An array of shape `(n_candidates, n_bounds)` containing the proposed
+            candidate solutions.
+
+        Notes
+        -----
+        Candidates are proposed in parallel according to `n_jobs` when `n_candidates &gt; 1`.
+
+        Examples
+        --------
+        &gt;&gt;&gt; candidates = optimizer.ask(n_candidates=2, kappa=2)
+        &gt;&gt;&gt; candidates
+        array([[ 1.1, -0.2],
+               [ 0.8,  0.1]])
+        &#34;&#34;&#34;
+        if n_candidates is None:
+            n_candidates = self.n_candidates
+        assert isinstance(n_candidates, Integral) and n_candidates &gt; 0, n_candidates
+        assert isinstance(kappa, (Real, Iterable)), kappa
+        self._init_once()
+
+        n_points = max(10_000, 1000 * int(len(self.bounds)**1.2))
+        X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+        X, mean, std = self._predict(X)
+        criterion = acq_func(mean=mean, std=std, kappa=kappa)
+        best_indices = np.argsort(criterion)[:, :n_candidates].flatten(&#39;F&#39;)
+        X = X[best_indices]
+        X = X[:n_candidates]
+        self._X_ask.extend(map(tuple, X))
+        return X
+
+    def tell(self, y: float | list[float],
+             x: Optional[float | tuple[float] | list[tuple[float]]] = None):
+        &#34;&#34;&#34;
+        Provide incremental feedback to the optimizer by reporting back the objective
+        function values (`y`) at suggested or new candidate points (`x`).
+
+        This allows the optimizer to refine its underlying model(s) and better
+        guide subsequent proposals.
+
+        Parameters
+        ----------
+        y : float or list[float]
+            The observed value(s) of the objective function.
+
+        x : float or list[float], optional
+            The input point(s) corresponding to the observed objective function values `y`.
+            If omitted, the optimizer assumes that the `y` values correspond
+            to the most recent candidates proposed by the `ask` method (FIFO).
+
+            .. warning::
+                The function first takes `y`, then `x`, not the other way around!
+
+        Examples
+        --------
+        &gt;&gt;&gt; candidates = optimizer.ask(n_candidates=3)
+        &gt;&gt;&gt; ... # Evaluate candidate solutions IRL and tell it to the optimizer
+        &gt;&gt;&gt; objective_values = [1.7, 3, .8]
+        &gt;&gt;&gt; optimizer.tell(y=objective_values, x=candidates)
+        &#34;&#34;&#34;
+        y = np.atleast_1d(y)
+        assert y.ndim == 1, &#39;y= should be at most 1-dimensional&#39;
+        if x is None:
+            if not self._X_ask:
+                raise RuntimeError(
+                    f&#39;`{self.tell.__qualname__}(y, x=None)` only allowed as many &#39;
+                    f&#39;times as `{self.ask.__qualname__}()` was called beforehand&#39;)
+            for x, yval in zip(tuple(self._X_ask), y):
+                self._X_ask.pop(0)
+                self._X.append(x)
+                self._y.append(yval)
+        else:
+            x = np.atleast_2d(x)
+            assert len(x) == len(y), &#39;y= and x= (if provided) must contain the same number of items&#39;
+            for xi, yi in zip(x, y):
+                try:
+                    self._X_ask.pop(self._X_ask.index(tuple(xi)))
+                except (ValueError, IndexError):
+                    pass
+                self._X.append(xi)
+                self._y.append(yi)
+        self._fit()
+
+    def run(self, *,
+            max_iter: Optional[int] = None,
+            n_candidates: Optional[int] = None) -&gt; OptimizeResult:
+        &#34;&#34;&#34;
+        Execute the optimization process for (at most) a specified number of iterations
+        (function evaluations) and return the optimization result.
+
+        This method performs sequential optimization by iteratively proposing candidates using
+        method `ask()`, evaluating the objective function, and updating the optimizer state
+        with method `tell()`.
+        This continues until the maximum number of iterations (`max_iter`) is reached or other
+        stopping criteria are met.
+
+        This method encapsulates the entire optimization workflow, making it convenient
+        to use when you don&#39;t need fine-grained control over individual steps (`ask` and `tell`).
+        It cycles between exploration and exploitation by random sampling `kappa` appropriately.
+
+        Parameters
+        ----------
+        max_iter : int, optional
+            The maximum number of iterations to perform. If not specified, the
+            default value provided during initialization is used.
+
+        n_candidates : int, optional
+            Number of candidates to propose and evaluate in each iteration. If not specified,
+            the default value provided during initialization is used.
+
+        Returns
+        -------
+        OptimizeResult: OptimizeResult
+            Results of the optimization process.
+
+        Examples
+        --------
+        Run an optimization with a specified number of iterations:
+        &gt;&gt;&gt; result = optimizer.run(max_iter=30)
+        &gt;&gt;&gt; print(result.x, result.fun)  # Best x, y
+        &#34;&#34;&#34;
+        max_iter = max_iter if max_iter is not None else 0 if self.fun is None else self.max_iter
+        assert callable(self.fun) or max_iter == 0, &#34;Can&#39;t run optimizer when fun==None. Can only use ask-tell API.&#34;
+        assert n_candidates is None or isinstance(n_candidates, Integral) and n_candidates &gt; 0, n_candidates
+        assert max_iter is None or isinstance(max_iter, Integral) and max_iter &gt;= 0, max_iter
+
+        n_candidates = n_candidates or self.n_candidates
+        success = True
+        message = &#34;Optimization hadn&#39;t been started&#34;
+        iteration = 0
+        prev_best_value = np.inf
+        no_change = 0
+        try:
+            for iteration in range(1, max_iter + 1):
+                coefs = [self.rng.uniform(-2, 2) for i in range(n_candidates)]
+                X = self.ask(n_candidates, kappa=coefs)
+                y = self.fun(X)
+                self.tell(y)
+
+                best_value = min(self._y)
+                if self.tol and prev_best_value - best_value &lt; self.tol or prev_best_value == best_value:
+                    no_change += 1
+                    if no_change == self.n_iter_no_change:
+                        message = &#39;Optimization converged (y_prev[n_iter_no_change] - y_best &lt; tol)&#39;
+                        break
+                else:
+                    assert best_value &lt; prev_best_value
+                    no_change = 0
+                    prev_best_value = best_value
+
+                if self.disp:
+                    print(f&#34;{__package__}: {self.estimator.__class__.__name__} &#34;
+                          f&#34;nit:{iteration}, nfev:{self.fun.func.nfev}, &#34;
+                          f&#34;fun:{np.min(self._y):.5g}&#34;)
+        except _ObjectiveFunctionWrapper.CallbackStopIteration:
+            message = &#39;Optimization callback returned True&#39;
+        except _ObjectiveFunctionWrapper.MaximumFunctionEvaluationsReached:
+            message = f&#39;Maximum function evaluations reached (max_iter = {max_iter})&#39;
+            success = False
+        except KeyboardInterrupt:
+            message = &#39;KeyboardInterrupt&#39;
+            success = False
+
+        if len(self._X) == 0 and self.fun is not None:
+            # We were interrupted before ._init_once() could finish
+            self._X = self.fun.func.xv
+            self._y = self.fun.func.funv
+
+        x, y = self.top_k(1)
+        result = OptimizeResult(
+            success=success,
+            message=message,
+            x=x,
+            fun=y,
+            nit=iteration,
+            nfev=len(self._y) - (len(self.y0) if self.y0 is not None else 0),
+            xv=np.array(self._X),
+            funv=np.array(self._y),
+            model=list(self.estimators),
+        )
+        return result
+
+    def top_k(self, k: int = 1):
+        &#34;&#34;&#34;
+        Based on their objective function values,
+        retrieve the top-k best solutions found by the optimization process so far.
+
+        Parameters
+        ----------
+        k : int, default 1
+            The number of top solutions to retrieve.
+            If `k` exceeds the number of evaluated solutions,
+            all available solutions are returned.
+
+        Returns
+        -------
+        X : np.ndarray
+            A list of best points with shape `(k, n_bounds)`.
+        y : np.ndarray
+            Objective values at points of `X`.
+
+        Examples
+        --------
+        Retrieve the best solution:
+        &gt;&gt;&gt; optimizer.run()
+        &gt;&gt;&gt; best_x, best_y = optimizer.top_k(1)
+        &#34;&#34;&#34;
+        assert isinstance(k, Integral) and k &gt; 0, k
+        best_index = np.argsort(self._y)
+        index = slice(0, k) if k &gt; 1 else (k - 1)
+        return self._X[best_index[index]], self._y[best_index[index]]</code></pre>
+</details>
+<div class="desc"><p>A sequential optimizer that optimizes an objective function using a surrogate model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>fun</code></strong> :&ensp;<code>Callable[[np.ndarray], float]</code>, optional</dt>
+<dd>
+<p>Objective function to minimize. Must take a single array-like argument
+x (parameter combination) and return a scalar y (cost value).</p>
+<p>When unspecified, the Optimizer can be used iteratively in an ask-tell
+fashion using the methods named respectively.</p>
+</dd>
+<dt><strong><code>x0</code></strong> :&ensp;<code>tuple | list[tuple]</code>, optional</dt>
+<dd>Initial guess(es) or starting point(s) for the optimization.</dd>
+<dt><strong><code>args</code></strong> :&ensp;<code>tuple</code>, optional</dt>
+<dd>Additional arguments to pass to the objective function and constraints.</dd>
+<dt><strong><code>bounds</code></strong> :&ensp;<code>list[tuple]</code>, optional</dt>
+<dd>Bounds for the decision variables. A sequence of (min, max) pairs for each dimension.</dd>
+<dt><strong><code>constraints</code></strong> :&ensp;<code>Callable[[np.ndarray], bool]</code>, optional</dt>
+<dd>Function representing constraints.
+Must return True iff the parameter combination x satisfies the constraints.</dd>
+<dt><strong><code>max_iter</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Maximum number of iterations allowed.</dd>
+<dt><strong><code>n_init</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of initial evaluations of the objective function before
+first fitting the surrogate model.</dd>
+<dt><strong><code>n_candidates</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of candidate solutions generated per iteration.</dd>
+<dt><strong><code>n_iter_no_change</code></strong> :&ensp;<code>int</code>, default <code>10</code></dt>
+<dd>Number of iterations with no improvement before stopping.</dd>
+<dt><strong><code>n_models</code></strong> :&ensp;<code>int</code>, default <code>1</code></dt>
+<dd>Number of most-recently-generated surrogate models to use for
+next best-point prediction. Useful for small and
+randomized estimators such as <code>"et"</code> with no fixed <code>rng=</code>.</dd>
+<dt><strong><code>tol</code></strong> :&ensp;<code>float</code>, default <code>FLOAT32_PRECISION</code></dt>
+<dd>Tolerance for convergence. Optimization stops when
+found optimum improvements are below this threshold.</dd>
+<dt><strong><code>estimator</code></strong> :&ensp;<code>{'gp', 'et', 'gb'}</code> or <code>scikit-learn-like regressor</code>, default=<code>'gp'</code></dt>
+<dd>
+<p>Surrogate model for the optimizer.
+Popular options include "gp" (Gaussian process), "et" (extra trees),
+or "gb" (gradient boosting).</p>
+<p>You can also provide your own regressor with a scikit-learn API,
+namely <code>fit()</code> and <code>predict()</code> methods.</p>
+</dd>
+<dt><strong><code>y0</code></strong> :&ensp;<code>float</code> or <code>tuple[float]</code>, optional</dt>
+<dd>Initial value(s) of the objective function corresponding to <code>x0</code>.</dd>
+<dt><strong><code>callback</code></strong> :&ensp;<code>Callable[[<a title="sambo.OptimizeResult" href="#sambo.OptimizeResult">OptimizeResult</a>], bool]</code>, optional</dt>
+<dd>A callback function that is called after each iteration.
+The optimization stops If the callback returns True or
+raises <code>StopIteration</code>.</dd>
+<dt><strong><code>n_jobs</code></strong> :&ensp;<code>int</code>, default <code>1</code></dt>
+<dd>Number of objective function evaluations to run in parallel.
+Most applicate when n_candidates &gt; 1.</dd>
+<dt><strong><code>disp</code></strong> :&ensp;<code>bool</code>, default <code>False</code></dt>
+<dd>Display progress and intermediate results.</dd>
+<dt><strong><code>rng</code></strong> :&ensp;<code>int</code> or <code>np.random.RandomState</code> or <code>np.random.Generator</code>, optional</dt>
+<dd>Random number generator or seed for reproducibility.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from sambo import Optimizer
+&gt;&gt;&gt; def objective_func(x):
+...     return sum(x**2)
+&gt;&gt;&gt; optimizer = Optimizer(fun=objective_func, bounds=[(-5, 5), (-5, 5)])
+&gt;&gt;&gt; result = optimizer.run()
+</code></pre>
+<p>Using the ask-tell interface:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; optimizer = Optimizer(fun=None, bounds=[(-5, 5), (-5, 5)])
+&gt;&gt;&gt; suggested_x = optimizer.ask()
+&gt;&gt;&gt; y = [objective_func(x) for x in suggested_x]
+&gt;&gt;&gt; optimizer.tell(y, suggested_x)
+</code></pre></div>
+<h3>Class variables</h3>
+<dl>
+<dt id="sambo.Optimizer.ACQ_FUNCS"><code class="name">var <span class="ident">ACQ_FUNCS</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Acquisition functions for selecting the best candidates from the sample.
+Currently defined keys:
+"UCB" for upper confidence bound (<code>mean - kappa * std</code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To make any use of the <code>kappa</code> parameter, it is important for the
+estimator's <code>predict()</code> method to implement <code>return_std=</code> behavior.
+All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>) do so.</p>
+</div></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="sambo.Optimizer.ask"><code class="name flex">
+<span>def <span class="ident">ask</span></span>(<span>self,<br>n_candidates: int | None = None,<br>*,<br>acq_func: Callable | None = &lt;function _UCB&gt;,<br>kappa: float | list[float] = 0) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_smbo.py#L277-L343" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def ask(
+        self,
+        n_candidates: Optional[int] = None,
+        *,
+        acq_func: Optional[Callable] = ACQ_FUNCS[&#39;UCB&#39;],
+        kappa: float | list[float] = 0,
+) -&gt; np.ndarray:
+    &#34;&#34;&#34;
+    Propose candidate solutions for the next objective evaluation based on
+    the current surrogate model(s) and acquisition function.
+
+    Parameters
+    ----------
+    n_candidates : int, optional
+        Number of candidate solutions to propose.
+        If not specified, the default value set during initialization is used.
+
+    acq_func : Callable, default ACQ_FUNCS[&#39;UCB&#39;]
+        Acquisition function used to guide the selection of candidate solutions.
+        By default, upper confidence bound (i.e. `mean + kappa * std` where `mean`
+        and `std` are surrogate models&#39; predicted results).
+
+        .. tip::
+            [See the source][_ghs] for how `ACQ_FUNCS[&#39;UCB&#39;]` is implemeted.
+            The passed parameters are open to extension to accommodate
+            alternative acquisition functions.
+
+            [_ghs]: https://github.com/search?q=repo%3Asambo-optimization%2Fsambo%20ACQ_FUNCS&amp;type=code
+
+    kappa : float or list[float], default 0
+        The upper/lower-confidence-bound parameter, used by `acq_func`, that
+        balances exploration vs exploitation.
+
+        Can also be an array of values to use sequentially for `n_cadidates`.
+
+    Returns
+    -------
+    np.ndarray
+        An array of shape `(n_candidates, n_bounds)` containing the proposed
+        candidate solutions.
+
+    Notes
+    -----
+    Candidates are proposed in parallel according to `n_jobs` when `n_candidates &gt; 1`.
+
+    Examples
+    --------
+    &gt;&gt;&gt; candidates = optimizer.ask(n_candidates=2, kappa=2)
+    &gt;&gt;&gt; candidates
+    array([[ 1.1, -0.2],
+           [ 0.8,  0.1]])
+    &#34;&#34;&#34;
+    if n_candidates is None:
+        n_candidates = self.n_candidates
+    assert isinstance(n_candidates, Integral) and n_candidates &gt; 0, n_candidates
+    assert isinstance(kappa, (Real, Iterable)), kappa
+    self._init_once()
+
+    n_points = max(10_000, 1000 * int(len(self.bounds)**1.2))
+    X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+    X, mean, std = self._predict(X)
+    criterion = acq_func(mean=mean, std=std, kappa=kappa)
+    best_indices = np.argsort(criterion)[:, :n_candidates].flatten(&#39;F&#39;)
+    X = X[best_indices]
+    X = X[:n_candidates]
+    self._X_ask.extend(map(tuple, X))
+    return X</code></pre>
+</details>
+<div class="desc"><p>Propose candidate solutions for the next objective evaluation based on
+the current surrogate model(s) and acquisition function.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>n_candidates</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of candidate solutions to propose.
+If not specified, the default value set during initialization is used.</dd>
+<dt><strong><code>acq_func</code></strong> :&ensp;<code>Callable</code>, default <code>ACQ_FUNCS['UCB']</code></dt>
+<dd>
+<p>Acquisition function used to guide the selection of candidate solutions.
+By default, upper confidence bound (i.e. <code>mean + kappa * std</code> where <code>mean</code>
+and <code>std</code> are surrogate models' predicted results).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><a href="https://github.com/search?q=repo%3Asambo-optimization%2Fsambo%20ACQ_FUNCS&amp;type=code">See the source</a> for how <code>ACQ_FUNCS['UCB']</code> is implemeted.
+The passed parameters are open to extension to accommodate
+alternative acquisition functions.</p>
+</div>
+</dd>
+<dt><strong><code>kappa</code></strong> :&ensp;<code>float</code> or <code>list[float]</code>, default <code>0</code></dt>
+<dd>
+<p>The upper/lower-confidence-bound parameter, used by <code>acq_func</code>, that
+balances exploration vs exploitation.</p>
+<p>Can also be an array of values to use sequentially for <code>n_cadidates</code>.</p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>np.ndarray</code></dt>
+<dd>An array of shape <code>(n_candidates, n_bounds)</code> containing the proposed
+candidate solutions.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Candidates are proposed in parallel according to <code>n_jobs</code> when <code>n_candidates &gt; 1</code>.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; candidates = optimizer.ask(n_candidates=2, kappa=2)
+&gt;&gt;&gt; candidates
+array([[ 1.1, -0.2],
+       [ 0.8,  0.1]])
+</code></pre></div>
+</dd>
+<dt id="sambo.Optimizer.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, *, max_iter: int | None = None, n_candidates: int | None = None) ‑> sambo._util.OptimizeResult</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_smbo.py#L397-L494" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def run(self, *,
+        max_iter: Optional[int] = None,
+        n_candidates: Optional[int] = None) -&gt; OptimizeResult:
+    &#34;&#34;&#34;
+    Execute the optimization process for (at most) a specified number of iterations
+    (function evaluations) and return the optimization result.
+
+    This method performs sequential optimization by iteratively proposing candidates using
+    method `ask()`, evaluating the objective function, and updating the optimizer state
+    with method `tell()`.
+    This continues until the maximum number of iterations (`max_iter`) is reached or other
+    stopping criteria are met.
+
+    This method encapsulates the entire optimization workflow, making it convenient
+    to use when you don&#39;t need fine-grained control over individual steps (`ask` and `tell`).
+    It cycles between exploration and exploitation by random sampling `kappa` appropriately.
+
+    Parameters
+    ----------
+    max_iter : int, optional
+        The maximum number of iterations to perform. If not specified, the
+        default value provided during initialization is used.
+
+    n_candidates : int, optional
+        Number of candidates to propose and evaluate in each iteration. If not specified,
+        the default value provided during initialization is used.
+
+    Returns
+    -------
+    OptimizeResult: OptimizeResult
+        Results of the optimization process.
+
+    Examples
+    --------
+    Run an optimization with a specified number of iterations:
+    &gt;&gt;&gt; result = optimizer.run(max_iter=30)
+    &gt;&gt;&gt; print(result.x, result.fun)  # Best x, y
+    &#34;&#34;&#34;
+    max_iter = max_iter if max_iter is not None else 0 if self.fun is None else self.max_iter
+    assert callable(self.fun) or max_iter == 0, &#34;Can&#39;t run optimizer when fun==None. Can only use ask-tell API.&#34;
+    assert n_candidates is None or isinstance(n_candidates, Integral) and n_candidates &gt; 0, n_candidates
+    assert max_iter is None or isinstance(max_iter, Integral) and max_iter &gt;= 0, max_iter
+
+    n_candidates = n_candidates or self.n_candidates
+    success = True
+    message = &#34;Optimization hadn&#39;t been started&#34;
+    iteration = 0
+    prev_best_value = np.inf
+    no_change = 0
+    try:
+        for iteration in range(1, max_iter + 1):
+            coefs = [self.rng.uniform(-2, 2) for i in range(n_candidates)]
+            X = self.ask(n_candidates, kappa=coefs)
+            y = self.fun(X)
+            self.tell(y)
+
+            best_value = min(self._y)
+            if self.tol and prev_best_value - best_value &lt; self.tol or prev_best_value == best_value:
+                no_change += 1
+                if no_change == self.n_iter_no_change:
+                    message = &#39;Optimization converged (y_prev[n_iter_no_change] - y_best &lt; tol)&#39;
+                    break
+            else:
+                assert best_value &lt; prev_best_value
+                no_change = 0
+                prev_best_value = best_value
+
+            if self.disp:
+                print(f&#34;{__package__}: {self.estimator.__class__.__name__} &#34;
+                      f&#34;nit:{iteration}, nfev:{self.fun.func.nfev}, &#34;
+                      f&#34;fun:{np.min(self._y):.5g}&#34;)
+    except _ObjectiveFunctionWrapper.CallbackStopIteration:
+        message = &#39;Optimization callback returned True&#39;
+    except _ObjectiveFunctionWrapper.MaximumFunctionEvaluationsReached:
+        message = f&#39;Maximum function evaluations reached (max_iter = {max_iter})&#39;
+        success = False
+    except KeyboardInterrupt:
+        message = &#39;KeyboardInterrupt&#39;
+        success = False
+
+    if len(self._X) == 0 and self.fun is not None:
+        # We were interrupted before ._init_once() could finish
+        self._X = self.fun.func.xv
+        self._y = self.fun.func.funv
+
+    x, y = self.top_k(1)
+    result = OptimizeResult(
+        success=success,
+        message=message,
+        x=x,
+        fun=y,
+        nit=iteration,
+        nfev=len(self._y) - (len(self.y0) if self.y0 is not None else 0),
+        xv=np.array(self._X),
+        funv=np.array(self._y),
+        model=list(self.estimators),
+    )
+    return result</code></pre>
+</details>
+<div class="desc"><p>Execute the optimization process for (at most) a specified number of iterations
+(function evaluations) and return the optimization result.</p>
+<p>This method performs sequential optimization by iteratively proposing candidates using
+method <code>ask()</code>, evaluating the objective function, and updating the optimizer state
+with method <code>tell()</code>.
+This continues until the maximum number of iterations (<code>max_iter</code>) is reached or other
+stopping criteria are met.</p>
+<p>This method encapsulates the entire optimization workflow, making it convenient
+to use when you don't need fine-grained control over individual steps (<code>ask</code> and <code>tell</code>).
+It cycles between exploration and exploitation by random sampling <code>kappa</code> appropriately.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>max_iter</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The maximum number of iterations to perform. If not specified, the
+default value provided during initialization is used.</dd>
+<dt><strong><code>n_candidates</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of candidates to propose and evaluate in each iteration. If not specified,
+the default value provided during initialization is used.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>OptimizeResult</code></strong> :&ensp;<code><a title="sambo.OptimizeResult" href="#sambo.OptimizeResult">OptimizeResult</a></code></dt>
+<dd>Results of the optimization process.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Run an optimization with a specified number of iterations:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; result = optimizer.run(max_iter=30)
+&gt;&gt;&gt; print(result.x, result.fun)  # Best x, y
+</code></pre></div>
+</dd>
+<dt id="sambo.Optimizer.tell"><code class="name flex">
+<span>def <span class="ident">tell</span></span>(<span>self,<br>y: float | list[float],<br>x: float | tuple[float] | list[tuple[float]] | None = None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_smbo.py#L345-L395" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def tell(self, y: float | list[float],
+         x: Optional[float | tuple[float] | list[tuple[float]]] = None):
+    &#34;&#34;&#34;
+    Provide incremental feedback to the optimizer by reporting back the objective
+    function values (`y`) at suggested or new candidate points (`x`).
+
+    This allows the optimizer to refine its underlying model(s) and better
+    guide subsequent proposals.
+
+    Parameters
+    ----------
+    y : float or list[float]
+        The observed value(s) of the objective function.
+
+    x : float or list[float], optional
+        The input point(s) corresponding to the observed objective function values `y`.
+        If omitted, the optimizer assumes that the `y` values correspond
+        to the most recent candidates proposed by the `ask` method (FIFO).
+
+        .. warning::
+            The function first takes `y`, then `x`, not the other way around!
+
+    Examples
+    --------
+    &gt;&gt;&gt; candidates = optimizer.ask(n_candidates=3)
+    &gt;&gt;&gt; ... # Evaluate candidate solutions IRL and tell it to the optimizer
+    &gt;&gt;&gt; objective_values = [1.7, 3, .8]
+    &gt;&gt;&gt; optimizer.tell(y=objective_values, x=candidates)
+    &#34;&#34;&#34;
+    y = np.atleast_1d(y)
+    assert y.ndim == 1, &#39;y= should be at most 1-dimensional&#39;
+    if x is None:
+        if not self._X_ask:
+            raise RuntimeError(
+                f&#39;`{self.tell.__qualname__}(y, x=None)` only allowed as many &#39;
+                f&#39;times as `{self.ask.__qualname__}()` was called beforehand&#39;)
+        for x, yval in zip(tuple(self._X_ask), y):
+            self._X_ask.pop(0)
+            self._X.append(x)
+            self._y.append(yval)
+    else:
+        x = np.atleast_2d(x)
+        assert len(x) == len(y), &#39;y= and x= (if provided) must contain the same number of items&#39;
+        for xi, yi in zip(x, y):
+            try:
+                self._X_ask.pop(self._X_ask.index(tuple(xi)))
+            except (ValueError, IndexError):
+                pass
+            self._X.append(xi)
+            self._y.append(yi)
+    self._fit()</code></pre>
+</details>
+<div class="desc"><p>Provide incremental feedback to the optimizer by reporting back the objective
+function values (<code>y</code>) at suggested or new candidate points (<code>x</code>).</p>
+<p>This allows the optimizer to refine its underlying model(s) and better
+guide subsequent proposals.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>y</code></strong> :&ensp;<code>float</code> or <code>list[float]</code></dt>
+<dd>The observed value(s) of the objective function.</dd>
+<dt><strong><code>x</code></strong> :&ensp;<code>float</code> or <code>list[float]</code>, optional</dt>
+<dd>
+<p>The input point(s) corresponding to the observed objective function values <code>y</code>.
+If omitted, the optimizer assumes that the <code>y</code> values correspond
+to the most recent candidates proposed by the <code>ask</code> method (FIFO).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The function first takes <code>y</code>, then <code>x</code>, not the other way around!</p>
+</div>
+</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; candidates = optimizer.ask(n_candidates=3)
+&gt;&gt;&gt; ... # Evaluate candidate solutions IRL and tell it to the optimizer
+&gt;&gt;&gt; objective_values = [1.7, 3, .8]
+&gt;&gt;&gt; optimizer.tell(y=objective_values, x=candidates)
+</code></pre></div>
+</dd>
+<dt id="sambo.Optimizer.top_k"><code class="name flex">
+<span>def <span class="ident">top_k</span></span>(<span>self, k: int = 1)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_smbo.py#L496-L524" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def top_k(self, k: int = 1):
+    &#34;&#34;&#34;
+    Based on their objective function values,
+    retrieve the top-k best solutions found by the optimization process so far.
+
+    Parameters
+    ----------
+    k : int, default 1
+        The number of top solutions to retrieve.
+        If `k` exceeds the number of evaluated solutions,
+        all available solutions are returned.
+
+    Returns
+    -------
+    X : np.ndarray
+        A list of best points with shape `(k, n_bounds)`.
+    y : np.ndarray
+        Objective values at points of `X`.
+
+    Examples
+    --------
+    Retrieve the best solution:
+    &gt;&gt;&gt; optimizer.run()
+    &gt;&gt;&gt; best_x, best_y = optimizer.top_k(1)
+    &#34;&#34;&#34;
+    assert isinstance(k, Integral) and k &gt; 0, k
+    best_index = np.argsort(self._y)
+    index = slice(0, k) if k &gt; 1 else (k - 1)
+    return self._X[best_index[index]], self._y[best_index[index]]</code></pre>
+</details>
+<div class="desc"><p>Based on their objective function values,
+retrieve the top-k best solutions found by the optimization process so far.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>k</code></strong> :&ensp;<code>int</code>, default <code>1</code></dt>
+<dd>The number of top solutions to retrieve.
+If <code>k</code> exceeds the number of evaluated solutions,
+all available solutions are returned.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>X</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>A list of best points with shape <code>(k, n_bounds)</code>.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Objective values at points of <code>X</code>.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<p>Retrieve the best solution:</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; optimizer.run()
+&gt;&gt;&gt; best_x, best_y = optimizer.top_k(1)
+</code></pre></div>
+</dd>
+</dl>
+</dd>
+<dt id="sambo.SamboSearchCV"><code class="flex name class">
+<span>class <span class="ident">SamboSearchCV</span></span>
+<span>(</span><span>estimator,<br>param_grid: dict,<br>*,<br>max_iter: int = 100,<br>method: Literal['shgo', 'sceua', 'smbo'] = 'smbo',<br>rng: int | numpy.random.mtrand.RandomState | numpy.random._generator.Generator | None = None,<br>**kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/_estimators.py#L98-L185" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">class SamboSearchCV(BaseSearchCV):
+    &#34;&#34;&#34;
+    SAMBO hyper-parameter search with cross-validation that can be
+    used to **optimize hyperparameters of machine learning estimator pipelines**
+    like those of scikit-learn.
+    Similar to `GridSearchCV` from scikit-learn,
+    but hopefully **much faster for large parameter spaces**.
+
+    Parameters
+    ----------
+    estimator : BaseEstimator
+        The base model or pipeline to optimize parameters for.
+        It needs to implement `fit()` and `predict()` methods.
+
+    param_grid : dict
+        Dictionary with parameters names (str) as keys and lists of parameter
+        choices to try as values. Supports both continuous parameter ranges and
+        discrete/string parameter enumerations.
+
+    max_iter : int, optional, default=100
+        The maximum number of iterations for the optimization.
+
+    method : {&#39;shgo&#39;, &#39;sceua&#39;, &#39;smbo&#39;}, optional, default=&#39;smbo&#39;
+        The optimization algorithm to use. See method `sambo.minimize()` for comparison.
+
+    rng : int or np.random.RandomState or np.random.RandomGenerator or None, optional
+        Random seed for reproducibility.
+
+    **kwargs : dict, optional
+        Additional parameters to pass to `BaseSearchCV`
+        (`scoring=`, `n_jobs=`, `refit=` `cv=`, `verbose=`, `pre_dispatch=`,
+        `error_score=`, `return_train_score=`). For explanation, see documentation
+        on [`GridSearchCV`][skl_gridsearchcv].
+
+        [skl_gridsearchcv]: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+
+    Attributes
+    ----------
+    opt_result_ : OptimizeResult
+        The result of the optimization process.
+
+    See Also
+    --------
+    1: https://scikit-learn.org/stable/modules/grid_search.html
+    &#34;&#34;&#34;
+    def __init__(
+            self,
+            estimator,
+            param_grid: dict,
+            *,
+            max_iter: int = 100,
+            method: Literal[&#39;shgo&#39;, &#39;sceua&#39;, &#39;smbo&#39;] = &#39;smbo&#39;,
+            rng: Optional[int | np.random.RandomState | np.random.Generator] = None,
+            **kwargs
+    ):
+        super().__init__(estimator=estimator, **kwargs)
+        self.param_grid = param_grid
+        self.max_iter = max_iter
+        self.method = method
+        self.rng = rng
+
+    def _run_search(self, evaluate_candidates):
+        import joblib
+
+        @lru_cache(key=joblib.hash)  # TODO: lru_cache(max_iter) objective function calls always??
+        def _objective(x):
+            res = evaluate_candidates([dict(zip(self.param_grid.keys(), x))])
+            y = -res[&#39;mean_test_score&#39;][-1]
+            nonlocal it
+            it += 1
+            if self.verbose:
+                print(f&#39;{self.__class__.__name__}: it={it}; y={y}; x={x}&#39;)
+            return y
+
+        bounds = [((sv := sorted(v))[0], sv[-1] + 1) if all(isinstance(i, Integral) for i in v) else
+                  ((sv := sorted(v))[0], sv[-1]) if all(isinstance(i, Real) for i in v) else
+                  list({i: 1 for i in v})
+                  for v in self.param_grid.values()]
+        kwargs = {}
+        if self.max_iter is not None:
+            kwargs = {&#39;max_iter&#39;: self.max_iter}
+
+        from ._minimize import minimize
+
+        it = 0
+        self.opt_result_ = minimize(
+            _objective, bounds=bounds, method=self.method,
+            disp=self.verbose, rng=0, **kwargs)</code></pre>
+</details>
+<div class="desc"><p>SAMBO hyper-parameter search with cross-validation that can be
+used to <strong>optimize hyperparameters of machine learning estimator pipelines</strong>
+like those of scikit-learn.
+Similar to <code>GridSearchCV</code> from scikit-learn,
+but hopefully <strong>much faster for large parameter spaces</strong>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>estimator</code></strong> :&ensp;<code>BaseEstimator</code></dt>
+<dd>The base model or pipeline to optimize parameters for.
+It needs to implement <code>fit()</code> and <code>predict()</code> methods.</dd>
+<dt><strong><code>param_grid</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with parameters names (str) as keys and lists of parameter
+choices to try as values. Supports both continuous parameter ranges and
+discrete/string parameter enumerations.</dd>
+<dt><strong><code>max_iter</code></strong> :&ensp;<code>int</code>, optional, default=<code>100</code></dt>
+<dd>The maximum number of iterations for the optimization.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>{'shgo', 'sceua', 'smbo'}</code>, optional, default=<code>'smbo'</code></dt>
+<dd>The optimization algorithm to use. See method <code><a title="sambo.minimize" href="#sambo.minimize">minimize()</a></code> for comparison.</dd>
+<dt><strong><code>rng</code></strong> :&ensp;<code>int</code> or <code>np.random.RandomState</code> or <code>np.random.RandomGenerator</code> or <code>None</code>, optional</dt>
+<dd>Random seed for reproducibility.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>
+<p>Additional parameters to pass to <code>BaseSearchCV</code>
+(<code>scoring=</code>, <code>n_jobs=</code>, <code>refit=</code> <code>cv=</code>, <code>verbose=</code>, <code>pre_dispatch=</code>,
+<code>error_score=</code>, <code>return_train_score=</code>). For explanation, see documentation
+on <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html"><code>GridSearchCV</code></a>.</p>
+</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>opt_result_</code></strong> :&ensp;<code><a title="sambo.OptimizeResult" href="#sambo.OptimizeResult">OptimizeResult</a></code></dt>
+<dd>The result of the optimization process.</dd>
+</dl>
+<h2 id="see-also">See Also</h2>
+<dl>
+<dt><code>1</code></dt>
+<dd><a href="https://scikit-learn.org/stable/modules/grid_search.html">https://scikit-learn.org/stable/modules/grid_search.html</a></dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>sklearn.model_selection._search.BaseSearchCV</li>
+<li>sklearn.base.MetaEstimatorMixin</li>
+<li>sklearn.base.BaseEstimator</li>
+<li>sklearn.utils._estimator_html_repr._HTMLDocumentationLinkMixin</li>
+<li>sklearn.utils._metadata_requests._MetadataRequester</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<header>
+<a rel="home" title="SAMBO Home" href="https://sambo-optimization.github.io"><img src="/logo.svg" alt="SAMBO"></a>
+</header>
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul>
+<li><a href="#sambo-sequential-and-model-based-optimization-in-python">SAMBO - Sequential and Model-Based Optimization [in Python]</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="sambo.plot" href="plot.html">sambo.plot</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="sambo.minimize" href="#sambo.minimize">minimize</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="sambo.OptimizeResult" href="#sambo.OptimizeResult">OptimizeResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="sambo.OptimizeResult.fun" href="#sambo.OptimizeResult.fun">fun</a></code></li>
+<li><code><a title="sambo.OptimizeResult.funv" href="#sambo.OptimizeResult.funv">funv</a></code></li>
+<li><code><a title="sambo.OptimizeResult.message" href="#sambo.OptimizeResult.message">message</a></code></li>
+<li><code><a title="sambo.OptimizeResult.model" href="#sambo.OptimizeResult.model">model</a></code></li>
+<li><code><a title="sambo.OptimizeResult.nfev" href="#sambo.OptimizeResult.nfev">nfev</a></code></li>
+<li><code><a title="sambo.OptimizeResult.nit" href="#sambo.OptimizeResult.nit">nit</a></code></li>
+<li><code><a title="sambo.OptimizeResult.success" href="#sambo.OptimizeResult.success">success</a></code></li>
+<li><code><a title="sambo.OptimizeResult.x" href="#sambo.OptimizeResult.x">x</a></code></li>
+<li><code><a title="sambo.OptimizeResult.xv" href="#sambo.OptimizeResult.xv">xv</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code></h4>
+<ul class="">
+<li><code><a title="sambo.Optimizer.ACQ_FUNCS" href="#sambo.Optimizer.ACQ_FUNCS">ACQ_FUNCS</a></code></li>
+<li><code><a title="sambo.Optimizer.ask" href="#sambo.Optimizer.ask">ask</a></code></li>
+<li><code><a title="sambo.Optimizer.run" href="#sambo.Optimizer.run">run</a></code></li>
+<li><code><a title="sambo.Optimizer.tell" href="#sambo.Optimizer.tell">tell</a></code></li>
+<li><code><a title="sambo.Optimizer.top_k" href="#sambo.Optimizer.top_k">top_k</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="sambo.SamboSearchCV" href="#sambo.SamboSearchCV">SamboSearchCV</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p><span style="color:#ddd">&#21328;</span></p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

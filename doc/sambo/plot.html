@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>sambo.plot API documentation</title>
+<meta name="description" content="The module contains **functions for plotting**
+convergence, regret, partial dependence, sequence of evaluations
+…">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/equilibrium-gray-dark.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}#lunr-search{width:100%;font-size:1em;padding:6px 9px 5px 9px;border:1px solid silver}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+<style>
+a[rel="home"] img { max-width:70%; display: block; margin: auto; margin-bottom: 2em }
+</style>
+<link rel="canonical" href="https://sambo-optimization.github.io/doc/sambo/plot.html">
+<link rel="icon logo image" href="/logo.svg">
+<script async src='https://www.googletagmanager.com/gtag/js?id=G-QJH7PLMB12'></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QJH7PLMB12');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2900001379782823" crossorigin></script></head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>sambo.plot</code></h1>
+</header>
+<section id="section-intro">
+<p>The module contains <strong>functions for plotting</strong>
+convergence, regret, partial dependence, sequence of evaluations &hellip;</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; import matplotlib.pyplot as plt
+&gt;&gt;&gt; from scipy.optimize import rosen
+&gt;&gt;&gt; result = minimize(rosen, bounds=[(-2, 2), (-2, 2)],
+...                   constraints=lambda x: sum(x) &lt;= len(x))
+&gt;&gt;&gt; plot_convergence(result)
+&gt;&gt;&gt; plot_regret(result)
+&gt;&gt;&gt; plot_objective(result)
+&gt;&gt;&gt; plot_evaluations(result)
+&gt;&gt;&gt; plt.show()
+</code></pre>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="sambo.plot.plot_convergence"><code class="name flex">
+<span>def <span class="ident">plot_convergence</span></span>(<span>*results: sambo._util.OptimizeResult | tuple[str, sambo._util.OptimizeResult],<br>true_minimum: float | None = None,<br>xscale: Literal['linear', 'log'] = 'linear',<br>yscale: Literal['linear', 'log'] = 'linear') ‑> matplotlib.figure.Figure</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/plot.py#L37-L102" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def plot_convergence(
+        *results: OptimizeResult | tuple[str, OptimizeResult],
+        true_minimum: Optional[float] = None,
+        xscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
+        yscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
+) -&gt; Figure:
+    &#34;&#34;&#34;
+    Plot one or several convergence traces,
+    showing how an error estimate evolved during the optimization process.
+
+    Parameters
+    ----------
+    *results : OptimizeResult or tuple[str, OptimizeResult]
+        The result(s) for which to plot the convergence trace.
+        In tuple format, the string is used as the legend label
+        for that result.
+
+    true_minimum : float, optional
+        The true minimum *value* of the objective function, if known.
+
+    xscale, yscale : {&#39;linear&#39;, &#39;log&#39;}, optional, default=&#39;linear&#39;
+        The scales for the axes.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        The matplotlib figure.
+
+    Example
+    -------
+    .. image:: /convergence.svg
+    &#34;&#34;&#34;
+    assert results, results
+
+    fig = plt.figure()
+    _watermark(fig)
+    ax = plt.gca()
+    ax.set_title(&#34;Convergence&#34;)
+    ax.set_xlabel(&#34;Number of function evaluations $n$&#34;)
+    ax.set_ylabel(r&#34;$\min\ f(x)$ after $n$ evaluations&#34;)
+    ax.grid()
+    _set_xscale_yscale(ax, xscale, yscale)
+    fig.set_layout_engine(&#39;tight&#39;)
+
+    MARKER = cycle(_MARKER_SEQUENCE)
+
+    for i, result in enumerate(results, 1):
+        name = f&#39;#{i}&#39; if len(results) &gt; 1 else None
+        if isinstance(result, tuple):
+            name, result = result
+        result = _check_result(result)
+
+        nfev = _check_nfev(result)
+        mins = np.minimum.accumulate(result.funv)
+
+        ax.plot(range(1, nfev + 1), mins,
+                label=name, marker=next(MARKER), markevery=(.05 + .05*i, .2),
+                linestyle=&#39;--&#39;, alpha=.7, markersize=6, lw=2)
+
+    if true_minimum is not None:
+        ax.axhline(true_minimum, color=&#34;k&#34;, linestyle=&#39;--&#39;, lw=1, label=&#34;True minimum&#34;)
+
+    if true_minimum is not None or name is not None:
+        ax.legend(loc=&#34;upper right&#34;)
+
+    return fig</code></pre>
+</details>
+<div class="desc"><p>Plot one or several convergence traces,
+showing how an error estimate evolved during the optimization process.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>*results</code></strong> :&ensp;<code>OptimizeResult</code> or <code>tuple[str, OptimizeResult]</code></dt>
+<dd>The result(s) for which to plot the convergence trace.
+In tuple format, the string is used as the legend label
+for that result.</dd>
+<dt><strong><code>true_minimum</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The true minimum <em>value</em> of the objective function, if known.</dd>
+<dt><strong><code>xscale</code></strong>, <strong><code>yscale</code></strong> :&ensp;<code>{'linear', 'log'}</code>, optional, default=<code>'linear'</code></dt>
+<dd>The scales for the axes.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib.figure.Figure</code></dt>
+<dd>The matplotlib figure.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p><img alt="" loading="lazy" src="/convergence.svg"></p></div>
+</dd>
+<dt id="sambo.plot.plot_evaluations"><code class="name flex">
+<span>def <span class="ident">plot_evaluations</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>bins: int = 10,<br>names: list[str] | None = None,<br>plot_dims: list[int] | None = None,<br>jitter: float = 0.02,<br>size: int = 2,<br>cmap: str = 'summer') ‑> matplotlib.figure.Figure</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/plot.py#L650-L751" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def plot_evaluations(
+        result: OptimizeResult,
+        *,
+        bins: int = 10,
+        names: Optional[list[str]] = None,
+        plot_dims: Optional[list[int]] = None,
+        jitter: float = .02,
+        size: int = 2,
+        cmap: str = &#39;summer&#39;,
+) -&gt; Figure:
+    &#34;&#34;&#34;Visualize the order in which points were evaluated during optimization.
+
+    This creates a 2D matrix plot where the diagonal plots are histograms
+    that show distribution of samples for each variable.
+
+    Plots below the diagonal are scatter-plots of the sample points,
+    with the color indicating the order in which the samples were evaluated.
+
+    A red star shows the best found parameters.
+
+    Parameters
+    ----------
+    result : `OptimizeResult`
+        The optimization result.
+
+    bins : int, default=10
+        Number of bins to use for histograms on the diagonal. This value is
+        used for real dimensions, whereas categorical and integer dimensions
+        use number of bins equal to their distinct values.
+
+    names : list of str, default=None
+        Labels of the dimension variables. Defaults to `[&#39;x0&#39;, &#39;x1&#39;, ...]`.
+
+    plot_dims : list of int, default=None
+        List of dimension indices to be included in the plot.
+        Default uses all non-constant dimensions of
+        the search-space.
+
+    jitter : float, default=.02
+        Ratio of jitter to add to scatter plots.
+        Default looks clear for categories of up to about 8 items.
+
+    size : float, default=2
+        Height (in inches) of each subplot/facet.
+
+    cmap: str or Colormap, default=&#39;summer&#39;
+        Color map for the sequence of scatter points.
+
+    .. todo::
+        Figure out how to lay out multiple Figure objects side-by-side.
+        Alternatively, figure out how to take parameter `ax=` to plot onto.
+        Then we can show a plot of evaluations for each of the built-in methods
+        (`TestDocs.test_make_doc_plots()`).
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        A 2D matrix of subplots.
+
+    Example
+    -------
+    .. image:: /evaluations.svg
+    &#34;&#34;&#34;
+    result = _check_result(result)
+    space = _check_space(result)
+    plot_dims = _check_plot_dims(plot_dims, space._bounds)
+    n_dims = len(plot_dims)
+    bounds = dict(zip(plot_dims, space._bounds[plot_dims]))
+
+    assert names is None or isinstance(names, Iterable) and len(names) == n_dims, \
+        (names, n_dims, plot_dims)
+
+    x_min = space.transform(np.atleast_2d(result.x))[0]
+    samples = space.transform(result.xv)
+    color = np.arange(len(samples))
+
+    fig, axs = _subplots_grid(n_dims, size, &#34;Sequence &amp; distribution of function evaluations&#34;)
+
+    for _i, i in enumerate(plot_dims):
+        for _j, j in enumerate(plot_dims[:_i + 1]):
+            ax = axs[_i, _j]
+            # diagonal histogram
+            if i == j:
+                # if dim.prior == &#39;log-uniform&#39;:
+                #     bins_ = np.logspace(*np.log10(bounds[i]), bins)
+                ax.hist(
+                    samples[:, i],
+                    bins=(int(bounds[i][1] + 1) if space._is_cat(i) else
+                          min(bins, int(bounds[i][1] - bounds[i][0] + 1)) if space._is_int(i) else
+                          bins),
+                    range=None if space._is_cat(i) else bounds[i]
+                )
+            # lower triangle scatter plot
+            elif i &gt; j:
+                x, y = samples[:, j], samples[:, i]
+                if jitter:
+                    x, y = _maybe_jitter(jitter, (j, x), (i, y), space=space)
+                ax.scatter(x, y, c=color, s=40, cmap=cmap, lw=.5, edgecolor=&#39;k&#39;)
+                ax.scatter(x_min[j], x_min[i], c=&#39;#d009&#39;, s=400, marker=&#39;*&#39;, lw=.5, edgecolor=&#39;k&#39;)
+
+    _format_scatter_plot_axes(fig, axs, space, plot_dims=plot_dims, dim_labels=names, size=size)
+    return fig</code></pre>
+</details>
+<div class="desc"><p>Visualize the order in which points were evaluated during optimization.</p>
+<p>This creates a 2D matrix plot where the diagonal plots are histograms
+that show distribution of samples for each variable.</p>
+<p>Plots below the diagonal are scatter-plots of the sample points,
+with the color indicating the order in which the samples were evaluated.</p>
+<p>A red star shows the best found parameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>OptimizeResult</code></dt>
+<dd>The optimization result.</dd>
+<dt><strong><code>bins</code></strong> :&ensp;<code>int</code>, default=<code>10</code></dt>
+<dd>Number of bins to use for histograms on the diagonal. This value is
+used for real dimensions, whereas categorical and integer dimensions
+use number of bins equal to their distinct values.</dd>
+<dt><strong><code>names</code></strong> :&ensp;<code>list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>Labels of the dimension variables. Defaults to <code>['x0', 'x1', ...]</code>.</dd>
+<dt><strong><code>plot_dims</code></strong> :&ensp;<code>list</code> of <code>int</code>, default=<code>None</code></dt>
+<dd>List of dimension indices to be included in the plot.
+Default uses all non-constant dimensions of
+the search-space.</dd>
+<dt><strong><code>jitter</code></strong> :&ensp;<code>float</code>, default=<code>.02</code></dt>
+<dd>Ratio of jitter to add to scatter plots.
+Default looks clear for categories of up to about 8 items.</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code>, default=<code>2</code></dt>
+<dd>Height (in inches) of each subplot/facet.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code> or <code>Colormap</code>, default=<code>'summer'</code></dt>
+<dd>Color map for the sequence of scatter points.</dd>
+</dl>
+<div class="admonition todo">
+<p class="admonition-title">TODO</p>
+<p>Figure out how to lay out multiple Figure objects side-by-side.
+Alternatively, figure out how to take parameter <code>ax=</code> to plot onto.
+Then we can show a plot of evaluations for each of the built-in methods
+(<code>TestDocs.test_make_doc_plots()</code>).</p>
+</div>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib.figure.Figure</code></dt>
+<dd>A 2D matrix of subplots.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p><img alt="" loading="lazy" src="/evaluations.svg"></p></div>
+</dd>
+<dt id="sambo.plot.plot_objective"><code class="name flex">
+<span>def <span class="ident">plot_objective</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>levels: int = 10,<br>resolution: int = 16,<br>n_samples: int = 250,<br>estimator: str | sambo._util._SklearnLikeRegressor | None = None,<br>size: float = 2,<br>zscale: Literal['linear', 'log'] = 'linear',<br>names: list[str] | None = None,<br>true_minimum: list[float] | list[list[float]] | None = None,<br>plot_dims: list[int] | None = None,<br>plot_max_points: int = 200,<br>jitter: float = 0.02,<br>cmap: str = 'viridis_r') ‑> matplotlib.figure.Figure</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/plot.py#L466-L647" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def plot_objective(
+        result: OptimizeResult,
+        *,
+        levels: int = 10,
+        resolution: int = 16,
+        n_samples: int = 250,
+        estimator: Optional[str | _SklearnLikeRegressor] = None,
+        size: float = 2,
+        zscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
+        names: Optional[list[str]] = None,
+        true_minimum: Optional[list[float] | list[list[float]]] = None,
+        plot_dims: Optional[list[int]] = None,
+        plot_max_points: int = 200,
+        jitter: float = .02,
+        cmap: str = &#39;viridis_r&#39;,
+) -&gt; Figure:
+    &#34;&#34;&#34;Plot a 2D matrix of partial dependence plots that show the
+    individual influence of each variable on the objective function.
+
+    The diagonal plots show the effect of a single dimension on the
+    objective function, while the plots below the diagonal show
+    the effect on the objective function when varying two dimensions.
+
+    Partial dependence plot shows how the values of any two variables
+    influence `estimator` predictions after &#34;averaging out&#34;
+    the influence of all other variables.
+
+    Partial dependence is calculated by averaging the objective value
+    for a number of random samples in the search-space,
+    while keeping one or two dimensions fixed at regular intervals. This
+    averages out the effect of varying the other dimensions and shows
+    the influence of just one or two dimensions on the objective function.
+
+    Black dots indicate the points evaluated during optimization.
+
+    A red star indicates the best found minimum (or `true_minimum`,
+    if provided).
+
+    .. note::
+          Partial dependence plot is only an estimation of the surrogate
+          model which in turn is only an estimation of the true objective
+          function that has been optimized. This means the plots show
+          an &#34;estimate of an estimate&#34; and may therefore be quite imprecise,
+          especially if relatively few samples have been collected during the
+          optimization, and especially in regions of the search-space
+          that have been sparsely sampled (e.g. regions far away from the
+          found optimum).
+
+    Parameters
+    ----------
+    result : OptimizeResult
+        The optimization result.
+
+    levels : int, default=10
+        Number of levels to draw on the contour plot, passed directly
+        to `plt.contourf()`.
+
+    resolution : int, default=16
+        Number of points at which to evaluate the partial dependence
+        along each dimension.
+
+    n_samples : int, default=250
+        Number of samples to use for averaging the model function
+        at each of the `n_points`.
+
+    estimator
+        Last fitted model for estimating the objective function.
+
+    size : float, default=2
+        Height (in inches) of each subplot/facet.
+
+    zscale : {&#39;linear&#39;, &#39;log&#39;}, default=&#39;linear&#39;
+        Scale to use for the z axis of the contour plots.
+
+    names : list of str, default=None
+        Labels of the dimension variables. Defaults to `[&#39;x0&#39;, &#39;x1&#39;, ...]`.
+
+    plot_dims : list of int, default=None
+        List of dimension indices to be included in the plot.
+        Default uses all non-constant dimensions of
+        the search-space.
+
+    true_minimum : list of floats, default=None
+        Value(s) of the red point(s) in the plots.
+        Default uses best found X parameters from the result.
+
+    plot_max_points: int, default=200
+        Plot at most this many randomly-chosen evaluated points
+        overlaying the contour plots.
+
+    jitter : float, default=.02
+        Amount of jitter to add to categorical and integer dimensions.
+        Default looks clear for categories of up to about 8 items.
+
+    cmap: str or Colormap, default=&#39;viridis_r&#39;
+        Color map for contour plots, passed directly to
+        `plt.contourf()`.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        A 2D matrix of partial dependence sub-plots.
+
+    Example
+    -------
+    .. image:: /objective.svg
+    &#34;&#34;&#34;
+    result = _check_result(result)
+    space = _check_space(result)
+    plot_dims = _check_plot_dims(plot_dims, space._bounds)
+    n_dims = len(plot_dims)
+    bounds = dict(zip(plot_dims, space._bounds[plot_dims]))
+
+    assert names is None or isinstance(names, Iterable) and len(names) == n_dims, (n_dims, plot_dims, names)
+
+    if true_minimum is None:
+        true_minimum = result.x
+    true_minimum = np.atleast_2d(true_minimum)
+    assert true_minimum.shape[1] == len(result.x), (true_minimum, result)
+
+    true_minimum = space.transform(true_minimum)
+
+    assert isinstance(plot_max_points, Integral) and plot_max_points &gt;= 0, plot_max_points
+    rng = np.random.default_rng(0)
+    # Sample points to plot, but don&#39;t include points exactly at res.x
+    inds = np.setdiff1d(
+        np.arange(len(result.xv)),
+        np.where(np.all(result.xv == result.x, axis=1))[0],
+        assume_unique=True)
+    plot_max_points = min(len(inds), plot_max_points)
+    inds = np.sort(rng.choice(inds, plot_max_points, replace=False))
+
+    x_samples = space.transform(result.xv[inds])
+    samples = space.sample(n_samples)
+
+    assert zscale in (&#39;log&#39;, &#39;linear&#39;, None), zscale
+    locator = LogLocator() if zscale == &#39;log&#39; else None
+
+    fig, axs = _subplots_grid(n_dims, size, &#34;Partial dependence&#34;)
+
+    result_estimator = getattr(result, &#39;model&#39;, [None])[-1]
+    from sambo._estimators import _estimator_factory
+
+    if estimator is None and result_estimator is not None:
+        estimator = result_estimator
+    else:
+        estimator = _estimator_factory(estimator, bounds, rng=0)
+        if result_estimator is None:
+            warnings.warn(
+                &#39;The optimization result process does not appear to have been &#39;
+                &#39;driven by a model. You can still still observe partial dependence &#39;
+                f&#39;of the variables as modeled by estimator={estimator!r}&#39;,
+                UserWarning, stacklevel=2)
+        estimator.fit(space.transform(result.xv), result.funv)
+    assert isinstance(estimator, _SklearnLikeRegressor), estimator
+
+    for _i, i in enumerate(plot_dims):
+        for _j, j in enumerate(plot_dims[:_i + 1]):
+            ax = axs[_i, _j]
+            # diagonal line plot
+            if i == j:
+                xi, yi = _partial_dependence(
+                    space, bounds, estimator, i, j=None, sample_points=samples, resolution=resolution)
+                ax.plot(xi, yi)
+                for m in true_minimum:
+                    ax.axvline(m[i], linestyle=&#34;--&#34;, color=&#34;r&#34;, lw=1)
+            # lower triangle contour field
+            elif i &gt; j:
+                xi, yi, zi = _partial_dependence(
+                    space, bounds, estimator, i, j, sample_points=samples, resolution=resolution)
+                ax.contourf(xi, yi, zi, levels, locator=locator, cmap=cmap,
+                            alpha=(1 - .2 * int(bool(plot_max_points))))
+                for m in true_minimum:
+                    ax.scatter(m[j], m[i], c=&#39;#d00&#39;, s=200, lw=.5, marker=&#39;*&#39;)
+                if plot_max_points:
+                    x, y = x_samples[:, j], x_samples[:, i]
+                    if jitter:
+                        x, y = _maybe_jitter(jitter, (j, x), (i, y), space=space)
+                    ax.scatter(x, y, c=&#39;k&#39;, s=12, lw=0, alpha=.4)
+
+    _format_scatter_plot_axes(fig, axs, space, plot_dims=plot_dims, dim_labels=names, size=size)
+    return fig</code></pre>
+</details>
+<div class="desc"><p>Plot a 2D matrix of partial dependence plots that show the
+individual influence of each variable on the objective function.</p>
+<p>The diagonal plots show the effect of a single dimension on the
+objective function, while the plots below the diagonal show
+the effect on the objective function when varying two dimensions.</p>
+<p>Partial dependence plot shows how the values of any two variables
+influence <code>estimator</code> predictions after "averaging out"
+the influence of all other variables.</p>
+<p>Partial dependence is calculated by averaging the objective value
+for a number of random samples in the search-space,
+while keeping one or two dimensions fixed at regular intervals. This
+averages out the effect of varying the other dimensions and shows
+the influence of just one or two dimensions on the objective function.</p>
+<p>Black dots indicate the points evaluated during optimization.</p>
+<p>A red star indicates the best found minimum (or <code>true_minimum</code>,
+if provided).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Partial dependence plot is only an estimation of the surrogate
+model which in turn is only an estimation of the true objective
+function that has been optimized. This means the plots show
+an "estimate of an estimate" and may therefore be quite imprecise,
+especially if relatively few samples have been collected during the
+optimization, and especially in regions of the search-space
+that have been sparsely sampled (e.g. regions far away from the
+found optimum).</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>OptimizeResult</code></dt>
+<dd>The optimization result.</dd>
+<dt><strong><code>levels</code></strong> :&ensp;<code>int</code>, default=<code>10</code></dt>
+<dd>Number of levels to draw on the contour plot, passed directly
+to <code>plt.contourf()</code>.</dd>
+<dt><strong><code>resolution</code></strong> :&ensp;<code>int</code>, default=<code>16</code></dt>
+<dd>Number of points at which to evaluate the partial dependence
+along each dimension.</dd>
+<dt><strong><code>n_samples</code></strong> :&ensp;<code>int</code>, default=<code>250</code></dt>
+<dd>Number of samples to use for averaging the model function
+at each of the <code>n_points</code>.</dd>
+<dt><strong><code>estimator</code></strong></dt>
+<dd>Last fitted model for estimating the objective function.</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code>, default=<code>2</code></dt>
+<dd>Height (in inches) of each subplot/facet.</dd>
+<dt><strong><code>zscale</code></strong> :&ensp;<code>{'linear', 'log'}</code>, default=<code>'linear'</code></dt>
+<dd>Scale to use for the z axis of the contour plots.</dd>
+<dt><strong><code>names</code></strong> :&ensp;<code>list</code> of <code>str</code>, default=<code>None</code></dt>
+<dd>Labels of the dimension variables. Defaults to <code>['x0', 'x1', ...]</code>.</dd>
+<dt><strong><code>plot_dims</code></strong> :&ensp;<code>list</code> of <code>int</code>, default=<code>None</code></dt>
+<dd>List of dimension indices to be included in the plot.
+Default uses all non-constant dimensions of
+the search-space.</dd>
+<dt><strong><code>true_minimum</code></strong> :&ensp;<code>list</code> of <code>floats</code>, default=<code>None</code></dt>
+<dd>Value(s) of the red point(s) in the plots.
+Default uses best found X parameters from the result.</dd>
+<dt><strong><code>plot_max_points</code></strong> :&ensp;<code>int</code>, default=<code>200</code></dt>
+<dd>Plot at most this many randomly-chosen evaluated points
+overlaying the contour plots.</dd>
+<dt><strong><code>jitter</code></strong> :&ensp;<code>float</code>, default=<code>.02</code></dt>
+<dd>Amount of jitter to add to categorical and integer dimensions.
+Default looks clear for categories of up to about 8 items.</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str</code> or <code>Colormap</code>, default=<code>'viridis_r'</code></dt>
+<dd>Color map for contour plots, passed directly to
+<code>plt.contourf()</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib.figure.Figure</code></dt>
+<dd>A 2D matrix of partial dependence sub-plots.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p><img alt="" loading="lazy" src="/objective.svg"></p></div>
+</dd>
+<dt id="sambo.plot.plot_regret"><code class="name flex">
+<span>def <span class="ident">plot_regret</span></span>(<span>*results: sambo._util.OptimizeResult | tuple[str, sambo._util.OptimizeResult],<br>true_minimum: float | None = None,<br>xscale: Literal['linear', 'log'] = 'linear',<br>yscale: Literal['linear', 'log'] = 'linear') ‑> matplotlib.figure.Figure</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+<a href="https://github.com/sambo-optimization/sambo/blob/c435d59b83e09fec09fa1fbecb26b39ab79dc722/sambo/plot.py#L127-L202" class="git-link" target="_blank">Browse git</a>
+</summary>
+<pre><code class="python">def plot_regret(
+        *results: OptimizeResult | tuple[str, OptimizeResult],
+        true_minimum: Optional[float] = None,
+        xscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
+        yscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
+) -&gt; Figure:
+    &#34;&#34;&#34;
+    Plot one or several cumulative [regret] traces.
+    Regret is the difference between achieved objective and its optimum.
+
+    [regret]: https://en.wikipedia.org/wiki/Regret_(decision_theory)
+
+    Parameters
+    ----------
+    *results : OptimizeResult or tuple[str, OptimizeResult]
+        The result(s) for which to plot the convergence trace.
+        In tuple format, the string is used as the legend label
+        for that result.
+
+    true_minimum : float, optional
+        The true minimum *value* of the objective function, if known.
+        If unspecified, minimum is assumed to be the minimum of the
+        values found in `results`.
+
+    xscale, yscale : {&#39;linear&#39;, &#39;log&#39;}, optional, default=&#39;linear&#39;
+        The scales for the axes.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        The matplotlib figure.
+
+    Example
+    -------
+    .. image:: /regret.svg
+    &#34;&#34;&#34;
+    assert results, results
+
+    fig = plt.figure()
+    _watermark(fig)
+    ax = fig.gca()
+    ax.set_title(&#34;Cumulative regret&#34;)
+    ax.set_xlabel(&#34;Number of function evaluations $n$&#34;)
+    ax.set_ylabel(r&#34;Cumulative regret after $n$ evaluations: &#34;
+                  r&#34;$\ \sum_t^n{\,\left[\,f\,\left(x_t\right) - f_{\mathrm{opt}}\,\right]}$&#34;)
+    ax.grid()
+    _set_xscale_yscale(ax, xscale, yscale)
+    ax.yaxis.set_major_formatter(FormatStrFormatter(&#39;$%.3g$&#39;))
+    fig.set_layout_engine(&#39;tight&#39;)
+
+    MARKER = cycle(_MARKER_SEQUENCE)
+
+    if true_minimum is None:
+        true_minimum = np.min([
+            np.min((r[1] if isinstance(r, tuple) else r).funv)  # TODO ensure funv???
+            for r in results
+        ])
+
+    for i, result in enumerate(results, 1):
+        name = f&#39;#{i}&#39; if len(results) &gt; 1 else None
+        if isinstance(result, tuple):
+            name, result = result
+        result = _check_result(result)
+
+        nfev = _check_nfev(result)
+        regrets = [np.sum(result.funv[:i] - true_minimum)
+                   for i in range(1, nfev + 1)]
+
+        ax.plot(range(1, nfev + 1), regrets,
+                label=name, marker=next(MARKER), markevery=(.05 + .05*i, .2),
+                linestyle=&#39;--&#39;, alpha=.7, markersize=6, lw=2)
+
+    if name is not None:
+        ax.legend(loc=&#34;lower right&#34;)
+
+    return fig</code></pre>
+</details>
+<div class="desc"><p>Plot one or several cumulative <a href="https://en.wikipedia.org/wiki/Regret_(decision_theory)">regret</a> traces.
+Regret is the difference between achieved objective and its optimum.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>*results</code></strong> :&ensp;<code>OptimizeResult</code> or <code>tuple[str, OptimizeResult]</code></dt>
+<dd>The result(s) for which to plot the convergence trace.
+In tuple format, the string is used as the legend label
+for that result.</dd>
+<dt><strong><code>true_minimum</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>The true minimum <em>value</em> of the objective function, if known.
+If unspecified, minimum is assumed to be the minimum of the
+values found in <code>results</code>.</dd>
+<dt><strong><code>xscale</code></strong>, <strong><code>yscale</code></strong> :&ensp;<code>{'linear', 'log'}</code>, optional, default=<code>'linear'</code></dt>
+<dd>The scales for the axes.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fig</code></strong> :&ensp;<code>matplotlib.figure.Figure</code></dt>
+<dd>The matplotlib figure.</dd>
+</dl>
+<h2 id="example">Example</h2>
+<p><img alt="" loading="lazy" src="/regret.svg"></p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<header>
+<a rel="home" title="SAMBO Home" href="https://sambo-optimization.github.io"><img src="/logo.svg" alt="SAMBO"></a>
+</header>
+<form>
+<input id="lunr-search" name="q" placeholder="🔎 Search ..." aria-label="Search"
+disabled minlength="2">
+</form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.css" integrity="sha512-b+T2i3P45i1LZM7I00Ci5QquB9szqaxu+uuk5TUSGjZQ4w4n+qujQiIuvTv2BxE7WCGQCifNMksyKILDiHzsOg==" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.16.0/tingle.min.js" integrity="sha512-2B9/byNV1KKRm5nQ2RLViPFD6U4dUjDGwuW1GU+ImJh8YinPU9Zlq1GzdTMO+G2ROrB5o1qasJBy1ttYz0wCug==" crossorigin></script>
+<style>
+.modal-dialog iframe {
+width: 100vw;
+height: calc(100vh - 80px);
+}
+@media screen and (min-width: 700px) {
+.modal-dialog iframe {
+width: 70vw;
+height: 80vh;
+}
+}
+.modal-dialog .tingle-modal-box {width: auto;}
+.modal-dialog .tingle-modal-box__content {padding: 0;}
+</style>
+<script>
+const input = document.getElementById('lunr-search');
+input.disabled = false;
+input.form.addEventListener('submit', (ev) => {
+ev.preventDefault();
+const url = new URL(window.location);
+url.searchParams.set('q', input.value);
+history.replaceState({}, null, url.toString());
+search(input.value);
+});
+const query = new URL(window.location).searchParams.get('q');
+if (query)
+search(query);
+function search(query) {
+const url = '../doc-search.html#' + encodeURIComponent(query);
+new tingle.modal({
+cssClass: ['modal-dialog'],
+onClose: () => {
+const url = new URL(window.location);
+url.searchParams.delete('q');
+history.replaceState({}, null, url.toString());
+setTimeout(() => input.focus(), 100);
+}
+}).setContent('<iframe src="' + url + '"></iframe>').open();
+}
+</script>
+<div class="toc">
+<ul>
+<li><a href="#example">Example</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="sambo" href="index.html">sambo</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="sambo.plot.plot_convergence" href="#sambo.plot.plot_convergence">plot_convergence</a></code></li>
+<li><code><a title="sambo.plot.plot_evaluations" href="#sambo.plot.plot_evaluations">plot_evaluations</a></code></li>
+<li><code><a title="sambo.plot.plot_objective" href="#sambo.plot.plot_objective">plot_objective</a></code></li>
+<li><code><a title="sambo.plot.plot_regret" href="#sambo.plot.plot_regret">plot_regret</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p><span style="color:#ddd">&#21328;</span></p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
