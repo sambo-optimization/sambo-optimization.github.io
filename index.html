@@ -519,13 +519,13 @@ print(search.opt_result_)
                 particle swarm, basin-hopping, Monte Carlo or evolutionary/genetic algorithms optimization,
                 <b>you're likely throwing away precious computing cycles, at large</b>!
                 According to our <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
-                (<a href="benchmark.txt">full stdout output</a>)
                 of most common optimization algorithm implementations
                 on several popular global optimization functions, including a few multi-dimensional ones (2–10D),
                 <b><cite>SAMBO</cite> most often converges to correct global optimum,
                     in fewest total objective evaluations,
                     yielding smallest absolute error,
-                    with runtime just as fast as that of the best</b>.
+                    with runtime just as fast as that of the best</b>
+                (<a href="benchmark.txt">full stdout output</a>).
             </p>
         </div>
         <div class="table">
@@ -583,9 +583,9 @@ print(search.opt_result_)
 
                 </th></tr>
                 <tr><th colspan="5">∗ The following implementations were considered:
-                    <ul><li>too slow: Open-Box, AMPGO,</li>
+                    <ul><li>way too slow: Open-Box, AMPGO,</li>
                         <li>too complex: SMT, HyperBO, DEAP, PyMOO, OSQP, Optuna.</li></ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Maybe to consider: jdb78/LIPO, Stefan-Endres/TGO. Contributions welcome.</th></tr>
+                    &nbsp;&nbsp;&nbsp;&nbsp;To consider: jdb78/LIPO, Stefan-Endres/TGO. Speculations welcome.</th></tr>
                 </tfoot>
             </table>
         </div>
