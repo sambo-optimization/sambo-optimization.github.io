@@ -71,7 +71,7 @@ convergence, regret, partial dependence, sequence of evaluations &hellip;</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/plot.py#L37-L102" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/plot.py#L38-L103" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def plot_convergence(
         *results: OptimizeResult | tuple[str, OptimizeResult],
@@ -162,13 +162,13 @@ for that result.</dd>
 <p><img alt="" loading="lazy" src="/convergence.svg"></p></div>
 </dd>
 <dt id="sambo.plot.plot_evaluations"><code class="name flex">
-<span>def <span class="ident">plot_evaluations</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>bins: int = 10,<br>names: list[str] | None = None,<br>plot_dims: list[int] | None = None,<br>jitter: float = 0.02,<br>size: int = 2,<br>cmap: str = 'summer') ‑> matplotlib.figure.Figure</span>
+<span>def <span class="ident">plot_evaluations</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>bins: int = 10,<br>names: list[str] | None = None,<br>plot_dims: list[int] | None = None,<br>jitter: float = 0.02,<br>size: int = 1.7,<br>cmap: str = 'summer') ‑> matplotlib.figure.Figure</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/plot.py#L649-L750" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/plot.py#L656-L757" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def plot_evaluations(
         result: OptimizeResult,
@@ -177,7 +177,7 @@ for that result.</dd>
         names: Optional[list[str]] = None,
         plot_dims: Optional[list[int]] = None,
         jitter: float = .02,
-        size: int = 2,
+        size: int = _DEFAULT_SUBPLOT_SIZE,
         cmap: str = &#39;summer&#39;,
 ) -&gt; Figure:
     &#34;&#34;&#34;Visualize the order in which points were evaluated during optimization.
@@ -317,13 +317,13 @@ Then we can show a plot of evaluations for each of the built-in methods
 <p><img alt="" loading="lazy" src="/evaluations.svg"></p></div>
 </dd>
 <dt id="sambo.plot.plot_objective"><code class="name flex">
-<span>def <span class="ident">plot_objective</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>levels: int = 10,<br>resolution: int = 16,<br>n_samples: int = 250,<br>estimator: str | sambo._util._SklearnLikeRegressor | None = None,<br>size: float = 2,<br>zscale: Literal['linear', 'log'] = 'linear',<br>names: list[str] | None = None,<br>true_minimum: list[float] | list[list[float]] | None = None,<br>plot_dims: list[int] | None = None,<br>plot_max_points: int = 200,<br>jitter: float = 0.02,<br>cmap: str = 'viridis_r') ‑> matplotlib.figure.Figure</span>
+<span>def <span class="ident">plot_objective</span></span>(<span>result: sambo._util.OptimizeResult,<br>*,<br>levels: int = 10,<br>resolution: int = 16,<br>n_samples: int = 250,<br>estimator: str | sambo._util._SklearnLikeRegressor | None = None,<br>size: float = 1.7,<br>zscale: Literal['linear', 'log'] = 'linear',<br>names: list[str] | None = None,<br>true_minimum: list[float] | list[list[float]] | None = None,<br>plot_dims: list[int] | None = None,<br>plot_max_points: int = 200,<br>jitter: float = 0.02,<br>cmap: str = 'viridis_r') ‑> matplotlib.figure.Figure</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/plot.py#L465-L646" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/plot.py#L471-L653" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def plot_objective(
         result: OptimizeResult,
@@ -332,7 +332,7 @@ Then we can show a plot of evaluations for each of the built-in methods
         resolution: int = 16,
         n_samples: int = 250,
         estimator: Optional[str | _SklearnLikeRegressor] = None,
-        size: float = 2,
+        size: float = _DEFAULT_SUBPLOT_SIZE,
         zscale: Literal[&#39;linear&#39;, &#39;log&#39;] = &#39;linear&#39;,
         names: Optional[list[str]] = None,
         true_minimum: Optional[list[float] | list[list[float]]] = None,
@@ -471,8 +471,9 @@ Then we can show a plot of evaluations for each of the built-in methods
     if estimator is None and result_estimator is not None:
         estimator = result_estimator
     else:
+        _estimator_arg = estimator
         estimator = _estimator_factory(estimator, bounds, rng=0)
-        if result_estimator is None:
+        if result_estimator is None and _estimator_arg is None:
             warnings.warn(
                 &#39;The optimization result process does not appear to have been &#39;
                 &#39;driven by a model. You can still still observe partial dependence &#39;
@@ -503,7 +504,7 @@ Then we can show a plot of evaluations for each of the built-in methods
                     x, y = x_samples[:, j], x_samples[:, i]
                     if jitter:
                         x, y = _maybe_jitter(jitter, (j, x), (i, y), space=space)
-                    ax.scatter(x, y, c=&#39;k&#39;, s=12, lw=0, alpha=.4)
+                    ax.scatter(x, y, c=&#39;k&#39;, s=12, lw=0, alpha=.5)
 
     _format_scatter_plot_axes(fig, axs, space, plot_dims=plot_dims, dim_labels=names, size=size)
     return fig</code></pre>
@@ -588,7 +589,7 @@ Default looks clear for categories of up to about 8 items.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/plot.py#L127-L202" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/plot.py#L128-L203" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def plot_regret(
         *results: OptimizeResult | tuple[str, OptimizeResult],

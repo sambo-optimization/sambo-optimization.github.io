@@ -95,7 +95,7 @@ convergence, regret, partial dependence, sequence of evaluations
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_minimize.py#L12-L231" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_minimize.py#L12-L231" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def minimize(
         fun: Callable[[np.ndarray], float],
@@ -229,7 +229,7 @@ convergence, regret, partial dependence, sequence of evaluations
         Additional optional parameters to pass to optimization function.
         Popular options are:
 
-        * for `method=&#34;shgo&#34;`: `n_init` (number of initial points),
+        * for `method=&#34;shgo&#34;`: `n_init` (number of initial points), `sampling_method=&#34;halton&#34;`,
         * for `method=&#34;smbo&#34;`: `n_init`, `n_candidates`, `n_models`, `estimator`
           (for explanation, see class `sambo.Optimizer`),
         * for `method=&#34;sceua&#34;`: `n_complexes`, `complex_size` (as in [SCE-UA] algorithm),
@@ -414,7 +414,7 @@ Most applicate when n_candidates &gt; 1.</dd>
 <p>Additional optional parameters to pass to optimization function.
 Popular options are:</p>
 <ul>
-<li>for <code>method="shgo"</code>: <code>n_init</code> (number of initial points),</li>
+<li>for <code>method="shgo"</code>: <code>n_init</code> (number of initial points), <code>sampling_method="halton"</code>,</li>
 <li>for <code>method="smbo"</code>: <code>n_init</code>, <code>n_candidates</code>, <code>n_models</code>, <code>estimator</code>
 (for explanation, see class <code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code>),</li>
 <li>for <code>method="sceua"</code>: <code>n_complexes</code>, <code>complex_size</code> (as in <a href="https://doi.org/10.1007/BF00939380">SCE-UA</a> algorithm),</li>
@@ -481,7 +481,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_util.py#L89-L102" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_util.py#L91-L104" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class OptimizeResult(_OptimizeResult):
     &#34;&#34;&#34;
@@ -548,13 +548,13 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 </dd>
 <dt id="sambo.Optimizer"><code class="flex name class">
 <span>class <span class="ident">Optimizer</span></span>
-<span>(</span><span>fun: Callable[[numpy.ndarray], float] | None,<br>x0: tuple[float] | list[tuple[float]] | None = None,<br>*,<br>args: tuple = (),<br>bounds: list[tuple] | None = None,<br>constraints: Callable[[numpy.ndarray], bool] | scipy.optimize._constraints.NonlinearConstraint | None = None,<br>max_iter: int = 2147483647,<br>n_init: int | None = None,<br>n_candidates: int | None = None,<br>n_iter_no_change: int = 10,<br>n_models: int = 1,<br>tol: float = 1e-06,<br>estimator: Literal['gp', 'et', 'gb'] | sambo._util._SklearnLikeRegressor = None,<br>y0: float | list[float] | None = None,<br>callback: Callable[[sambo._util.OptimizeResult], bool] | None = None,<br>n_jobs: int = 1,<br>disp: bool = False,<br>rng: int | numpy.random.mtrand.RandomState | numpy.random._generator.Generator | None = None)</span>
+<span>(</span><span>fun: Callable[[numpy.ndarray], float] | None,<br>x0: tuple[float] | list[tuple[float]] | None = None,<br>*,<br>args: tuple = (),<br>bounds: list[tuple] | None = None,<br>constraints: Callable[[numpy.ndarray], bool] | scipy.optimize._constraints.NonlinearConstraint | None = None,<br>max_iter: int = 2147483647,<br>n_init: int | None = None,<br>n_candidates: int | None = None,<br>n_iter_no_change: int = 5,<br>n_models: int = 1,<br>tol: float = 1e-06,<br>estimator: Literal['gp', 'et', 'gb'] | sambo._util._SklearnLikeRegressor = None,<br>y0: float | list[float] | None = None,<br>callback: Callable[[sambo._util.OptimizeResult], bool] | None = None,<br>n_jobs: int = 1,<br>disp: bool = False,<br>rng: int | numpy.random.mtrand.RandomState | numpy.random._generator.Generator | None = None)</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L21-L524" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_smbo.py#L21-L549" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class Optimizer:
     &#34;&#34;&#34;
@@ -655,7 +655,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
             max_iter: int = INT32_MAX,
             n_init: Optional[int] = None,
             n_candidates: Optional[int] = None,
-            n_iter_no_change: int = 10,
+            n_iter_no_change: int = 5,
             n_models: int = 1,
             tol: float = FLOAT32_PRECISION,
             estimator: Literal[&#39;gp&#39;, &#39;et&#39;, &#39;gb&#39;] | _SklearnLikeRegressor = None,
@@ -685,11 +685,13 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
         rng = _check_random_state(rng)
 
         if n_init is None:
-            n_init = 0 if not callable(fun) else min(max(1, max_iter - 20), 150 * len(bounds))
+            n_init = (0 if not callable(fun) else
+                      min(max(1, max_iter - 20),
+                          int(40 * len(bounds) * max(1, np.log2(len(bounds))))))
         assert max_iter &gt;= n_init, (max_iter, n_init)
 
         if n_candidates is None:
-            n_candidates = max(1, int(np.log2(len(bounds))))
+            n_candidates = max(1, int(np.log10(len(bounds))))
 
         if estimator is None or isinstance(estimator, str):
             from sambo._estimators import _estimator_factory
@@ -739,6 +741,9 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
         self._y = y
         assert len(X) == len(y), (X, y)
 
+        self._kde = None
+        self._prev_y_min = np.inf
+
         # Cache methods on the _instance_
         self._init_once = lru_cache(1)(self._init_once)
         self.top_k = lru_cache(1)(self.top_k)
@@ -764,7 +769,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
         estimator = self.estimator
         if self.n_models &gt; 1 and hasattr(estimator, &#39;random_state&#39;):
             estimator = clone(self.estimator)
-            estimator.random_state = np.random.randint(10000000)
+            estimator.random_state = self.rng.randint(10000000)
         estimator.fit(self._X, self._y)
 
         self.estimators.append(estimator)
@@ -776,12 +781,14 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
     def _predict(self, X):
         means, stds, masks = [], [], []
         for estimator in self.estimators:
+            X_batched = [X[i:i+10_000] for i in range(0, len(X), 10_000)]
             try:
-                mean, std = estimator.predict(X, return_std=True)
+                mean, std = np.concatenate(
+                    [estimator.predict(X, return_std=True) for X in X_batched], axis=1)
             except TypeError as exc:
                 if &#39;return_std&#39; not in exc.args[0]:
                     raise
-                mean, std = estimator.predict(X), 0
+                mean, std = np.concatenate([estimator.predict(X) for X in X_batched]), 0
                 mask = np.ones_like(mean, dtype=bool)
             else:
                 # Only suggest new/unknown points
@@ -831,7 +838,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 
         acq_func : Callable, default ACQ_FUNCS[&#39;UCB&#39;]
             Acquisition function used to guide the selection of candidate solutions.
-            By default, upper confidence bound (i.e. `mean + kappa * std` where `mean`
+            By default, upper confidence bound (i.e. `mean - kappa * std` where `mean`
             and `std` are surrogate models&#39; predicted results).
 
             .. tip::
@@ -843,7 +850,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 
         kappa : float or list[float], default 0
             The upper/lower-confidence-bound parameter, used by `acq_func`, that
-            balances exploration vs exploitation.
+            balances exploration (&lt;0) vs exploitation (&gt;0).
 
             Can also be an array of values to use sequentially for `n_cadidates`.
 
@@ -870,15 +877,33 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
         assert isinstance(kappa, (Real, Iterable)), kappa
         self._init_once()
 
-        n_points = max(10_000, 1000 * int(len(self.bounds)**1.2))
-        X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+        n_points = min(self.MAX_POINTS_PER_ITER,
+                       self.POINTS_PER_DIM * int(len(self.bounds)**2))  # TODO: Make this a param?
+        nfev = len(self._X)
+        if nfev &lt; 10 * len(self.bounds)**2:
+            X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+        else:
+            y_min = np.min(self._y)
+            if self._kde is None or (nfev &lt; 200 or nfev % 5 == 0 or y_min &lt; self._prev_y_min):
+                self._prev_y_min = y_min
+                self._kde = recompute_kde(np.array(self._X), np.array(self._y))
+            X = weighted_uniform_sampling(
+                self._kde, self.bounds, n_points, self.constraints, self.rng)
+
         X, mean, std = self._predict(X)
         criterion = acq_func(mean=mean, std=std, kappa=kappa)
-        best_indices = np.argsort(criterion)[:, :n_candidates].flatten(&#39;F&#39;)
+        n_candidates = min(n_candidates, criterion.shape[1])
+        best_indices = np.take_along_axis(
+            partitioned_inds := np.argpartition(criterion, n_candidates - 1)[:, :n_candidates],
+            np.argsort(np.take_along_axis(criterion, partitioned_inds, axis=1)),
+            axis=1).flatten(&#39;F&#39;)
         X = X[best_indices]
         X = X[:n_candidates]
         self._X_ask.extend(map(tuple, X))
         return X
+
+    POINTS_PER_DIM = 20_000
+    MAX_POINTS_PER_ITER = 80_000
 
     def tell(self, y: float | list[float],
              x: Optional[float | tuple[float] | list[tuple[float]]] = None):
@@ -1145,6 +1170,14 @@ estimator's <code>predict()</code> method to implement <code>return_std=</code> 
 All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>) do so.</p>
 </div></div>
 </dd>
+<dt id="sambo.Optimizer.MAX_POINTS_PER_ITER"><code class="name">var <span class="ident">MAX_POINTS_PER_ITER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="sambo.Optimizer.POINTS_PER_DIM"><code class="name">var <span class="ident">POINTS_PER_DIM</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 </dl>
 <h3>Methods</h3>
 <dl>
@@ -1155,7 +1188,7 @@ All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L277-L343" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_smbo.py#L284-L365" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def ask(
         self,
@@ -1176,7 +1209,7 @@ All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>
 
     acq_func : Callable, default ACQ_FUNCS[&#39;UCB&#39;]
         Acquisition function used to guide the selection of candidate solutions.
-        By default, upper confidence bound (i.e. `mean + kappa * std` where `mean`
+        By default, upper confidence bound (i.e. `mean - kappa * std` where `mean`
         and `std` are surrogate models&#39; predicted results).
 
         .. tip::
@@ -1188,7 +1221,7 @@ All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>
 
     kappa : float or list[float], default 0
         The upper/lower-confidence-bound parameter, used by `acq_func`, that
-        balances exploration vs exploitation.
+        balances exploration (&lt;0) vs exploitation (&gt;0).
 
         Can also be an array of values to use sequentially for `n_cadidates`.
 
@@ -1215,11 +1248,26 @@ All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>
     assert isinstance(kappa, (Real, Iterable)), kappa
     self._init_once()
 
-    n_points = max(10_000, 1000 * int(len(self.bounds)**1.2))
-    X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+    n_points = min(self.MAX_POINTS_PER_ITER,
+                   self.POINTS_PER_DIM * int(len(self.bounds)**2))  # TODO: Make this a param?
+    nfev = len(self._X)
+    if nfev &lt; 10 * len(self.bounds)**2:
+        X = _sample_population(self.bounds, n_points, self.constraints, self.rng)
+    else:
+        y_min = np.min(self._y)
+        if self._kde is None or (nfev &lt; 200 or nfev % 5 == 0 or y_min &lt; self._prev_y_min):
+            self._prev_y_min = y_min
+            self._kde = recompute_kde(np.array(self._X), np.array(self._y))
+        X = weighted_uniform_sampling(
+            self._kde, self.bounds, n_points, self.constraints, self.rng)
+
     X, mean, std = self._predict(X)
     criterion = acq_func(mean=mean, std=std, kappa=kappa)
-    best_indices = np.argsort(criterion)[:, :n_candidates].flatten(&#39;F&#39;)
+    n_candidates = min(n_candidates, criterion.shape[1])
+    best_indices = np.take_along_axis(
+        partitioned_inds := np.argpartition(criterion, n_candidates - 1)[:, :n_candidates],
+        np.argsort(np.take_along_axis(criterion, partitioned_inds, axis=1)),
+        axis=1).flatten(&#39;F&#39;)
     X = X[best_indices]
     X = X[:n_candidates]
     self._X_ask.extend(map(tuple, X))
@@ -1235,7 +1283,7 @@ If not specified, the default value set during initialization is used.</dd>
 <dt><strong><code>acq_func</code></strong> :&ensp;<code>Callable</code>, default <code>ACQ_FUNCS['UCB']</code></dt>
 <dd>
 <p>Acquisition function used to guide the selection of candidate solutions.
-By default, upper confidence bound (i.e. <code>mean + kappa * std</code> where <code>mean</code>
+By default, upper confidence bound (i.e. <code>mean - kappa * std</code> where <code>mean</code>
 and <code>std</code> are surrogate models' predicted results).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1247,7 +1295,7 @@ alternative acquisition functions.</p>
 <dt><strong><code>kappa</code></strong> :&ensp;<code>float</code> or <code>list[float]</code>, default <code>0</code></dt>
 <dd>
 <p>The upper/lower-confidence-bound parameter, used by <code>acq_func</code>, that
-balances exploration vs exploitation.</p>
+balances exploration (&lt;0) vs exploitation (&gt;0).</p>
 <p>Can also be an array of values to use sequentially for <code>n_cadidates</code>.</p>
 </dd>
 </dl>
@@ -1273,7 +1321,7 @@ array([[ 1.1, -0.2],
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L397-L494" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_smbo.py#L422-L519" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def run(self, *,
         max_iter: Optional[int] = None,
@@ -1411,7 +1459,7 @@ the default value provided during initialization is used.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L345-L395" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_smbo.py#L370-L420" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def tell(self, y: float | list[float],
          x: Optional[float | tuple[float] | list[tuple[float]]] = None):
@@ -1498,7 +1546,7 @@ to the most recent candidates proposed by the <code>ask</code> method (FIFO).</p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L496-L524" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_smbo.py#L521-L549" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def top_k(self, k: int = 1):
     &#34;&#34;&#34;
@@ -1562,7 +1610,7 @@ all available solutions are returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_estimators.py#L98-L185" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec7433286915d71bb7bb8f4e38758eca5c7171f6/sambo/_estimators.py#L112-L199" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class SamboSearchCV(BaseSearchCV):
     &#34;&#34;&#34;
@@ -1787,8 +1835,10 @@ setTimeout(() => input.focus(), 100);
 </li>
 <li>
 <h4><code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="sambo.Optimizer.ACQ_FUNCS" href="#sambo.Optimizer.ACQ_FUNCS">ACQ_FUNCS</a></code></li>
+<li><code><a title="sambo.Optimizer.MAX_POINTS_PER_ITER" href="#sambo.Optimizer.MAX_POINTS_PER_ITER">MAX_POINTS_PER_ITER</a></code></li>
+<li><code><a title="sambo.Optimizer.POINTS_PER_DIM" href="#sambo.Optimizer.POINTS_PER_DIM">POINTS_PER_DIM</a></code></li>
 <li><code><a title="sambo.Optimizer.ask" href="#sambo.Optimizer.ask">ask</a></code></li>
 <li><code><a title="sambo.Optimizer.run" href="#sambo.Optimizer.run">run</a></code></li>
 <li><code><a title="sambo.Optimizer.tell" href="#sambo.Optimizer.tell">tell</a></code></li>
