@@ -357,6 +357,8 @@
                 <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock's banana function</a>,
                 constrained to a circle with <math><mi>r</mi><mo>=</mo><mn>2</mn></math>, all in comparatively just a few evaluations.
             </p>
+            <p>This is a simple 2D example, but partial dependence plots and sequence of evaluations plots
+                generalize well to multiple dimensions.</p>
         </div>
         <pre class="snippet"><code class="python">import sambo
 from sambo.plot import *
@@ -366,7 +368,7 @@ from scipy.optimize import rosen
 
 result = sambo.minimize(
     rosen, bounds=[(-2, 2)]*2, method='shgo',
-    constraints=lambda x: sum(x**2) &lt;= 2)
+    constraints=lambda x: sum(x**2) &lt;= 2**len(x))
 
 plot_convergence(result)
 plot_objective(result)    # Partial dependence
@@ -445,9 +447,9 @@ result: OptimizeResult = optimizer.run()
             <h4>Use case №3: <a href="https://en.wikipedia.org/wiki/Hyperparameter_optimization">Hyperparameter tuning</a> for machine-learning in quasi-logarithmic time</h4>
             <p>
                 Use <code>sambo.SamboSearchCV</code> as a <b>drop-in replacement</b> for
-                <code>GridSearchCV</code> (or even <code>HalvingRandomSearchCV</code>!) from scikit-learn
+                <code>GridSearchCV</code> (or even <code>HalvingRandomSearchCV</code>) from scikit-learn
                 to <b>optimize your machine learning pipeline hyperparameters in sub-linear time</b>,
-                yet with an algo way better informed than simple random search!
+                yet with an algorithm considerably better-informed than simple random search!
             </p>
         </div>
         <pre class="snippet"><code class="python"># Example setup of a scikit-learn pipeline
@@ -521,11 +523,12 @@ print(search.opt_result_)
                 According to our <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
                 of most common optimization algorithm implementations
                 on several popular global optimization functions, including a few multi-dimensional ones (2–10D),
-                <b><cite>SAMBO</cite> most often converges to correct global optimum,
+                <b><cite>SAMBO</cite> out-of-the-box most often converges to correct global optimum,
                     in fewest total objective evaluations,
                     yielding smallest absolute error,
                     with runtime just as fast as that of the best</b>
-                (<a href="benchmark.txt">full stdout output</a>).
+                (<a href="benchmark.txt">full stdout output</a>),
+                proving the implementation sound and justified.
             </p>
         </div>
         <div class="table">
@@ -538,25 +541,25 @@ print(search.opt_result_)
                     <th>Duration</th>
                 </tr></thead>
                 <tbody>
-                <tr class="significant"><td>sambo.minimize(shgo)</td><td>92%</td><td>135</td><td>1</td><td>0.04</td></tr>
-                <tr class="significant"><td>sambo.minimize(sceua)</td><td>92%</td><td>558</td><td>1</td><td>0.25</td></tr>
-                <tr><td>direct †</td><td>92%</td><td>1389</td><td>1</td><td>0.03</td></tr>
-                <tr><td>dual_annealing †</td><td>92%</td><td>6461</td><td>1</td><td>0.86</td></tr>
-                <tr><td>differential_evolution</td><td>83%</td><td>13959</td><td>1</td><td>2.00</td></tr>
-                <tr class="significant"><td>sambo.minimize(smbo)</td><td>75%</td><td>475</td><td>2</td><td>45.76</td></tr>
-                <tr><td>nevergrad</td><td>75%</td><td>1785</td><td>5</td><td>11.25</td></tr>
-                <tr><td>scikit-optimize</td><td>67%</td><td>195</td><td>7</td><td>46.97</td></tr>
+                <tr class="significant"><td>sambo.minimize(smbo)</td><td>100%</td><td>240</td><td>0</td><td>167.45</td></tr>
+                <tr class="significant"><td>sambo.minimize(sceua)</td><td>100%</td><td>558</td><td>0</td><td>0.25</td></tr>
+                <tr><td>direct †</td><td>100%</td><td>1389</td><td>0</td><td>0.03</td></tr>
+                <tr><td>dual_annealing †</td><td>100%</td><td>6461</td><td>0</td><td>0.83</td></tr>
+                <tr class="significant"><td>sambo.minimize(shgo)</td><td>92%</td><td>219</td><td>1</td><td>0.09</td></tr>
+                <tr><td>hyperopt</td><td>92%</td><td>1091</td><td>1</td><td>17.98</td></tr>
+                <tr><td>differential_evolution</td><td>92%</td><td>13959</td><td>0</td><td>1.97</td></tr>
+                <tr><td>Nelder-Mead †</td><td>75%</td><td>301</td><td>14</td><td>0.02</td></tr>
+                <tr><td>nevergrad</td><td>75%</td><td>1732</td><td>6</td><td>10.98</td></tr>
+                <tr><td>COBYQA</td><td>67%</td><td>134</td><td>7</td><td>0.51</td></tr>
+                <tr><td>scikit-optimize</td><td>67%</td><td>195</td><td>6</td><td>54.21</td></tr>
                 <tr><td>COBYLA</td><td>67%</td><td>215</td><td>15</td><td>0.06</td></tr>
-                <tr><td>shgo</td><td>67%</td><td>241</td><td>11</td><td>0.12</td></tr>
-                <tr><td>SLSQP</td><td>67%</td><td>266</td><td>11</td><td>0.11</td></tr>
-                <tr><td>Nelder-Mead †</td><td>67%</td><td>301</td><td>15</td><td>0.02</td></tr>
+                <tr><td>shgo</td><td>67%</td><td>241</td><td>12</td><td>0.11</td></tr>
+                <tr><td>SLSQP</td><td>67%</td><td>266</td><td>12</td><td>0.11</td></tr>
                 <tr><td>Powell †</td><td>67%</td><td>323</td><td>16</td><td>0.01</td></tr>
-                <tr><td>hyperopt</td><td>67%</td><td>1196</td><td>2</td><td>30.10</td></tr>
-                <tr><td>COBYQA</td><td>58%</td><td>134</td><td>8</td><td>0.53</td></tr>
+                <tr><td>trust-constr</td><td>67%</td><td>1044</td><td>7</td><td>1.88</td></tr>
                 <tr><td>TNC †</td><td>58%</td><td>233</td><td>16</td><td>0.04</td></tr>
-                <tr><td>trust-constr</td><td>58%</td><td>1044</td><td>8</td><td>1.79</td></tr>
-                <tr><td>basinhopping</td><td>58%</td><td>3424</td><td>21</td><td>0.91</td></tr>
-                <tr><td>CG †</td><td>50%</td><td>413</td><td>20</td><td>0.02</td></tr>
+                <tr><td>basinhopping</td><td>58%</td><td>3424</td><td>21</td><td>0.84</td></tr>
+                <tr><td>CG †</td><td>50%</td><td>413</td><td>19</td><td>0.02</td></tr>
                 </tbody>
                 <tfoot style="font-size: small;">
                 <tr><th colspan="5">† Non-constrained method; constrained by patching the objective function s.t.<br>
@@ -599,7 +602,7 @@ print(search.opt_result_)
             for (let i of [2, 3, 4, 5]) {
                 let nums = [...document.querySelectorAll(`.table td:nth-child(${i})`)].map(el => parseFloat(el.textContent));
                 let [max, min] = [Math.max(...nums), Math.min(...nums)];
-                let pow = [0, 0, 3, .3, .5, 1][i];
+                let pow = [0, 0, 3, .5, .5, .5][i];
                 document.querySelectorAll(`.table td:nth-child(${i})`).forEach((td, i) => {
                     td.style.backgroundColor = `hsl(var(--hue), 100%, ${100 - ((nums[i] - min) / (max - min))**pow * 20}%)`;
                 });
