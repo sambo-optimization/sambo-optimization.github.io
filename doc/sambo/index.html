@@ -95,7 +95,7 @@ convergence, regret, partial dependence, sequence of evaluations
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_minimize.py#L12-L216" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_minimize.py#L12-L231" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def minimize(
         fun: Callable[[np.ndarray], float],
@@ -163,31 +163,45 @@ convergence, regret, partial dependence, sequence of evaluations
             &gt;&gt;&gt; minimize(..., constraints=lambda x: (lb &lt; x &lt;= ub))
 
     max_iter : int, optional
-        Maximum number of iterations allowed.
+        Maximum number of iterations (objective function evaluations) allowed.
 
     method : {&#39;shgo&#39;, &#39;sceua&#39;, &#39;smbo&#39;}, default=&#39;shgo&#39;
         Global optimization algorithm to use. Options are:
 
-        * `&#34;shgo&#34;` – [simplical homology global optimization] (SHGO; from SciPy),
-        * `&#34;smbo&#34;` – surrogate model-based optimization, for which you can pass
-          your own `estimator=` (see `**kwargs`).
+        * `&#34;shgo&#34;` – [simplicial homology global optimization] (SHGO; from SciPy),
+          [assures quick convergence] to global minimum for Lipschitz-smooth functions;
+        * `&#34;smbo&#34;` – [surrogate model-based optimization], for which you can pass
+          your own `estimator=` (see `**kwargs`), robust, but slowest of the bunch;
         * `&#34;sceua&#34;` – [shuffled complex evolution (SCE-UA)] (with a few tweaks,
-           marked in the source).
+           marked in the source), a good, time-tested all-around algorithm
+           similar to [Nelder-Mead],
+           provided it&#39;s initialized with sufficient `n_complexes` and `complex_size`
+           kwargs ([canonical literature] suggests reference values
+           `n_complexes &gt;= 3 * len(bounds)` and
+           `complex_size = 2 * len(bounds) + 1`,
+           but we find good performance using `complex_size=2`,
+           allowing for more complexes and more complex evolutions for given `max_iter`).
 
-        [simplical homology global optimization]: http://doi.org/10.1007/s10898-018-0645-y
+        [simplicial homology global optimization]: http://doi.org/10.1007/s10898-018-0645-y
+        [assures quick convergence]: https://shgo.readthedocs.io/en/latest/docs/README.html#simplicial-homology-global-optimisation-theory
+        [surrogate model-based optimization]: https://en.wikipedia.org/wiki/Surrogate_model
         [shuffled complex evolution (SCE-UA)]: https://doi.org/10.1007/BF00939380
+        [Nelder-Mead]: https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method
+        [canonical literature]: https://doi.org/10.1016/0022-1694(94)90057-4
 
         .. caution:: Default method SHGO is only appropriate for Lipschitz-smooth functions
             Smooth functions have gradients that vary gradually, while non-smooth functions
-            exhibit abrupt changes (e.g. with nominal variables),
-            sharp corners (e.g. function `abs()`), discontinuities (e.g. function `tan()`),
+            exhibit abrupt changes (e.g. neighboring values of categorical variables),
+            sharp corners (e.g. function `abs()`),
+            discontinuities (e.g. function `tan()`),
             or unbounded growth (e.g. function `exp()`).
 
             If your objective function is more of the latter kind,
-            you might need to use one of the other methods.
+            you might prefer to set one of the other methods.
 
-    n_iter_no_change : int, default 10
+    n_iter_no_change : int, optional
         Number of iterations with no improvement before stopping.
+        Default is method-dependent.
 
     tol : float, default FLOAT32_PRECISION
         Tolerance for convergence. Optimization stops when
@@ -212,7 +226,8 @@ convergence, regret, partial dependence, sequence of evaluations
         Random number generator or seed for reproducibility.
 
     **kwargs : dict, optional
-        Additional parameters to pass to optimization function. Popular options are:
+        Additional optional parameters to pass to optimization function.
+        Popular options are:
 
         * for `method=&#34;shgo&#34;`: `n_init` (number of initial points),
         * for `method=&#34;smbo&#34;`: `n_init`, `n_candidates`, `n_models`, `estimator`
@@ -345,29 +360,39 @@ Must return True iff the parameter combination x satisfies the constraints.<pre>
 </code></pre>
 </dd>
 <dt><strong><code>max_iter</code></strong> :&ensp;<code>int</code>, optional</dt>
-<dd>Maximum number of iterations allowed.</dd>
+<dd>Maximum number of iterations (objective function evaluations) allowed.</dd>
 <dt><strong><code>method</code></strong> :&ensp;<code>{'shgo', 'sceua', 'smbo'}</code>, default=<code>'shgo'</code></dt>
 <dd>
 <p>Global optimization algorithm to use. Options are:</p>
 <ul>
-<li><code>"shgo"</code> – <a href="http://doi.org/10.1007/s10898-018-0645-y">simplical homology global optimization</a> (SHGO; from SciPy),</li>
-<li><code>"smbo"</code> – surrogate model-based optimization, for which you can pass
-your own <code>estimator=</code> (see <code>**kwargs</code>).</li>
+<li><code>"shgo"</code> – <a href="http://doi.org/10.1007/s10898-018-0645-y">simplicial homology global optimization</a> (SHGO; from SciPy),
+<a href="https://shgo.readthedocs.io/en/latest/docs/README.html#simplicial-homology-global-optimisation-theory">assures quick convergence</a> to global minimum for Lipschitz-smooth functions;</li>
+<li><code>"smbo"</code> – <a href="https://en.wikipedia.org/wiki/Surrogate_model">surrogate model-based optimization</a>, for which you can pass
+your own <code>estimator=</code> (see <code>**kwargs</code>), robust, but slowest of the bunch;</li>
 <li><code>"sceua"</code> – <a href="https://doi.org/10.1007/BF00939380">shuffled complex evolution (SCE-UA)</a> (with a few tweaks,
-marked in the source).</li>
+marked in the source), a good, time-tested all-around algorithm
+similar to <a href="https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method">Nelder-Mead</a>,
+provided it's initialized with sufficient <code>n_complexes</code> and <code>complex_size</code>
+kwargs (<a href="https://doi.org/10.1016/0022-1694(94)90057-4">canonical literature</a> suggests reference values
+<code>n_complexes &gt;= 3 * len(bounds)</code> and
+<code>complex_size = 2 * len(bounds) + 1</code>,
+but we find good performance using <code>complex_size=2</code>,
+allowing for more complexes and more complex evolutions for given <code>max_iter</code>).</li>
 </ul>
 <div class="admonition caution">
 <p class="admonition-title">Caution:&ensp;Default method SHGO is only appropriate for Lipschitz-smooth functions</p>
 <p>Smooth functions have gradients that vary gradually, while non-smooth functions
-exhibit abrupt changes (e.g. with nominal variables),
-sharp corners (e.g. function <code>abs()</code>), discontinuities (e.g. function <code>tan()</code>),
+exhibit abrupt changes (e.g. neighboring values of categorical variables),
+sharp corners (e.g. function <code>abs()</code>),
+discontinuities (e.g. function <code>tan()</code>),
 or unbounded growth (e.g. function <code>exp()</code>).</p>
 <p>If your objective function is more of the latter kind,
-you might need to use one of the other methods.</p>
+you might prefer to set one of the other methods.</p>
 </div>
 </dd>
-<dt><strong><code>n_iter_no_change</code></strong> :&ensp;<code>int</code>, default <code>10</code></dt>
-<dd>Number of iterations with no improvement before stopping.</dd>
+<dt><strong><code>n_iter_no_change</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Number of iterations with no improvement before stopping.
+Default is method-dependent.</dd>
 <dt><strong><code>tol</code></strong> :&ensp;<code>float</code>, default <code>FLOAT32_PRECISION</code></dt>
 <dd>Tolerance for convergence. Optimization stops when
 found optimum improvements are below this threshold.</dd>
@@ -386,7 +411,8 @@ Most applicate when n_candidates &gt; 1.</dd>
 <dd>Random number generator or seed for reproducibility.</dd>
 <dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code>, optional</dt>
 <dd>
-<p>Additional parameters to pass to optimization function. Popular options are:</p>
+<p>Additional optional parameters to pass to optimization function.
+Popular options are:</p>
 <ul>
 <li>for <code>method="shgo"</code>: <code>n_init</code> (number of initial points),</li>
 <li>for <code>method="smbo"</code>: <code>n_init</code>, <code>n_candidates</code>, <code>n_models</code>, <code>estimator</code>
@@ -455,7 +481,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_util.py#L89-L102" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_util.py#L89-L102" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class OptimizeResult(_OptimizeResult):
     &#34;&#34;&#34;
@@ -528,7 +554,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_smbo.py#L21-L524" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L21-L524" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class Optimizer:
     &#34;&#34;&#34;
@@ -584,7 +610,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
         or &#34;gb&#34; (gradient boosting).
 
         You can also provide your own regressor with a scikit-learn API,
-        namely `fit()` and `predict()` methods.
+        (namely `fit()` and `predict()` methods).
 
     y0 : float or tuple[float], optional
         Initial value(s) of the objective function corresponding to `x0`.
@@ -1076,7 +1102,7 @@ found optimum improvements are below this threshold.</dd>
 Popular options include "gp" (Gaussian process), "et" (extra trees),
 or "gb" (gradient boosting).</p>
 <p>You can also provide your own regressor with a scikit-learn API,
-namely <code>fit()</code> and <code>predict()</code> methods.</p>
+(namely <code>fit()</code> and <code>predict()</code> methods).</p>
 </dd>
 <dt><strong><code>y0</code></strong> :&ensp;<code>float</code> or <code>tuple[float]</code>, optional</dt>
 <dd>Initial value(s) of the objective function corresponding to <code>x0</code>.</dd>
@@ -1129,7 +1155,7 @@ All built-in estimators (<code>"gp"</code>, <code>"et"</code>, <code>"gb"</code>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_smbo.py#L277-L343" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L277-L343" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def ask(
         self,
@@ -1247,7 +1273,7 @@ array([[ 1.1, -0.2],
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_smbo.py#L397-L494" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L397-L494" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def run(self, *,
         max_iter: Optional[int] = None,
@@ -1385,7 +1411,7 @@ the default value provided during initialization is used.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_smbo.py#L345-L395" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L345-L395" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def tell(self, y: float | list[float],
          x: Optional[float | tuple[float] | list[tuple[float]]] = None):
@@ -1472,7 +1498,7 @@ to the most recent candidates proposed by the <code>ask</code> method (FIFO).</p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_smbo.py#L496-L524" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_smbo.py#L496-L524" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def top_k(self, k: int = 1):
     &#34;&#34;&#34;
@@ -1536,7 +1562,7 @@ all available solutions are returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/37d8fe3556e4acf30e34eccdd61c70ae28eb3122/sambo/_estimators.py#L98-L185" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/38d5794db298ccc27527594e6b54c7c1106e63be/sambo/_estimators.py#L98-L185" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class SamboSearchCV(BaseSearchCV):
     &#34;&#34;&#34;
