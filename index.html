@@ -141,11 +141,10 @@
     <link rel="sameAs" href="https://github.com/sambo-optimization/sambo">
     <link rel="sameAs" href="https://pypi.org/project/sambo/">
     <link rel="license" href="https://www.gnu.org/licenses/agpl-3.0.html">
-    <meta property="isAccessibleForFree" content="True">
+    <meta property="isAccessibleForFree" content="true">
     <meta property="operatingSystem" content="Linux, macOS, Windows">
     <meta property="applicationCategory" content="DeveloperApplication">
     <meta property="applicationCategory" content="EducationalApplication">
-    <meta property="name" content="SAMBO">
     <meta property="alternateName" content="Sequential and Model-Based Optimization">
     <link rel="isSimilarTo" href="https://docs.scipy.org/doc/scipy/reference/optimize.html">
     <link rel="isSimilarTo" href="https://scikit-optimize.github.io/">
@@ -164,7 +163,7 @@
 
 <header class="flex flex-l" style="justify-content: center; margin-top: 3em">
     <div style="width: 320px; margin-right:3em"><img alt="" src="logo.svg"></div>
-    <div>
+    <div property="name">
         <h1>SAMBO</h1>
         <h2>Sequential and model-based optimization [for Python]</h2>
     </div>
@@ -204,7 +203,7 @@
         </blockquote>
 
         <p>
-            Thank god for <b property="name"><cite>SAMBO</cite></b>, Rambo of <span property="applicationSubCategory">global optimization</span>.
+            Thank god for <b><cite>SAMBO</cite></b>, Rambo of <span property="applicationSubCategory">global optimization</span>.
             It gets in and then it finds minimums of the
             objective criteria function quickly and efficiently,
             in least number of evaluations.
@@ -541,25 +540,26 @@ print(search.opt_result_)
                     <th>Duration</th>
                 </tr></thead>
                 <tbody>
-                <tr class="significant"><td>sambo.minimize(smbo)</td><td>100%</td><td>240</td><td>0</td><td>167.45</td></tr>
-                <tr class="significant"><td>sambo.minimize(sceua)</td><td>100%</td><td>558</td><td>0</td><td>0.25</td></tr>
-                <tr><td>direct †</td><td>100%</td><td>1389</td><td>0</td><td>0.03</td></tr>
-                <tr><td>dual_annealing †</td><td>100%</td><td>6461</td><td>0</td><td>0.83</td></tr>
-                <tr class="significant"><td>sambo.minimize(shgo)</td><td>92%</td><td>219</td><td>1</td><td>0.09</td></tr>
-                <tr><td>hyperopt</td><td>92%</td><td>1091</td><td>1</td><td>17.98</td></tr>
-                <tr><td>differential_evolution</td><td>92%</td><td>13959</td><td>0</td><td>1.97</td></tr>
-                <tr><td>Nelder-Mead †</td><td>75%</td><td>301</td><td>14</td><td>0.02</td></tr>
-                <tr><td>nevergrad</td><td>75%</td><td>1732</td><td>6</td><td>10.98</td></tr>
-                <tr><td>COBYQA</td><td>67%</td><td>134</td><td>7</td><td>0.51</td></tr>
-                <tr><td>scikit-optimize</td><td>67%</td><td>195</td><td>6</td><td>54.21</td></tr>
-                <tr><td>COBYLA</td><td>67%</td><td>215</td><td>15</td><td>0.06</td></tr>
-                <tr><td>shgo</td><td>67%</td><td>241</td><td>12</td><td>0.11</td></tr>
-                <tr><td>SLSQP</td><td>67%</td><td>266</td><td>12</td><td>0.11</td></tr>
-                <tr><td>Powell †</td><td>67%</td><td>323</td><td>16</td><td>0.01</td></tr>
-                <tr><td>trust-constr</td><td>67%</td><td>1044</td><td>7</td><td>1.88</td></tr>
-                <tr><td>TNC †</td><td>58%</td><td>233</td><td>16</td><td>0.04</td></tr>
-                <tr><td>basinhopping</td><td>58%</td><td>3424</td><td>21</td><td>0.84</td></tr>
-                <tr><td>CG †</td><td>50%</td><td>413</td><td>19</td><td>0.02</td></tr>
+                <tr class="significant"><td>sambo.minimize(smbo)</td><td>100%</td><td>240</td><td>0</td><td>22.86</td></tr>
+                <tr class="significant"><td>sambo.minimize(sceua)</td><td>100%</td><td>558</td><td>0</td><td>0.07</td></tr>
+                <tr><td>direct †</td><td>100%</td><td>1389</td><td>0</td><td>0.01</td></tr>
+                <tr><td>dual_annealing †</td><td>100%</td><td>6461</td><td>0</td><td>0.25</td></tr>
+                <tr class="significant"><td>sambo.minimize(shgo)</td><td>92%</td><td>219</td><td>1</td><td>0.03</td></tr>
+                <tr><td>differential_evolution</td><td>92%</td><td>13959</td><td>0</td><td>0.16</td></tr>
+                <tr><td>scikit-optimize</td><td>75%</td><td>292</td><td>2</td><td>61.77</td></tr>
+                <tr><td>Nelder-Mead †</td><td>75%</td><td>301</td><td>14</td><td>0.01</td></tr>
+                <tr><td>Optuna</td><td>75%</td><td>356</td><td>2</td><td>2.60</td></tr>
+                <tr><td>nevergrad</td><td>75%</td><td>1033</td><td>7</td><td>3.81</td></tr>
+                <tr><td>COBYQA</td><td>67%</td><td>134</td><td>7</td><td>0.14</td></tr>
+                <tr><td>COBYLA</td><td>67%</td><td>215</td><td>15</td><td>0.00</td></tr>
+                <tr><td>shgo</td><td>67%</td><td>241</td><td>12</td><td>0.01</td></tr>
+                <tr><td>SLSQP</td><td>67%</td><td>266</td><td>12</td><td>0.01</td></tr>
+                <tr><td>Powell †</td><td>67%</td><td>323</td><td>16</td><td>0.00</td></tr>
+                <tr><td>hyperopt</td><td>67%</td><td>1014</td><td>2</td><td>9.46</td></tr>
+                <tr><td>trust-constr</td><td>67%</td><td>1044</td><td>7</td><td>0.15</td></tr>
+                <tr><td>TNC †</td><td>58%</td><td>233</td><td>16</td><td>0.01</td></tr>
+                <tr><td>basinhopping</td><td>58%</td><td>3424</td><td>21</td><td>0.10</td></tr>
+                <tr><td>CG †</td><td>50%</td><td>413</td><td>19</td><td>0.01</td></tr>
                 </tbody>
                 <tfoot style="font-size: small;">
                 <tr><th colspan="5">† Non-constrained method; constrained by patching the objective function s.t.<br>
@@ -587,7 +587,7 @@ print(search.opt_result_)
                 </th></tr>
                 <tr><th colspan="5">∗ The following implementations were considered:
                     <ul><li>way too slow: Open-Box, AMPGO,</li>
-                        <li>too complex: SMT, HyperBO, DEAP, PyMOO, OSQP, Optuna.</li></ul>
+                        <li>too complex: SMT, HyperBO, DEAP, PyMOO, OSQP.</li></ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;To consider: jdb78/LIPO, Stefan-Endres/TGO. Speculations welcome.</th></tr>
                 </tfoot>
             </table>
