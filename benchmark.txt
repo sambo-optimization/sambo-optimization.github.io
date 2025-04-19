@@ -5,274 +5,274 @@ scikit-optimize 0.10.2
 hyperopt 0.2.7
 nevergrad 1.0.8
 optuna 4.2.0
-sambo 1.25.0
+sambo 1.25.1
 
 Test function               Method                      N Evals Error % Duration
 ————————————————————————————————————————————————————————————————————————————————
 6-hump-camelback/2          shgo                            10        0  0.00
 6-hump-camelback/2          SLSQP                           24        0  0.00
-6-hump-camelback/2          COBYQA                          34        0  0.08
+6-hump-camelback/2          COBYQA                          34        0  0.10
 6-hump-camelback/2          COBYLA                          36        0  0.00
 6-hump-camelback/2          CG †                            39        0  0.00
-6-hump-camelback/2          trust-constr                    45        0  0.10
+6-hump-camelback/2          trust-constr                    45        0  0.13
 6-hump-camelback/2          Nelder-Mead †                   71        0  0.00
 6-hump-camelback/2          Powell †                        74        0  0.00
 6-hump-camelback/2          TNC †                           75        0  0.01
-6-hump-camelback/2          sambo.minimize(smbo)            87        0 10.81
+6-hump-camelback/2          sambo.minimize(smbo)            87        0 15.31
 6-hump-camelback/2          sambo.minimize(shgo)           150        0  0.03
-6-hump-camelback/2          scikit-optimize                160        0 17.00
-6-hump-camelback/2          Optuna                         245        0  2.03
-6-hump-camelback/2          differential_evolution         318        0  0.02
-6-hump-camelback/2          sambo.minimize(sceua)          482        0  0.05
-6-hump-camelback/2          nevergrad                      970        0  3.99
-6-hump-camelback/2          basinhopping                  1437        0  0.16
-6-hump-camelback/2          hyperopt                      1543        0 15.78
+6-hump-camelback/2          scikit-optimize                160        0 18.91
+6-hump-camelback/2          Optuna                         245        0  2.24
+6-hump-camelback/2          differential_evolution         318        0  0.03
+6-hump-camelback/2          sambo.minimize(sceua)          482        0  0.06
+6-hump-camelback/2          nevergrad                      970        0  4.80
+6-hump-camelback/2          basinhopping                  1437        0  0.22
+6-hump-camelback/2          hyperopt                      1543        0 17.28
 6-hump-camelback/2          direct †                      2011        0  0.01
-6-hump-camelback/2          dual_annealing †              4046        0  0.22
-bird/2                      COBYQA                          34        0  0.13
+6-hump-camelback/2          dual_annealing †              4046        0  0.25
+bird/2                      COBYQA                          34        0  0.14
 bird/2                      SLSQP                           35        0  0.01
 bird/2                      COBYLA                          40        0  0.00
 bird/2                      Powell †                        40        0  0.00
-bird/2                      CG †                            53        0  0.01
+bird/2                      CG †                            54        0  0.01
 bird/2                      Nelder-Mead †                   67        0  0.00
-bird/2                      sambo.minimize(smbo)            96        0 37.25
+bird/2                      sambo.minimize(smbo)            93        0 31.59
 bird/2                      TNC †                          129        0  0.01
-bird/2                      trust-constr                   150        0  0.13
-bird/2                      sambo.minimize(shgo)           189        0  0.09
-bird/2                      sambo.minimize(sceua)          299        0  0.08
-bird/2                      Optuna                         302        0  3.81
-bird/2                      scikit-optimize                308        0 71.21
-bird/2                      differential_evolution         459        0  0.15
-bird/2                      nevergrad                     1121        0  4.38
-bird/2                      hyperopt                      1291        0  9.93
-bird/2                      direct †                      2013        0  0.03
-bird/2                      dual_annealing †              4019        0  0.24
-bird/2                      shgo                            31*      48  0.01
+bird/2                      trust-constr                   150        0  0.14
+bird/2                      sambo.minimize(shgo)           192        0  0.06
+bird/2                      sambo.minimize(sceua)          270        0  0.05
+bird/2                      scikit-optimize                289        0 63.29
+bird/2                      Optuna                         353        0  3.88
+bird/2                      differential_evolution         393        0  0.15
+bird/2                      hyperopt                      1097        0  9.08
+bird/2                      nevergrad                     1208        0  5.43
+bird/2                      direct †                      2007        0  0.03
+bird/2                      dual_annealing †              4037        0  0.26
+bird/2                      shgo                            38*      53  0.01
 bird/2                      basinhopping                    66*     100  0.01
 branin-hoo/2                SLSQP                           23        0  0.00
 branin-hoo/2                COBYQA                          40        0  0.10
 branin-hoo/2                COBYLA                          46        0  0.00
 branin-hoo/2                shgo                            55        0  0.01
-branin-hoo/2                trust-constr                    63        0  0.15
+branin-hoo/2                trust-constr                    63        0  0.14
 branin-hoo/2                CG †                            66        0  0.01
 branin-hoo/2                Nelder-Mead †                   84        0  0.00
-branin-hoo/2                sambo.minimize(smbo)            87        0  9.87
+branin-hoo/2                sambo.minimize(smbo)            87        0 10.45
 branin-hoo/2                Powell †                        95        0  0.00
 branin-hoo/2                TNC †                          138        0  0.01
 branin-hoo/2                sambo.minimize(shgo)           144        0  0.02
-branin-hoo/2                Optuna                         286        0  2.44
-branin-hoo/2                scikit-optimize                304        0 58.19
-branin-hoo/2                sambo.minimize(sceua)          476        0  0.05
-branin-hoo/2                basinhopping                   495        0  0.05
-branin-hoo/2                differential_evolution         555        0  0.04
-branin-hoo/2                nevergrad                     1045        0  3.87
-branin-hoo/2                hyperopt                      1249        0  9.58
-branin-hoo/2                direct †                      2009        0  0.01
-branin-hoo/2                dual_annealing †              4031        0  0.21
+branin-hoo/2                Optuna                         286        0  2.58
+branin-hoo/2                scikit-optimize                304        0 57.91
+branin-hoo/2                sambo.minimize(sceua)          476        0  0.06
+branin-hoo/2                basinhopping                   495        0  0.06
+branin-hoo/2                differential_evolution         555        0  0.05
+branin-hoo/2                nevergrad                     1045        0  4.08
+branin-hoo/2                hyperopt                      1249        0  9.62
+branin-hoo/2                direct †                      2009        0  0.02
+branin-hoo/2                dual_annealing †              4031        0  0.23
 eggholder/2                 sambo.minimize(shgo)           162        0  0.03
-eggholder/2                 sambo.minimize(sceua)          759        0  0.08
 eggholder/2                 direct †                      2011        0  0.02
-eggholder/2                 dual_annealing †              4076        0  0.23
-eggholder/2                 sambo.minimize(smbo)           102        1 37.61
-eggholder/2                 scikit-optimize                343        1 66.83
+eggholder/2                 dual_annealing †              4076        0  0.26
+eggholder/2                 sambo.minimize(smbo)           102        1 48.04
+eggholder/2                 scikit-optimize                343        1 67.57
+eggholder/2                 sambo.minimize(sceua)          905        1  0.12
 eggholder/2                 differential_evolution         741*       3  0.06
-eggholder/2                 hyperopt                       948*       4  6.20
-eggholder/2                 Optuna                         181*       9  1.58
+eggholder/2                 hyperopt                       948*       4  6.24
+eggholder/2                 Optuna                         181*       9  1.73
 eggholder/2                 TNC †                          117*      12  0.01
-eggholder/2                 nevergrad                      538*      13  2.37
+eggholder/2                 nevergrad                      538*      13  2.47
 eggholder/2                 shgo                            94*      20  0.01
 eggholder/2                 Nelder-Mead †                  108*      35  0.00
-eggholder/2                 COBYQA                          53*      37  0.12
-eggholder/2                 COBYLA                         129*      37  0.00
-eggholder/2                 trust-constr                   141*      37  0.16
+eggholder/2                 COBYQA                          53*      37  0.13
+eggholder/2                 COBYLA                         129*      37  0.01
+eggholder/2                 trust-constr                   141*      37  0.18
 eggholder/2                 CG †                            57*      38  0.01
 eggholder/2                 SLSQP                           47*      43  0.00
-eggholder/2                 basinhopping                  1269*      44  0.15
-eggholder/2                 Powell †                       135*      48  0.00
+eggholder/2                 basinhopping                  1269*      44  0.16
+eggholder/2                 Powell †                       135*      48  0.01
 gomez-levy/2                COBYQA                          39        0  0.15
 gomez-levy/2                COBYLA                          45        0  0.00
-gomez-levy/2                sambo.minimize(smbo)            88        0 21.87
-gomez-levy/2                scikit-optimize                165        0 23.30
-gomez-levy/2                shgo                           298        0  0.03
+gomez-levy/2                sambo.minimize(smbo)            88        0 23.72
+gomez-levy/2                scikit-optimize                165        0 24.47
+gomez-levy/2                shgo                           298        0  0.04
 gomez-levy/2                sambo.minimize(shgo)           324        0  0.07
 gomez-levy/2                differential_evolution         423        0  0.10
-gomez-levy/2                sambo.minimize(sceua)          550        0  0.07
-gomez-levy/2                nevergrad                      972        0  3.76
+gomez-levy/2                sambo.minimize(sceua)          550        0  0.09
+gomez-levy/2                nevergrad                      972        0  4.02
 gomez-levy/2                SLSQP                         1104        0  0.12
 gomez-levy/2                direct †                      2015        0  0.02
-gomez-levy/2                trust-constr                  3231        0  1.82
-gomez-levy/2                dual_annealing †              4061        0  0.22
+gomez-levy/2                trust-constr                  3231        0  1.91
+gomez-levy/2                dual_annealing †              4061        0  0.24
 gomez-levy/2                Nelder-Mead †                  133        1  0.01
-gomez-levy/2                Optuna                         264        1  2.33
+gomez-levy/2                Optuna                         264        1  2.38
 gomez-levy/2                Powell †                        78        2  0.00
 gomez-levy/2                TNC †                          174        2  0.01
-gomez-levy/2                hyperopt                       500        2  2.43
+gomez-levy/2                hyperopt                       500        2  2.99
 gomez-levy/2                basinhopping                   802*       3  0.08
 gomez-levy/2                CG †                            32*      10  0.00
-griewank/2                  shgo                            39        0  0.00
+griewank/2                  shgo                            39        0  0.01
 griewank/2                  sambo.minimize(shgo)           103        0  0.02
 griewank/2                  Powell †                       118        0  0.01
-griewank/2                  scikit-optimize                333        0 65.34
-griewank/2                  Optuna                         343        0  3.18
+griewank/2                  sambo.minimize(sceua)          263        0  0.04
+griewank/2                  scikit-optimize                333        0 65.08
+griewank/2                  Optuna                         343        0  3.05
 griewank/2                  direct †                       461        0  0.01
-griewank/2                  sambo.minimize(sceua)          569        0  0.08
-griewank/2                  nevergrad                      753        0  2.95
-griewank/2                  basinhopping                  1065        0  0.14
-griewank/2                  hyperopt                      1217        0  9.09
-griewank/2                  differential_evolution        1392        0  0.14
-griewank/2                  dual_annealing †              4109        0  0.32
-griewank/2                  sambo.minimize(smbo)            86        1  8.52
+griewank/2                  nevergrad                      753        0  3.10
+griewank/2                  basinhopping                  1065        0  0.16
+griewank/2                  hyperopt                      1217        0  9.17
+griewank/2                  differential_evolution        1392        0  0.15
+griewank/2                  dual_annealing †              4109        0  0.35
+griewank/2                  sambo.minimize(smbo)            86        1  7.72
 griewank/2                  Nelder-Mead †                  102        1  0.01
 griewank/2                  SLSQP                           18*      10  0.00
 griewank/2                  CG †                            24*      10  0.00
-griewank/2                  COBYQA                          33*      10  0.08
-griewank/2                  trust-constr                    33*      10  0.09
+griewank/2                  COBYQA                          33*      10  0.09
+griewank/2                  trust-constr                    33*      10  0.10
 griewank/2                  COBYLA                          35*      10  0.00
 griewank/2                  TNC †                          105*      10  0.01
 hartman/6                   SLSQP                           96        0  0.01
 hartman/6                   COBYLA                         118        0  0.01
 hartman/6                   trust-constr                   147        0  0.14
 hartman/6                   Powell †                       161        0  0.01
-hartman/6                   shgo                           168        0  0.01
+hartman/6                   shgo                           168        0  0.02
 hartman/6                   CG †                           252        0  0.02
-hartman/6                   Nelder-Mead †                  422        0  0.02
-hartman/6                   sambo.minimize(shgo)           513        0  0.09
+hartman/6                   Nelder-Mead †                  422        0  0.03
+hartman/6                   sambo.minimize(shgo)           513        0  0.10
 hartman/6                   TNC †                          616        0  0.04
-hartman/6                   sambo.minimize(smbo)           634        0 226.85
-hartman/6                   direct †                       733        0  0.01
-hartman/6                   nevergrad                     1256        0 17.51
-hartman/6                   differential_evolution        1787        0  0.17
-hartman/6                   dual_annealing †             12120        0  0.85
-hartman/6                   basinhopping                 12376        0  0.94
-hartman/6                   Optuna                         352        1 10.48
-hartman/6                   sambo.minimize(sceua)          593        1  0.07
-hartman/6                   COBYQA                         222*       4  0.55
-hartman/6                   scikit-optimize                484*       5 70.25
-hartman/6                   hyperopt                       789*       5 12.29
-rastrigin/2                 sambo.minimize(shgo)            21        0  0.01
+hartman/6                   sambo.minimize(smbo)           634        0 182.30
+hartman/6                   direct †                       733        0  0.02
+hartman/6                   nevergrad                     1256        0 17.88
+hartman/6                   differential_evolution        1787        0  0.18
+hartman/6                   dual_annealing †             12120        0  0.92
+hartman/6                   basinhopping                 12376        0  1.02
+hartman/6                   Optuna                         352        1 10.11
+hartman/6                   sambo.minimize(sceua)          593        1  0.09
+hartman/6                   COBYQA                         222*       4  0.58
+hartman/6                   scikit-optimize                484*       5 68.87
+hartman/6                   hyperopt                       789*       5 11.41
+rastrigin/2                 sambo.minimize(shgo)            21        0  0.02
 rastrigin/2                 shgo                            26        0  0.01
 rastrigin/2                 SLSQP                           42        0  0.01
-rastrigin/2                 sambo.minimize(smbo)            86        0 18.97
+rastrigin/2                 sambo.minimize(smbo)            86        0 17.41
 rastrigin/2                 direct †                       313        0  0.01
 rastrigin/2                 sambo.minimize(sceua)          491        0  0.34
-rastrigin/2                 basinhopping                   828        0  0.10
-rastrigin/2                 nevergrad                     1119        0  4.45
-rastrigin/2                 differential_evolution        1972        0  0.36
-rastrigin/2                 dual_annealing †              4088        0  0.26
-rastrigin/2                 COBYQA                          37        2  0.14
+rastrigin/2                 basinhopping                   828        0  0.11
+rastrigin/2                 nevergrad                     1119        0  4.55
+rastrigin/2                 differential_evolution        1972        0  0.40
+rastrigin/2                 dual_annealing †              4088        0  0.27
+rastrigin/2                 COBYQA                          37        2  0.15
 rastrigin/2                 COBYLA                          40        2  0.00
-rastrigin/2                 Optuna                         269*       3  2.77
-rastrigin/2                 scikit-optimize                272*       3 376.42
-rastrigin/2                 trust-constr                  1161*       5  0.59
+rastrigin/2                 Optuna                         269*       3  2.44
+rastrigin/2                 scikit-optimize                272*       3 385.21
+rastrigin/2                 trust-constr                  1161*       5  0.61
 rastrigin/2                 hyperopt                       500*       6  2.28
 rastrigin/2                 CG †                             3*     100  0.00
 rastrigin/2                 TNC †                            3*     100  0.00
 rastrigin/2                 Nelder-Mead †                   47*     100  0.00
 rastrigin/2                 Powell †                        51*     100  0.00
 rosenbrock/10               direct †                       413        0  0.01
-rosenbrock/10               SLSQP                          637        0  0.07
-rosenbrock/10               sambo.minimize(shgo)           664        0  1.97
-rosenbrock/10               shgo                           708        0  1.90
-rosenbrock/10               COBYQA                         914        0  5.14
-rosenbrock/10               COBYLA                        1000        0  0.07
-rosenbrock/10               TNC †                         1100        0  0.06
-rosenbrock/10               sambo.minimize(sceua)         1382        0  0.26
-rosenbrock/10               trust-constr                  1485        0  0.51
-rosenbrock/10               Nelder-Mead †                 2000        0  0.12
-rosenbrock/10               Powell †                      2758        0  0.15
-rosenbrock/10               nevergrad                     3000        0  8.47
-rosenbrock/10               CG †                          4272        0  0.28
-rosenbrock/10               basinhopping                 20901        0  1.44
-rosenbrock/10               dual_annealing †             24489        0  1.61
-rosenbrock/10               differential_evolution      150652        0 19.41
-rosenbrock/10               Optuna                        1260        1 93.60
-rosenbrock/10               sambo.minimize(smbo)          1334        1 180.66
-rosenbrock/10               hyperopt                       500*       4  9.35
-rosenbrock/10               scikit-optimize                259*       9  0.84
-rosenbrock/2                sambo.minimize(smbo)            91        0 23.85
-rosenbrock/2                COBYQA                         100        0  0.57
+rosenbrock/10               SLSQP                          637        0  0.08
+rosenbrock/10               sambo.minimize(shgo)           664        0  2.08
+rosenbrock/10               shgo                           708        0  1.88
+rosenbrock/10               COBYQA                         914        0  5.48
+rosenbrock/10               COBYLA                        1000        0  0.08
+rosenbrock/10               TNC †                         1100        0  0.07
+rosenbrock/10               sambo.minimize(sceua)         1382        0  0.31
+rosenbrock/10               trust-constr                  1485        0  0.53
+rosenbrock/10               Nelder-Mead †                 2000        0  0.14
+rosenbrock/10               Powell †                      2758        0  0.16
+rosenbrock/10               nevergrad                     3000        0  8.89
+rosenbrock/10               CG †                          4272        0  0.31
+rosenbrock/10               basinhopping                 20901        0  1.62
+rosenbrock/10               dual_annealing †             24489        0  1.80
+rosenbrock/10               differential_evolution      150652        0 21.54
+rosenbrock/10               Optuna                        1260        1 96.86
+rosenbrock/10               sambo.minimize(smbo)          1334        1 189.21
+rosenbrock/10               hyperopt                       500*       4  9.64
+rosenbrock/10               scikit-optimize                259*       9  0.93
+rosenbrock/2                sambo.minimize(smbo)            91        0 27.02
+rosenbrock/2                COBYQA                         100        0  0.40
 rosenbrock/2                sambo.minimize(shgo)           149        0  0.05
-rosenbrock/2                Optuna                         152        0  1.26
-rosenbrock/2                shgo                           176        0  0.03
-rosenbrock/2                Powell †                       224        0  0.02
-rosenbrock/2                scikit-optimize                241        0 47.18
-rosenbrock/2                Nelder-Mead †                  282        0  0.02
-rosenbrock/2                nevergrad                      351        0  2.69
-rosenbrock/2                sambo.minimize(sceua)          386        0  0.06
-rosenbrock/2                COBYLA                        1000        0  0.10
-rosenbrock/2                SLSQP                         1124        0  0.21
-rosenbrock/2                hyperopt                      1317        0 11.81
-rosenbrock/2                direct †                      2011        0  0.05
-rosenbrock/2                trust-constr                  2988        0  2.79
-rosenbrock/2                differential_evolution        3504        0  2.87
-rosenbrock/2                dual_annealing †              4283        0  0.31
+rosenbrock/2                Optuna                         152        0  1.32
+rosenbrock/2                shgo                           176        0  0.05
+rosenbrock/2                Powell †                       224        0  0.01
+rosenbrock/2                scikit-optimize                241        0 47.67
+rosenbrock/2                Nelder-Mead †                  282        0  0.01
+rosenbrock/2                nevergrad                      351        0  2.39
+rosenbrock/2                sambo.minimize(sceua)          386        0  0.07
+rosenbrock/2                COBYLA                        1000        0  0.07
+rosenbrock/2                SLSQP                         1124        0  0.15
+rosenbrock/2                hyperopt                      1317        0 10.19
+rosenbrock/2                direct †                      2011        0  0.07
+rosenbrock/2                trust-constr                  2988        0  1.68
+rosenbrock/2                differential_evolution        3504        0  3.06
+rosenbrock/2                dual_annealing †              4283        0  0.50
 rosenbrock/2                TNC †                           93        1  0.01
-rosenbrock/2                basinhopping                   534        1  0.06
+rosenbrock/2                basinhopping                   534        1  0.08
 rosenbrock/2                CG †                            29        2  0.00
-schwefel/2                  sambo.minimize(smbo)            93        0 19.47
-schwefel/2                  sambo.minimize(shgo)           135        0  0.02
-schwefel/2                  scikit-optimize                478        0 102.62
-schwefel/2                  sambo.minimize(sceua)          603        0  0.06
-schwefel/2                  direct †                       665        0  0.01
-schwefel/2                  hyperopt                      1331        0 10.72
-schwefel/2                  dual_annealing †              4046        0  0.26
-schwefel/2                  differential_evolution        4719        0  0.41
-schwefel/2                  Optuna                         394*       7  3.65
-schwefel/2                  nevergrad                      486*      16  2.15
+schwefel/2                  sambo.minimize(smbo)            93        0 20.70
+schwefel/2                  sambo.minimize(shgo)           135        0  0.03
+schwefel/2                  scikit-optimize                478        0 103.15
+schwefel/2                  direct †                       665        0  0.02
+schwefel/2                  sambo.minimize(sceua)          702        0  0.10
+schwefel/2                  hyperopt                      1331        0 10.93
+schwefel/2                  dual_annealing †              4046        0  0.28
+schwefel/2                  differential_evolution        4719        0  0.46
+schwefel/2                  Optuna                         394*       7  3.84
+schwefel/2                  nevergrad                      486*      16  2.17
 schwefel/2                  shgo                            34*      21  0.00
 schwefel/2                  Powell †                        54*      25  0.00
 schwefel/2                  SLSQP                           24*      34  0.00
-schwefel/2                  trust-constr                    24*      34  0.07
+schwefel/2                  trust-constr                    24*      34  0.08
 schwefel/2                  COBYLA                          44*      34  0.00
-schwefel/2                  COBYQA                          44*      34  0.10
+schwefel/2                  COBYQA                          44*      34  0.11
 schwefel/2                  CG †                            69*      34  0.01
 schwefel/2                  Nelder-Mead †                   82*      34  0.00
 schwefel/2                  TNC †                          153*      34  0.01
-schwefel/2                  basinhopping                   768*      50  0.09
-simionescu/2                COBYQA                          52        0  0.20
-simionescu/2                sambo.minimize(smbo)            91        0 29.69
-simionescu/2                sambo.minimize(sceua)          107        0  0.02
-simionescu/2                scikit-optimize                151        0 18.77
+schwefel/2                  basinhopping                   768*      50  0.10
+simionescu/2                COBYQA                          52        0  0.22
+simionescu/2                sambo.minimize(smbo)            91        0 34.08
+simionescu/2                sambo.minimize(sceua)          107        0  0.03
+simionescu/2                scikit-optimize                151        0 19.10
 simionescu/2                Nelder-Mead †                  218        0  0.01
-simionescu/2                differential_evolution         981        0  0.44
-simionescu/2                hyperopt                       987        0  6.42
+simionescu/2                differential_evolution         981        0  0.47
+simionescu/2                hyperopt                       987        0  6.54
 simionescu/2                direct †                      2013        0  0.02
-simionescu/2                dual_annealing †              4163        0  0.23
-simionescu/2                Optuna                         218        1  1.84
-simionescu/2                trust-constr                  3063        1  1.93
+simionescu/2                dual_annealing †              4163        0  0.24
+simionescu/2                Optuna                         218        1  2.00
+simionescu/2                trust-constr                  3063        1  2.03
 simionescu/2                sambo.minimize(shgo)            73*      11  0.02
 simionescu/2                Powell †                        91*      11  0.00
 simionescu/2                TNC †                           96*      32  0.01
 simionescu/2                CG †                            65*      34  0.01
-simionescu/2                basinhopping                   547*      50  0.05
-simionescu/2                nevergrad                      783*      58  3.04
+simionescu/2                basinhopping                   547*      50  0.06
+simionescu/2                nevergrad                      783*      58  3.16
 simionescu/2                SLSQP                           21*      59  0.01
-simionescu/2                shgo                          1249*      59  0.12
+simionescu/2                shgo                          1249*      59  0.14
 simionescu/2                COBYLA                          47*     100  0.00
 
 
 Method                      Correct N Evals Error % Duration
 ————————————————————————————————————————————————————————————
-sambo.minimize(smbo)           100%     240       0    22.86
-sambo.minimize(sceua)          100%     558       0     0.07
-direct †                       100%    1389       0     0.01
-dual_annealing †               100%    6461       0     0.25
+sambo.minimize(smbo)           100%     239       0    25.37
+sambo.minimize(sceua)          100%     551       0     0.08
+direct †                       100%    1388       0     0.02
+dual_annealing †               100%    6462       0     0.27
 sambo.minimize(shgo)            92%     219       1     0.03
-differential_evolution          92%   13959       0     0.16
-scikit-optimize                 75%     292       2    61.77
+differential_evolution          92%   13953       0     0.16
+scikit-optimize                 75%     290       2    60.60
 Nelder-Mead †                   75%     301      14     0.01
-Optuna                          75%     356       2     2.60
-nevergrad                       75%    1033       7     3.81
-COBYQA                          67%     134       7     0.14
+Optuna                          75%     360       2     2.51
+nevergrad                       75%    1040       7     4.05
+COBYQA                          67%     134       7     0.15
 COBYLA                          67%     215      15     0.00
-shgo                            67%     241      12     0.01
+shgo                            67%     241      13     0.01
 SLSQP                           67%     266      12     0.01
 Powell †                        67%     323      16     0.00
-hyperopt                        67%    1014       2     9.46
-trust-constr                    67%    1044       7     0.15
+hyperopt                        67%     998       2     9.39
+trust-constr                    67%    1044       7     0.16
 TNC †                           58%     233      16     0.01
-basinhopping                    58%    3424      21     0.10
-CG †                            50%     413      19     0.01
+basinhopping                    58%    3424      21     0.11
+CG †                            50%     414      19     0.01
 
 
 * Did not finish / unexpected result.
