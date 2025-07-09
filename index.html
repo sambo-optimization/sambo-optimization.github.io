@@ -213,7 +213,7 @@
             user-friendly, Pythonic interface:
         </p>
         <ul>
-            <li><b>function <code>sambo.minimize()</code></b>
+            <li><a href="doc/sambo/#sambo.minimize"><b>function <code>sambo.minimize()</code></b></a>
                 to drive <b>constrained and bounded global black-box optimization</b>, design-space exploration and model calibration,
                 modeled after well-known Python packages <b>SciPy</b> and <b>scikit-optimize</b>,<a href="#fn1"><sup>1</sup></a>
                 supporting <abbr title="state-of-the-art; here literally, the best">SOTA</abbr> optimization algorithms like
@@ -222,14 +222,14 @@
                 <abbr title="Shuffled Complex Evolution method, as devised at University of Arizona"><b>SCE-UA</b></abbr>,<a href="#fn4"><sup>4</sup></a>
             </li>
             <li>
-                <b>class <code>Optimizer</code></b> that provides an
+                <a href="doc/sambo/#sambo.Optimizer"><b>class <code>Optimizer</code></b></a> that provides an
                 <b><a href="doc/sambo/#sambo.Optimizer">ask-and-tell interface</a></b>,
                 additionally supporting <b>sequential <a href="https://en.wikipedia.org/wiki/Surrogate_model">surrogate models</a></b>
                 produced by estimators like those of <b>scikit-learn</b>, <b>skorch</b> or <b>Keras</b>,
                 with popular algorithms including <b>Gaussian process</b> and <b>tree-based regression</b> built in,
             </li>
             <li>
-                <b><code>SamboSearchCV</code></b>, a faster drop-in replacement for
+                <a href="doc/sambo/#sambo.SamboSearchCV"><b><code>SamboSearchCV</code></b></a>,a faster drop-in replacement for
                 <b><code>GridSearchCV</code></b>, <b><code>RandomizedSearchCV</code></b>
                 and similar methods of hyperparameter tuning in complex
                 <abbr title="machine learning">ML</abbr> pipelines.
@@ -356,8 +356,8 @@
                 <a href="https://en.wikipedia.org/wiki/Rosenbrock_function">Rosenbrock's banana function</a>,
                 constrained to a circle with <math><mi>r</mi><mo>=</mo><mn>2</mn></math>, all in comparatively just a few evaluations.
             </p>
-            <p>This is a simple 2D example, but partial dependence plots and sequence of evaluations plots
-                generalize well to multiple dimensions.</p>
+            <p>While this is a simple 2D example, partial-dependence plots and sequence-of-evaluations plots
+                generalize well to several dimensions.</p>
         </div>
         <pre class="snippet"><code class="python">import sambo
 from sambo.plot import *
@@ -405,7 +405,7 @@ plt.show()
 
     <div class="flex">
         <div>
-            <h4>Use case №2: Sequential surrogate model-based optimization through "ask-and-tell" API</h4>
+            <h4>Use case №2: Sequential surrogate model-based "Ask-and-Tell" optimization</h4>
             <p>
                 When your optimization objective is an <b>external process</b>,
                 you may not be able to express it as a simple Python function.
@@ -414,11 +414,11 @@ plt.show()
                 execute the trial (e.g. the two-week "baking" process),
                 then report back your findings (objective result <math><mi>y</mi></math>)
                 to the optimizer for further consideration and refitting.
-                We call this an <b>"ask-and-tell" interface</b>.
+                We call this an <b>"ask-and-tell" API</b>.
             </p>
             <p>
-                The <code>estimator=</code> can be any object with a <b>scikit-learn API</b>,
-                including modern AI / neural networks.
+                The <code>estimator=</code> can be any object with a <b>scikit-learn fit-predict API</b>,
+                including neural networks and <b>modern AI</b>.
             </p>
         </div>
         <pre class="snippet"><code class="python">from sambo import Optimizer
@@ -520,12 +520,12 @@ print(search.opt_result_)
             <p style="max-width: 80ch">
                 It's <span id="year">2020</span>,
                 <script>document.getElementById('year').innerHTML = (new Date()).getFullYear().toString();</script>
-                and <b>if you're still doing</b>
-                particle swarm, basin-hopping, Monte Carlo or evolutionary/genetic algorithms optimization,
-                <b>you're likely throwing away precious computing cycles, at large</b>!
-                According to our <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
+                and <b>if you're still doing
+                particle swarm, basin-hopping, Monte Carlo or genetic/evolutionary algorithms</b> optimization,
+                you're <b>likely throwing away precious computing cycles</b>, at large!
+                According to published <a href="https://github.com/sambo-optimization/sambo/blob/master/benchmark">benchmark</a>
                 of most common optimization algorithm implementations
-                on several popular global optimization functions, including a few multi-dimensional ones (2–10D),
+                on several popular global optimization functions, including some multi-dimensional ones (2–10D),
                 <b><cite>SAMBO</cite> out-of-the-box most often converges to correct global optimum,
                     in fewest total objective evaluations,
                     yielding smallest absolute error,
@@ -566,7 +566,7 @@ print(search.opt_result_)
                 <tr><td>CG †</td><td>50%</td><td>414</td><td>19</td><td>0.01</td></tr>
                 </tbody>
                 <tfoot style="font-size: small;">
-                <tr><th colspan="5">† Non-constrained method; constrained by patching the objective function s.t.<br>
+                <tr><th colspan="5">† Non-constrained method; constrained by patching the objective s.t.:<br><br>
                     &nbsp;&nbsp;&nbsp;<math xmlns="http://www.w3.org/1998/Math/MathML">
                         <mrow>
                             <mi>f</mi><mo>&#x2032;</mo>
