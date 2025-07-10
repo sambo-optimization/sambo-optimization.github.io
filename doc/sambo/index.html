@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<meta name="generator" content="pdoc3 0.11.5">
+<meta name="generator" content="pdoc3 0.11.6">
 <title>sambo API documentation</title>
 <meta name="description" content="SAMBO - **Sequential and Model-Based Optimization** [in Python] …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
@@ -53,22 +53,22 @@ so it's important to find good-enough solutions in
 <li><strong>function <code><a title="sambo.minimize" href="#sambo.minimize">minimize()</a></code></strong>, a near drop-in replacement for <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html"><code>scipy.optimize.minimize()</code></a>,</li>
 <li><strong>class <code><a title="sambo.Optimizer" href="#sambo.Optimizer">Optimizer</a></code></strong> with an ask-and-tell user interface,
 supporting arbitrary scikit-learn-like surrogate models,
-with Bayesian optimization estimators like <a href="https://www.gaussianprocess.org/gpml/chapters/RW.pdf">gaussian process</a> and <a href="https://doi.org/10.1007/s10994-006-6226-1">extra trees</a>,
+with <strong>Bayesian optimization estimators like <a href="https://www.gaussianprocess.org/gpml/chapters/RW.pdf">Gaussian processes</a> and <a href="https://doi.org/10.1007/s10994-006-6226-1">Extra Trees</a></strong>
 built in,</li>
-<li><strong><code><a title="sambo.SamboSearchCV" href="#sambo.SamboSearchCV">SamboSearchCV</a></code></strong>, a much faster drop-in replacement for
-scikit-learn's <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html"><code>GridSearchCV</code></a> and similar exhaustive
+<li><strong><code><a title="sambo.SamboSearchCV" href="#sambo.SamboSearchCV">SamboSearchCV</a></code></strong>, a much faster <strong>drop-in replacement</strong> for
+scikit-learn's <strong><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html"><code>GridSearchCV</code></a></strong> and similar exhaustive
 machine-learning hyper-parameter tuning methods,
 but compared to unpredictable stochastic methods, <em>informed</em>.</li>
 </ul>
 <p>The algorithms and methods implemented by or used in this package are:</p>
 <ul>
-<li><a href="http://doi.org/10.1007/s10898-018-0645-y">simplical homology global optimization</a> (SHGO), customizing the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.shgo.html">implementation from SciPy</a>,</li>
-<li>surrogate machine learning model-based optimization,</li>
-<li><a href="https://doi.org/10.1007/BF00939380">shuffled complex evolution</a> (SCE-UA with improvements).</li>
+<li><strong><a href="http://doi.org/10.1007/s10898-018-0645-y">simplical homology global optimization</a> (SHGO)</strong>, reinitializing the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.shgo.html">implementation from SciPy</a>,</li>
+<li><strong>surrogate</strong> machine learning <strong>model</strong>-based optimization,</li>
+<li><a href="https://doi.org/10.1007/BF00939380">shuffled complex evolution</a> (<strong>SCE-UA</strong> with improvements).</li>
 </ul>
-<p>This open-source project was heavily <strong>inspired by <em>scikit-optimize</em></strong> project,
-which now seems helplessly defunct.</p>
-<p>The project is one of the better optimizers around according to [benchmark].</p>
+<p>This open-source project was <strong>inspired by <em>scikit-optimize</em></strong>.
+The project is one of the better optimizers available according to
+<a href="https://sambo-optimization.github.io/#benchmark">benchmark</a>.</p>
 <p>† The contained algorithms seek to <em>minimize</em> your objective <code>f(x)</code>.
 If you instead need the <em>maximum</em>, simply minimize <code>-f(x)</code>. 💡</p>
 </section>
@@ -95,7 +95,7 @@ convergence, regret, partial dependence, sequence of evaluations
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_minimize.py#L12-L231" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_minimize.py#L12-L236" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def minimize(
         fun: Callable[[np.ndarray], float],
@@ -136,25 +136,30 @@ convergence, regret, partial dependence, sequence of evaluations
         Bounds for parameter variables.
         Should be a sequence of (min, max) pairs for each dimension,
         or an enumeration of nominal values. For any dimension,
-        if `min` and `max` are integers, the dimension is assumed to be _integral_.
-        If `min` or `max` are floats, the dimension is assumed to be _real_.
-        In all other cases including if more than two values are provided,
-        the dimension is assumed to be an _enumeration_ of values.
+        **if `min` and `max` are integers**, the dimension is assumed to be _integral_
+        on interval `[min, max)` (see warning below).
+        If `min` or `max` are **floats**, the dimension is assumed to be _real_.
+        In all other cases including if more than two values are specified,
+        the dimension is assumed to be that ([nominal]) _enumeration_ of values.
         See _Examples_ below.
 
         .. note:: Nominals are represented as ordinals
-            Categorical (nominal) enumerations, although often not inherently ordered,
+            Categorical ([nominal]) enumerations, although often not inherently ordered,
             are internally represented as integral dimensions.
             If this appears to significantly affect your results
             (e.g. if your nominals span many cases),
             you may need to [one-hot encode] your nominal variables manually.
 
+        [nominal]: https://en.wikipedia.org/wiki/Level_of_measurement#Nominal_level
         [one-hot encode]: https://en.wikipedia.org/wiki/One-hot
 
         .. warning:: Mind the dot
             If optimizing your problem fails to produce expected results,
             make sure you&#39;re not specifying integer dimensions where real
-            floating values would make more sense.
+            (floating) values are expected. E.g.:
+
+                bounds = [(-2, 2)] * 2  # A 2D grid of {-2, -1, 0, 1}²
+                bounds = [(-2., 2.)]    # A 1D dimension of ~ np.linspace(-2., 2., 1/eps)
 
     constraints : Callable[[np.ndarray], bool], optional
         Function representing constraints.
@@ -334,14 +339,15 @@ x (parameter combination) and return a scalar y (cost value).</dd>
 <p>Bounds for parameter variables.
 Should be a sequence of (min, max) pairs for each dimension,
 or an enumeration of nominal values. For any dimension,
-if <code>min</code> and <code>max</code> are integers, the dimension is assumed to be <em>integral</em>.
-If <code>min</code> or <code>max</code> are floats, the dimension is assumed to be <em>real</em>.
-In all other cases including if more than two values are provided,
-the dimension is assumed to be an <em>enumeration</em> of values.
+<strong>if <code>min</code> and <code>max</code> are integers</strong>, the dimension is assumed to be <em>integral</em>
+on interval <code>[min, max)</code> (see warning below).
+If <code>min</code> or <code>max</code> are <strong>floats</strong>, the dimension is assumed to be <em>real</em>.
+In all other cases including if more than two values are specified,
+the dimension is assumed to be that (<a href="https://en.wikipedia.org/wiki/Level_of_measurement#Nominal_level">nominal</a>) <em>enumeration</em> of values.
 See <em>Examples</em> below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note:&ensp;Nominals are represented as ordinals</p>
-<p>Categorical (nominal) enumerations, although often not inherently ordered,
+<p>Categorical (<a href="https://en.wikipedia.org/wiki/Level_of_measurement#Nominal_level">nominal</a>) enumerations, although often not inherently ordered,
 are internally represented as integral dimensions.
 If this appears to significantly affect your results
 (e.g. if your nominals span many cases),
@@ -351,7 +357,10 @@ you may need to <a href="https://en.wikipedia.org/wiki/One-hot">one-hot encode</
 <p class="admonition-title">Warning:&ensp;Mind the dot</p>
 <p>If optimizing your problem fails to produce expected results,
 make sure you're not specifying integer dimensions where real
-floating values would make more sense.</p>
+(floating) values are expected. E.g.:</p>
+<pre><code>bounds = [(-2, 2)] * 2  # A 2D grid of {-2, -1, 0, 1}²
+bounds = [(-2., 2.)]    # A 1D dimension of ~ np.linspace(-2., 2., 1/eps)
+</code></pre>
 </div>
 </dd>
 <dt><strong><code>constraints</code></strong> :&ensp;<code>Callable[[np.ndarray], bool]</code>, optional</dt>
@@ -481,7 +490,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_util.py#L91-L104" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_util.py#L93-L106" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class OptimizeResult(_OptimizeResult):
     &#34;&#34;&#34;
@@ -554,7 +563,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_smbo.py#L21-L555" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_smbo.py#L22-L556" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class Optimizer:
     &#34;&#34;&#34;
@@ -781,7 +790,7 @@ one integral, one real, and one nominal variable (see <code>bounds=</code>).</p>
     def _predict(self, X):
         means, stds, masks = [], [], []
         for estimator in self.estimators:
-            X_batched = [X[i:i+10_000] for i in range(0, len(X), 10_000)]
+            X_batched = [X[i:i + 10_000] for i in range(0, len(X), 10_000)]
             try:
                 mean, std = np.concatenate(
                     [estimator.predict(X, return_std=True) for X in X_batched], axis=1)
@@ -1197,7 +1206,7 @@ use the estimator to <em>predict</em> the objective values.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_smbo.py#L285-L366" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_smbo.py#L286-L367" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def ask(
         self,
@@ -1330,7 +1339,7 @@ array([[ 1.1, -0.2],
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_smbo.py#L428-L525" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_smbo.py#L429-L526" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def run(self, *,
         max_iter: Optional[int] = None,
@@ -1468,7 +1477,7 @@ the default value provided during initialization is used.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_smbo.py#L376-L426" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_smbo.py#L377-L427" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def tell(self, y: float | list[float],
          x: Optional[float | tuple[float] | list[tuple[float]]] = None):
@@ -1555,7 +1564,7 @@ to the most recent candidates proposed by the <code>ask</code> method (FIFO).</p
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_smbo.py#L527-L555" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_smbo.py#L528-L556" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def top_k(self, k: int = 1):
     &#34;&#34;&#34;
@@ -1619,7 +1628,7 @@ all available solutions are returned.</dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/sambo-optimization/sambo/blob/a85f8fb9452ba14752943ce1587436f8394f6174/sambo/_estimators.py#L112-L200" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/sambo-optimization/sambo/blob/ec782cc51a24c6a99aa7354507a0faa7e86f8fe5/sambo/_estimators.py#L112-L200" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class SamboSearchCV(BaseSearchCV):
     &#34;&#34;&#34;
@@ -1755,7 +1764,8 @@ on <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_sele
 <li>sklearn.model_selection._search.BaseSearchCV</li>
 <li>sklearn.base.MetaEstimatorMixin</li>
 <li>sklearn.base.BaseEstimator</li>
-<li>sklearn.utils._estimator_html_repr._HTMLDocumentationLinkMixin</li>
+<li>sklearn.utils._repr_html.base.ReprHTMLMixin</li>
+<li>sklearn.utils._repr_html.base._HTMLDocumentationLinkMixin</li>
 <li>sklearn.utils._metadata_requests._MetadataRequester</li>
 </ul>
 </dd>
@@ -1866,7 +1876,7 @@ setTimeout(() => input.focus(), 100);
 </main>
 <footer id="footer">
 <p><span style="color:#ddd">&#21328;</span></p>
-<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
 </footer>
 </body>
 </html>
